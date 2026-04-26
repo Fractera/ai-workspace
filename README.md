@@ -35,10 +35,8 @@ Bring your own keys (BYOK), keep your code on your own server, and build applica
 ---
 
 <p align="center">
-  <strong>⭐ This project lives on your support!</strong><br/>
-  If Fractera saves you time, the best way to say thank you is to star the repo.<br/><br/>
-  <a href="https://github.com/Fractera/ai-workspace">
-    <img src="https://img.shields.io/github/stars/Fractera/ai-workspace?style=for-the-badge&color=ffd700&label=⭐%20STAR%20THIS%20REPOSITORY" alt="Star on GitHub"/>
+  <a href="https://github.com/Fractera/ai-workspace/stargazers">
+    <img src="docs/fractera-star.jpeg" alt="Star Fractera on GitHub" width="600"/>
   </a>
 </p>
 
