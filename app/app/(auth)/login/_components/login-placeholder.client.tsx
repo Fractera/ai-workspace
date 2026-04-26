@@ -74,7 +74,7 @@ function LoginForm({ onClose }: Props) {
 
 export function LoginPlaceholder({ onClose }: Props) {
   return (
-    <div className="h-full flex items-center justify-center p-8">
+    <div className="min-h-screen flex items-center justify-center p-8">
       <Suspense fallback={<div className="w-full max-w-sm p-8 rounded-xl border bg-background shadow-sm flex flex-col gap-4"><div className="h-5 w-1/3 rounded bg-muted animate-pulse" /><div className="h-10 rounded bg-muted animate-pulse" /><div className="h-10 rounded bg-muted animate-pulse" /></div>}>
         <LoginForm onClose={onClose} />
       </Suspense>

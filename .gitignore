@@ -26,6 +26,9 @@ app/storage/*
 app/dist/
 app/tsconfig.tsbuildinfo
 
+# Bridge source — not for public repo
+bridges/platforms/server.src.js
+
 # OS
 .DS_Store
 Thumbs.db

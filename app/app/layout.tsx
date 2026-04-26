@@ -33,11 +33,12 @@ const themeScript = `
 `;
 
 type Props = {
+  children: React.ReactNode;
   appSlot: React.ReactNode;
   codeWorkspaceSlot: React.ReactNode;
 };
 
-export default function RootLayout({ appSlot, codeWorkspaceSlot }: Props) {
+export default function RootLayout({ children, appSlot, codeWorkspaceSlot }: Props) {
   return (
     <html lang={defaultLang} suppressHydrationWarning>
       <head>
@@ -46,8 +47,10 @@ export default function RootLayout({ appSlot, codeWorkspaceSlot }: Props) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
         <ThemeProvider>
           <AuthSessionProvider>
+            
             {appSlot}
             {codeWorkspaceSlot}
+            {children}
           </AuthSessionProvider>
         </ThemeProvider>
       </body>

@@ -12,11 +12,28 @@
 - [...] ...
 - [...] ...
 - [...] ...
+
 ---
 
-## 📋 Current Tasks
+## 📋 Current Session (2026-04-26)
 
-> Add new user requests here before executing.
+### Task 1: Fix auth — login page stays visible after sign in
+- [x] Diagnosed: proxy.ts was empty, no session check on auth routes
+- [x] Fixed: proxy.ts now redirects authenticated users away from /login and /register
+
+### Task 2: Safe merge import (instead of overwrite)
+- [x] Auto-backup current DB before import → data/backups/pre-import-<timestamp>.db
+- [x] Merge users/sessions/accounts/verification_tokens via INSERT OR IGNORE
+- [x] Storage files — copy only missing files, skip existing
+- [x] Return import summary: { merged: { users, sessions, accounts, tokens, files } }
+
+### Task 3: Env editor UI + default AUTH_SECRET + docs update
+- [x] Default AUTH_SECRET="fractera-change-me" in .env.example so app starts without manual setup
+- [x] API route GET/POST /api/config/env — read/write .env.local
+- [x] UI panel env-editor-panel.client.tsx — key/value editor, opened via Data → Configure
+- [x] Warn if AUTH_SECRET < 10 chars (red highlight + warning banner)
+- [x] Warning about server restart and session invalidation on AUTH_SECRET change
+- [x] Update README: Data → Configure mention, generate-secret.vercel.app link, AUTH_SECRET warning
 
 ---
 

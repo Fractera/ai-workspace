@@ -62,7 +62,7 @@ export function WorkspaceController() {
             <PopoverTrigger asChild>
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-border bg-background hover:bg-muted font-medium transition-colors shadow-md"
+                className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-border bg-background text-foreground hover:bg-muted font-medium transition-colors shadow-md dark:border-white/20 dark:shadow-none"
               >
                 <CircleUserRound className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Account</span>
@@ -93,7 +93,7 @@ export function WorkspaceController() {
           <button
             type="button"
             onClick={() => router.push("/login")}
-            className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-border bg-background hover:bg-muted font-medium transition-colors shadow-md"
+            className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-border bg-background text-foreground hover:bg-muted font-medium transition-colors shadow-md dark:border-white/20 dark:shadow-none"
           >
             <CircleUserRound className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Sign in</span>

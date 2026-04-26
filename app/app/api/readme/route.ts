@@ -8,18 +8,20 @@ function getRawReadmeUrl(repoUrl: string): string {
 }
 
 export async function GET() {
-  // 1. Try local README.md first — no network, no rate limits
-  const localPath = join(process.cwd(), "README.md");
+  // 1. Try local README.md (monorepo root — one level above app/)
+  const localPath = join(process.cwd(), "..", "README.md");
   if (existsSync(localPath)) {
     const content = readFileSync(localPath, "utf8");
     return NextResponse.json({ content, source: "local" });
   }
 
-  // 2. Fetch from upstream GitHub (raw.githubusercontent.com — public CDN, no auth needed)
-  // Rate limit: 60 req/hour per IP. Cache: 1h → effectively 1 req/hour per server.
+  // 2. Fetch from upstream GitHub
   const repoUrl = process.env.UPSTREAM_REPO_URL;
   if (!repoUrl) {
-    return NextResponse.json({ content: "# Fractera Light\n\nAdd a README.md to the project root, or set UPSTREAM_REPO_URL in .env.local." });
+    return NextResponse.json(
+      { error: true, message: "Unfortunately, failed to retrieve data from GitHub. Please try again later." },
+      { status: 503 }
+    );
   }
 
   try {
@@ -29,6 +31,9 @@ export async function GET() {
     const content = await res.text();
     return NextResponse.json({ content, source: "github" });
   } catch {
-    return NextResponse.json({ content: "# Fractera Light\n\nCould not load README.\n\nAdd README.md to the project root or check UPSTREAM_REPO_URL." });
+    return NextResponse.json(
+      { error: true, message: "Unfortunately, failed to retrieve data from GitHub. Please try again later." },
+      { status: 503 }
+    );
   }
 }

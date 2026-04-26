@@ -1,22 +1,22 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Database, Download, Upload, RefreshCw, Info, Zap } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
 import { PLATFORMS, COMING_SOON, type Platform, type TerminalStatus } from "./platforms";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { OpenCodeKeyDialog } from "./opencode-key-dialog.client";
+import { EnvEditorPanel } from "./env-editor-panel.client";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
 const CARD_W     = 112;
 const GAP        = 8;
 
-const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process runs all platforms:\nClaude Code :3200 · PTY :3201\nCodex :3202 · Gemini :3203\nQwen :3204 · Kimi :3205 · OpenCode :3206\n\n🟢 Online — all platforms available\n🔴 Offline — bridge server not running\n\nTo start: cd bridges/claude-code && node server.js";
+const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process runs all platforms:\nClaude Code :3200 · PTY :3201\nCodex :3202 · Gemini :3203\nQwen :3204 · Kimi :3205 · OpenCode :3206\n\n🟢 Online — all platforms available\n🔴 Offline — bridge server not running\n\nTo start: cd bridges/platforms && node server.js";
 
-const DATA_TOOLTIP = "Data — backup and restore your project data\n\n⬇ Export: downloads a zip with your database and storage files to your local machine.\n\n⬆ Import: uploads a previously exported backup to restore data on this server.\n\n⚠ Import overwrites existing data.";
 
 const PTY_URL      = process.env.NEXT_PUBLIC_PTY_URL      ?? "ws://localhost:3201";
 const BRIDGE_URL   = process.env.NEXT_PUBLIC_BRIDGE_URL   ?? "ws://localhost:3200";
@@ -58,6 +58,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [showUpdateLog, setShowUpdateLog]           = useState(false);
   const [showInfo, setShowInfo]                     = useState(false);
   const [readmeContent, setReadmeContent]           = useState<string | null>(null);
+  const [showEnvEditor, setShowEnvEditor]           = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const GITHUB_URL  = process.env.NEXT_PUBLIC_GITHUB_URL  ?? "";
@@ -162,20 +163,25 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   }
 
   async function handleInfo() {
+    setShowEnvEditor(false);
     setShowInfo((v) => !v);
     if (!readmeContent) {
       const res = await fetch("/api/readme");
       const data = await res.json();
-      setReadmeContent(data.content ?? "");
+      setReadmeContent(data.error ? `\n> ${data.message}` : (data.content ?? ""));
     }
   }
 
   useEffect(() => () => { if (countdownRef.current) clearTimeout(countdownRef.current); }, []);
   useEffect(() => {
     if (!dataMenuOpen) return;
-    const close = () => setDataMenuOpen(false);
-    document.addEventListener("click", close, { capture: true, once: true });
-    return () => document.removeEventListener("click", close, { capture: true });
+    const close = (e: MouseEvent) => {
+      const menu = document.getElementById("data-dropdown");
+      if (menu && menu.contains(e.target as Node)) return;
+      setDataMenuOpen(false);
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
   }, [dataMenuOpen]);
 
   const termH   = height - CAROUSEL_H - FOOTER_H - (isMobile ? 25 : 50);
@@ -205,40 +211,43 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           </Tooltip>
         </TooltipProvider>
 
-        {/* Data button */}
-        <TooltipProvider delayDuration={0}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="relative shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setDataMenuOpen((v) => !v)}
-                  className="flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted select-none px-3 transition-colors"
-                >
-                  {importing ? <Loader2 size={12} className="animate-spin" /> : <Database size={12} />}
-                  <span className="font-medium">Data</span>
-                </button>
-                {dataMenuOpen && (
-                  <div style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
-                    className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[140px]">
-                    <button type="button" onClick={handleExport}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
-                      <Download size={11} />Export data
-                    </button>
-                    <button type="button" onClick={() => { setDataMenuOpen(false); fileInputRef.current?.click(); }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
-                      <Upload size={11} />Import data
-                    </button>
-                  </div>
-                )}
-                <input ref={fileInputRef} type="file" accept=".zip" className="hidden" onChange={handleImport} />
+        {/* Settings button */}
+        <div className="relative shrink-0">
+          <button
+            type="button"
+            onClick={() => setDataMenuOpen((v) => !v)}
+            className="flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted select-none px-3 transition-colors"
+          >
+            {importing ? <Loader2 size={12} className="animate-spin" /> : <Settings size={12} />}
+            <span className="font-medium">Settings</span>
+          </button>
+          {dataMenuOpen && (
+            <div id="data-dropdown" style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
+              className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[160px]">
+              <button type="button" onClick={handleExport}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <Download size={11} />Export data
+              </button>
+              <button type="button" onClick={() => { setDataMenuOpen(false); fileInputRef.current?.click(); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <Upload size={11} />Import data
+              </button>
+              <div className="h-px bg-border mx-2" />
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <Settings size={11} />Configure
+              </button>
+              <div className="h-px bg-border mx-2" />
+              <div className="px-3 py-2 flex flex-col gap-1">
+                <span className="text-[10px] font-medium text-muted-foreground">Help</span>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">⬇ <strong className="text-foreground">Export</strong> — downloads a zip with your database and storage files.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">⬆ <strong className="text-foreground">Import</strong> — merges a backup into existing data. No data is overwritten.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">⚙ <strong className="text-foreground">Configure</strong> — edit environment variables.</p>
               </div>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" className="max-w-[240px] whitespace-pre-line text-[11px] leading-relaxed" style={{ zIndex: 99999 }}>
-              {DATA_TOOLTIP}
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+            </div>
+          )}
+          <input ref={fileInputRef} type="file" accept=".zip" className="hidden" onChange={handleImport} />
+        </div>
 
         <button type="button" aria-label="Previous" onClick={() => setCarouselIdx(safeIdx - 1)} disabled={!canPrev}
           className="shrink-0 flex items-center justify-center rounded-full border border-border bg-background text-muted-foreground hover:text-foreground hover:bg-accent transition-colors shadow-sm disabled:opacity-30 disabled:pointer-events-none"
@@ -249,41 +258,61 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         <div style={{ flex: 1, minWidth: 0, overflow: "hidden" }}>
           <div className="flex" style={{ gap: GAP, transform: `translateX(-${safeIdx * (CARD_W + GAP)}px)`, transition: "transform 0.25s ease" }}>
             {PLATFORMS.map((p) => {
-              const isRunning    = terminalSessions.has(p.id);
-              const isCurrent    = terminalPlatform === p.id && isRunning;
-              const isConfirming = confirmingPlatform === p.id;
-              const isOpenCode   = p.id === "open-code";
-              const needsKey     = isOpenCode && openCodeReady === false;
-              const isDisabled   = !p.active && !isOpenCode;
+              const isRunning      = terminalSessions.has(p.id);
+              const isCurrent      = terminalPlatform === p.id && isRunning;
+              const isConfirming   = confirmingPlatform === p.id;
+              const isOpenCode     = p.id === "open-code";
+              const needsKey       = isOpenCode && openCodeReady === false;
+              const isDisabled     = !p.active && !isOpenCode;
+              const bridgeOffline  = bridgeStatus === "offline" && !isRunning;
+
+              const btn = (
+                <button
+                  type="button"
+                  style={{ width: CARD_W, flexShrink: 0, position: "relative" }}
+                  onClick={() => {
+                    if (bridgeOffline) return;
+                    if (needsKey) { setOpenCodeDialog(true); return; }
+                    handleCardClick(p.id);
+                  }}
+                  disabled={isDisabled}
+                  className={`flex items-center justify-center gap-1.5 rounded-md border h-9 text-[11px] transition-all px-2 ${
+                    bridgeOffline   ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
+                    : needsKey      ? "border-destructive/50 bg-destructive/5 text-destructive/70 hover:bg-destructive/10 cursor-pointer"
+                    : isDisabled    ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
+                    : isConfirming  ? "border-orange-400 bg-orange-400/10 text-orange-400 font-medium"
+                    : isCurrent     ? "border-primary bg-primary/10 text-primary font-medium"
+                    : isRunning     ? "border-green-500/50 bg-green-500/5 text-green-600 dark:text-green-400"
+                    : "border-border text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {isConfirming ? (
+                    <>
+                      <span className="size-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />
+                      <span>End session</span>
+                      <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, backgroundColor: "rgb(251 146 60)", transformOrigin: "right", animation: "countdown-shrink 5s linear forwards" }} />
+                    </>
+                  ) : needsKey ? (
+                    <><span className="size-1.5 rounded-full bg-destructive shrink-0" /><span>{p.label}</span></>
+                  ) : (
+                    <><TerminalDot status={isRunning ? "connected" : terminalStatuses[p.id]} /><span>{p.label}</span></>
+                  )}
+                </button>
+              );
 
               return (
                 <React.Fragment key={p.id}>
-                  <button
-                    type="button"
-                    style={{ width: CARD_W, flexShrink: 0, position: "relative" }}
-                    onClick={() => needsKey ? setOpenCodeDialog(true) : handleCardClick(p.id)}
-                    disabled={isDisabled}
-                    className={`flex items-center justify-center gap-1.5 rounded-md border h-9 text-[11px] transition-all px-2 ${
-                      needsKey        ? "border-destructive/50 bg-destructive/5 text-destructive/70 hover:bg-destructive/10 cursor-pointer"
-                      : isDisabled    ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
-                      : isConfirming  ? "border-orange-400 bg-orange-400/10 text-orange-400 font-medium"
-                      : isCurrent     ? "border-primary bg-primary/10 text-primary font-medium"
-                      : isRunning     ? "border-green-500/50 bg-green-500/5 text-green-600 dark:text-green-400"
-                      : "border-border text-muted-foreground hover:text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {isConfirming ? (
-                      <>
-                        <span className="size-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />
-                        <span>End session</span>
-                        <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, backgroundColor: "rgb(251 146 60)", transformOrigin: "right", animation: "countdown-shrink 5s linear forwards" }} />
-                      </>
-                    ) : needsKey ? (
-                      <><span className="size-1.5 rounded-full bg-destructive shrink-0" /><span>{p.label}</span></>
-                    ) : (
-                      <><TerminalDot status={isRunning ? "connected" : terminalStatuses[p.id]} /><span>{p.label}</span></>
-                    )}
-                  </button>
+                  {bridgeOffline ? (
+                    <TooltipProvider delayDuration={0}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>{btn}</TooltipTrigger>
+                        <TooltipContent side="bottom" className="max-w-[200px] text-[11px] leading-relaxed" style={{ zIndex: 99999 }}>
+                          Bridge is offline. Start the bridge server to use terminals:<br />
+                          <span className="font-mono">node bridges/platforms/server.js</span>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  ) : btn}
                 </React.Fragment>
               );
             })}
@@ -316,6 +345,9 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           <ChevronRight className="h-3 w-3" />
         </button>
       </div>
+
+      {/* ── Env editor panel ── */}
+      {showEnvEditor && <EnvEditorPanel onClose={() => setShowEnvEditor(false)} />}
 
       {/* ── Info panel (README) ── */}
       {showInfo && (

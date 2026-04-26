@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "description": "Self-hosted AI development workspace",
-  "workspaces": [
-    "app",
-    "bridges/claude-code"
-  ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=app\" \"npm run dev --workspace=bridges/claude-code\"",
-    "start": "concurrently \"npm run start --workspace=app\" \"npm run start --workspace=bridges/claude-code\"",
-    "install:all": "npm install --workspace=app && npm install --workspace=bridges/claude-code"
+    "dev": "concurrently \"npm run dev --prefix app\" \"npm run dev --prefix bridges/platforms\"",
+    "start": "concurrently \"npm run start --prefix app\" \"npm run start --prefix bridges/platforms\"",
+    "install:all": "npm install --prefix app && npm install --prefix bridges/platforms"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"

@@ -79,7 +79,7 @@ function RegisterForm({ onClose }: Props) {
 
 export function RegisterPlaceholder({ onClose }: Props) {
   return (
-    <div className="h-full flex items-center justify-center p-8">
+    <div className="min-h-screen flex items-center justify-center p-8">
       <RegisterForm onClose={onClose} />
     </div>
   );
