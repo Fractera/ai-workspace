@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Next.js
+app/.next/
+app/out/
+
+# Env files (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Database & storage (stay on server)
+app/database.sqlite
+app/database.sqlite-shm
+app/database.sqlite-wal
+app/data/*.sqlite
+app/data/*.sqlite-shm
+app/data/*.sqlite-wal
+app/data/*
+!app/data/.gitkeep
+app/storage/*
+!app/storage/.gitkeep
+
+# Build artifacts
+app/dist/
+app/tsconfig.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,0 +1,18 @@
+{
+  "name": "fractera-light",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-hosted AI development workspace",
+  "workspaces": [
+    "app",
+    "bridges/claude-code"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=app\" \"npm run dev --workspace=bridges/claude-code\"",
+    "start": "concurrently \"npm run start --workspace=app\" \"npm run start --workspace=bridges/claude-code\"",
+    "install:all": "npm install --workspace=app && npm install --workspace=bridges/claude-code"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
