@@ -13,7 +13,7 @@
 Bring your own keys (BYOK), keep your code on your own server, and build applications in minutes without paying for expensive managed services.
 
 <p align="center">
-  <img src="https://dummyimage.com/800x400/1e1e1e/4ade80&text=Drop+your+GIF+here" alt="Fractera AI Workspace Demo" width="800"/>
+  <img src="docs/fractera-ai-platform.jpeg" alt="Fractera AI Workspace Demo" width="800"/>
 </p>
 
 ---
