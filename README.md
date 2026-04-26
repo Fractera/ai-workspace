@@ -84,11 +84,14 @@ Built for speed, simplicity, and zero maintenance:
 
 ## 📦 Quickstart
 
-### Step 1: Fork & Clone
-Forking keeps your copy connected to upstream so you can pull 1-click updates from the UI.
+### Step 1: Fork this repository
+
+**Find the `Fork` button in the top-right corner of this page and click it.** This creates your own copy of the project on your GitHub account — and helps us grow the community. Thank you! 🙏
+
+Once forked, clone your copy:
 ```bash
 # Replace YOUR_USERNAME with your GitHub username
-git clone [https://github.com/YOUR_USERNAME/ai-workspace.git](https://github.com/YOUR_USERNAME/ai-workspace.git)
+git clone https://github.com/YOUR_USERNAME/ai-workspace.git
 cd ai-workspace
 ```
 
