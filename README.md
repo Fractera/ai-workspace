@@ -22,7 +22,7 @@
 Bring your own keys (BYOK), keep your code on your own server, and build applications in minutes without paying for expensive managed services.
 
 <p align="center">
-  <img src="docs/fractera-ai-platform.jpeg" alt="Fractera AI Workspace Demo" width="800"/>
+  <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
 </p>
 
 ---
@@ -85,6 +85,12 @@ Built for speed, simplicity, and zero maintenance:
 ## 📦 Quickstart
 
 ### Step 1: Fork this repository
+
+<p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
+  </a>
+</p>
 
 **Find the `Fork` button in the top-right corner of this page and click it.** This creates your own copy of the project on your GitHub account — and helps us grow the community. Thank you! 🙏
 
