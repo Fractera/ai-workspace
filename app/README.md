@@ -72,7 +72,7 @@ cp .env.example .env.local
 # Edit .env.local — generate AUTH_SECRET with: openssl rand -base64 32
 
 # 4. Start the bridge server (required for AI platforms)
-cd ../bridges/claude-code
+cd ../bridges/platforms
 npm install
 node server.js &
 
