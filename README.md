@@ -1,11 +1,20 @@
 
-# ⚡ Fractera AI Workspace: Self-Hosted Multi-Agent Coding Platform
+# ⚡ Fractera AI Workspace: Self-Hosted Multi-Agent End-Coding Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/>
   <img src="https://img.shields.io/badge/Deploy-Self--Hosted-success.svg" alt="Self-Hosted"/>
   <img src="https://img.shields.io/badge/Models-Claude_|_Gemini_|_Codex_|_Qwen_|_Kimi_|_OpenRouter-orange.svg" alt="AI Models"/>
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"/>
+</p>
+
+<p align="center">
+  <strong>Anthropic:</strong> Claude Code &nbsp;·&nbsp;
+  <strong>OpenAI:</strong> Codex &nbsp;·&nbsp;
+  <strong>Google:</strong> Gemini CLI &nbsp;·&nbsp;
+  <strong>Alibaba:</strong> Qwen Code &nbsp;·&nbsp;
+  <strong>Moonshot:</strong> Kimi Code &nbsp;·&nbsp;
+  <strong>OpenRouter:</strong> 300+ models
 </p>
 
 > **One workspace. Every AI coding platform. Zero cloud dependency.** > Fractera AI Workspace is an open-source, self-hosted interface that brings Claude Code, Codex, Gemini CLI, Qwen, Kimi, and 300+ OpenRouter models into a single, powerful unified terminal. 
@@ -62,16 +71,6 @@ Switching between different AI CLIs and web interfaces breaks your flow. Existin
 * 💽 **Absolute Data Portability:** Export and import your entire database and file storage in a single click.
 * 🔄 **Seamless Auto-Updates:** Pull the latest open-source version from upstream without touching the server via SSH.
 * 🧩 **Skills Marketplace:** Extend your workspace with community-built AI extensions at [fractera.ai](https://fractera.ai).
-
----
-
-## 🤖 Supported AI Platforms
-* **Anthropic:** Claude Code
-* **OpenAI:** Codex
-* **Google:** Gemini CLI
-* **Alibaba:** Qwen Code
-* **Moonshot:** Kimi Code
-* **OpenRouter:** Open Code - Access to 300+ open-source and proprietary models.
 
 ---
 
