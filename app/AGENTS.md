@@ -31,7 +31,30 @@ Queries: `lib/db/` only · Migrations: auto on first connect
 |------|----------|------|
 | Database | SQLite | `data/fractera-light.db` |
 | Files | fs | `storage/` |
+| Media | Media Service HTTP | `services/media/` · port 3300 |
 | Cloud | ❌ not used — update this table if added | — |
+
+## Media Service
+Standalone HTTP service at `http://localhost:3300` (env: `NEXT_PUBLIC_MEDIA_URL`).
+Start: `node services/media/server.js` · runs automatically via `npm run dev` from repo root.
+
+Images and videos are stored in `services/media/storage/`. Metadata in `services/media/data/media.db`.
+
+**Fields per media item:** `id`, `name` (original filename), `title` (user label), `description`, `mime_type`, `extension`, `size`, `width`, `height`, `duration`, `storage_key`, `created_at`.
+
+**When building a page that needs images or videos — always check media library first:**
+```ts
+const res = await fetch(`${process.env.NEXT_PUBLIC_MEDIA_URL}/media`)
+const { items } = await res.json()
+// Display: item.title || item.name (title is user-set, name is original filename)
+// Image:   <img src={`${MEDIA_URL}/media/${item.id}/file`} />
+// Thumb:   <img src={`${MEDIA_URL}/media/${item.id}/thumb`} />  // 200×200
+// Video:   <video src={`${MEDIA_URL}/media/${item.id}/file`} controls />
+```
+
+**API:** `GET /media` · `POST /media/upload` · `PATCH /media/:id` (title/description) · `DELETE /media/:id` · `GET /media/:id/file` · `GET /media/:id/thumb`
+
+**Favicon/PWA icons:** `POST /media/generate-icons { media_id }` → generates favicon.ico, favicon-16/32.png, apple-touch-icon.png, icon-192/512.png, og-image.jpg, manifest.json from one square source image. `GET /media/icons/current` → latest set. See `CLAUDE.md` for full instructions.
 
 ## Structure
 ```

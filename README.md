@@ -213,6 +213,54 @@ Whether you need complex custom integrations, multilingual routing, parallel slo
 ---
 
 
+---
+
+## 📋 Changelog
+
+---
+
+**v1.0.0** — 2026-04-26 20:00
+
+Initial public release of Fractera AI Workspace — a self-hosted, open-source platform for running multiple AI coding agents in a single unified workspace.
+
+- Multi-platform terminal workspace: Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code, Open Code (OpenRouter)
+- Parallel interactive terminal sessions — switch between agents without losing context
+- Single bridge server process manages all platform WebSocket connections on ports 3200–3206
+- Built-in authentication: email/password registration, guest mode, architect role (first registered user)
+- Role-based access control — architect gets coding workspace, users get standard access
+- Data export/import — full backup and restore of SQLite database and storage files as a single zip
+- Safe import merge — incoming data is merged with existing records, nothing is overwritten
+- Auto-update from upstream GitHub repository via UI button, no SSH required
+- Settings panel with environment variable editor — configure API keys, title, theme without touching files
+- Info panel with live README rendering from GitHub or local file
+- Proxy-based route protection (Next.js 16 native, no middleware.ts)
+- Dark/light/system theme switcher with persistent preference
+- Full shadcn/ui component library integrated
+- Sonner toast notifications wired globally via root layout
+
+---
+
+**v1.0.1** — 2026-04-26 23:00
+
+Media Library — standalone media service and full asset management system.
+
+- New standalone HTTP service `services/media/` running on port 3300, isolated from the main Next.js app
+- SQLite database for media metadata: title, description, original filename, MIME type, dimensions, duration, storage key
+- Image upload with built-in canvas-based cropper — three aspect ratio modes: 16:9 horizontal, 1:1 square, 9:16 vertical
+- Video upload with direct storage (no crop)
+- Media library panel in workspace Settings menu — list view with search, preview, copy URL, rename, delete
+- Search across title, description, original filename and file URL with relevance-based sorting
+- Inline preview popup for images and videos directly in the panel
+- Per-file edit panel (pencil icon) for setting custom title and description independently from original filename
+- Delete confirmation flow to prevent accidental removal
+- Copy URL button with clipboard toast feedback
+- Favicon and PWA icon generation from a single square source image: favicon.ico (16+32px combined), favicon-16/32.png, apple-touch-icon.png (180×180), icon-192/512.png, og-image.jpg (1200×630), manifest.json
+- Project is PWA-ready at the icon level — manifest and all required icon sizes generated automatically
+- CLAUDE.md and AGENTS.md updated with full media service API documentation for AI agents
+- All three services (app, bridge, media) start together via single `npm run dev` from repo root
+
+---
+
 <p align="center">
   <i>Built with ❤️ for developers who value freedom.</i>
 </p>

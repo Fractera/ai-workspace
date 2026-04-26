@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { AuthSessionProvider } from "@/providers/session-provider.client";
 import { ThemeProvider } from "@/providers/theme-provider.client";
+import { Toaster } from "sonner";
 import "../styles/index.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -47,10 +48,10 @@ export default function RootLayout({ children, appSlot, codeWorkspaceSlot }: Pro
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
         <ThemeProvider>
           <AuthSessionProvider>
-            
             {appSlot}
             {codeWorkspaceSlot}
             {children}
+            <Toaster position="bottom-right" richColors closeButton />
           </AuthSessionProvider>
         </ThemeProvider>
       </body>

@@ -27,6 +27,14 @@
 - [x] Storage files — copy only missing files, skip existing
 - [x] Return import summary: { merged: { users, sessions, accounts, tokens, files } }
 
+### Task 4: Media service (services/media/)
+- [ ] services/media/server.js — HTTP server (port 3300): upload, delete, list, serve
+- [ ] SQLite media.db: id, name, description, mime_type, extension, size, width, height, duration, storage_key, created_at
+- [ ] Cropper panel in @codeWorkspaceSlot — image crop (horizontal/square/vertical), video direct upload
+- [ ] Media library panel — list with name, extension, copy/delete/preview icons
+- [ ] Delete confirmation flow
+- [ ] Preview dropdown — image or video inline
+
 ### Task 3: Env editor UI + default AUTH_SECRET + docs update
 - [x] Default AUTH_SECRET="fractera-change-me" in .env.example so app starts without manual setup
 - [x] API route GET/POST /api/config/env — read/write .env.local

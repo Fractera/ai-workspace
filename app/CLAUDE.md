@@ -31,7 +31,78 @@ Queries: `lib/db/` only · Migrations: auto on first connect
 |------|----------|------|
 | Database | SQLite | `data/fractera-light.db` |
 | Files | fs | `storage/` |
+| Media | Media Service HTTP | `services/media/` · port 3300 |
 | Cloud | ❌ not used — update this table if added | — |
+
+## Media Service
+All images and videos are managed by a standalone HTTP service at `http://localhost:3300` (env: `NEXT_PUBLIC_MEDIA_URL`).
+Start: `node services/media/server.js`
+
+**When building a page that needs images or videos — always check the media library first:**
+
+```ts
+// Search available media
+const res  = await fetch(`${process.env.NEXT_PUBLIC_MEDIA_URL}/media`)
+const { items } = await res.json()
+// items: [{ id, name, mime_type, extension, width, height, ... }]
+
+// Use a file in JSX
+<img src={`${MEDIA_URL}/media/${item.id}/file`} />
+<img src={`${MEDIA_URL}/media/${item.id}/thumb`} /> // 200×200 thumbnail
+
+// Video
+<video src={`${MEDIA_URL}/media/${item.id}/file`} controls />
+```
+
+**API endpoints:**
+- `GET  /media` — list all files (id, name, mime_type, extension, size, width, height, duration)
+- `POST /media/upload` — upload image or video (multipart: `file`, `name`, optional `crop` JSON)
+- `GET  /media/:id/file` — serve original file
+- `GET  /media/:id/thumb` — serve 200×200 JPEG thumbnail (images only)
+- `DELETE /media/:id` — delete file and DB record
+
+## Favicon & PWA Icons
+To generate a full icon set (favicon, Apple Touch Icon, PWA icons, OG image):
+
+1. Upload a **square** source image via Media Library (min 512×512 recommended)
+2. Call generate-icons with its `id`:
+
+```ts
+const res = await fetch(`${MEDIA_URL}/media/generate-icons`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ media_id: item.id })
+})
+const { id, files } = await res.json()
+```
+
+3. Add to `app/layout.tsx` `<head>`:
+
+```tsx
+const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL ?? 'http://localhost:3300'
+const ICONS_ID  = 'YOUR_ICON_SET_ID' // from generate-icons response
+
+// In <head>:
+<link rel="icon" href={`${MEDIA_URL}/media/icons/${ICONS_ID}/file/favicon.ico`} />
+<link rel="icon" type="image/png" sizes="32x32" href={`${MEDIA_URL}/media/icons/${ICONS_ID}/file/favicon-32.png`} />
+<link rel="apple-touch-icon" href={`${MEDIA_URL}/media/icons/${ICONS_ID}/file/apple-touch-icon.png`} />
+```
+
+4. For PWA — copy `manifest.json` from `${MEDIA_URL}/media/icons/${ICONS_ID}/file/manifest.json` to `app/public/manifest.json`
+
+**Generated files per icon set:**
+- `favicon.ico` — 16+32px combined
+- `favicon-16.png`, `favicon-32.png`
+- `apple-touch-icon.png` — 180×180
+- `icon-192.png`, `icon-512.png` — PWA manifest icons
+- `og-image.jpg` — 1200×630 Open Graph image
+- `manifest.json` — ready PWA manifest with icon URLs
+
+**API:**
+- `POST /media/generate-icons` — body: `{ media_id }` → generates full set, returns `{ id, files }`
+- `GET  /media/icons/current` — latest generated icon set
+- `GET  /media/icons` — all icon sets
+- `GET  /media/icons/:id/file/:name` — serve specific icon file
 
 ## Structure
 ```
@@ -44,6 +115,48 @@ app/
   api/                  ← auth · data · update · readme
   layout.tsx            ← no children prop — never add app/page.tsx
 ```
+
+## UI Libraries
+
+### Tailwind v4
+Utility-first CSS. Use class names directly — no config file needed for basic use.
+```tsx
+<div className="flex items-center gap-2 px-4 py-2 rounded-md border border-border bg-muted text-foreground" />
+```
+CSS variables for theming: `bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-primary`, `text-primary-foreground`, `text-destructive`. Dark mode via `.dark` class on `<html>`.
+
+### shadcn/ui
+Pre-built accessible components. Import from `@/components/ui/`:
+```tsx
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+```
+To add a new component: `npx shadcn add <component-name>` from `app/` directory.
+
+### sonner (toast notifications)
+`<Toaster>` is mounted in `app/layout.tsx` — available everywhere. Use `toast` from `"sonner"`:
+```tsx
+import { toast } from "sonner"
+
+toast.success("File uploaded")
+toast.error("Something went wrong")
+toast.info("Processing…")
+toast.loading("Uploading…")  // returns id
+toast.dismiss(id)
+```
+No provider needed — just import and call. Position: `bottom-right`, `richColors` and `closeButton` enabled.
+
+### lucide-react
+Icon library. Import individual icons by name:
+```tsx
+import { Settings, Upload, Download, Trash2, Eye, Copy, Check, X, Loader2, Plus, Search, Image, Film, ImagePlus, ChevronLeft, ChevronRight, AlertTriangle } from "lucide-react"
+
+<Settings size={16} className="text-muted-foreground" />
+```
+Always use `size` prop (number), not `width`/`height`. Browse all icons at [lucide.dev](https://lucide.dev).
 
 ## Code Rules
 - Max 200 lines — decompose if larger

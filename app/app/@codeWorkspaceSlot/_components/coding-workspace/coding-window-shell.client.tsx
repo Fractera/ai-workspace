@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -9,6 +9,7 @@ import { PLATFORMS, COMING_SOON, type Platform, type TerminalStatus } from "./pl
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { OpenCodeKeyDialog } from "./opencode-key-dialog.client";
 import { EnvEditorPanel } from "./env-editor-panel.client";
+import { MediaLibraryPanel } from "./media-library-panel.client";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
@@ -59,6 +60,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [showInfo, setShowInfo]                     = useState(false);
   const [readmeContent, setReadmeContent]           = useState<string | null>(null);
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
+  const [showMediaLibrary, setShowMediaLibrary]     = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const GITHUB_URL  = process.env.NEXT_PUBLIC_GITHUB_URL  ?? "";
@@ -118,13 +120,19 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     const isRunning = terminalSessions.has(platformId);
     if (isRunning && terminalPlatform === platformId) {
       if (confirmingPlatform === platformId) {
+        // Second click — cancel the countdown
         if (countdownRef.current) clearTimeout(countdownRef.current);
+        countdownRef.current = null;
         setConfirmingPlatform(null);
-        onTerminalClose(platformId);
       } else {
-        setConfirmingPlatform(platformId);
+        // First click — start countdown, auto-close after 5s
         if (countdownRef.current) clearTimeout(countdownRef.current);
-        countdownRef.current = setTimeout(() => { setConfirmingPlatform(null); countdownRef.current = null; }, 5000);
+        setConfirmingPlatform(platformId);
+        countdownRef.current = setTimeout(() => {
+          onTerminalClose(platformId);
+          setConfirmingPlatform(null);
+          countdownRef.current = null;
+        }, 5000);
       }
     } else if (isRunning) {
       if (countdownRef.current) clearTimeout(countdownRef.current);
@@ -192,7 +200,10 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
   return (
     <div style={{ position: "relative", height }}>
-      <style>{`@keyframes countdown-shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }`}</style>
+      <style>{`
+        @keyframes countdown-shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+        @keyframes countdown-color { 0% { background-color: rgb(34 197 94); } 60% { background-color: rgb(251 146 60); } 100% { background-color: rgb(239 68 68); } }
+      `}</style>
 
       {/* ── Carousel ── */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: CAROUSEL_H }} className="border-b border-border bg-background flex items-center gap-2 px-2">
@@ -224,6 +235,16 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           {dataMenuOpen && (
             <div id="data-dropdown" style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
               className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[160px]">
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowMediaLibrary((v) => !v); setShowEnvEditor(false); setShowInfo(false); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <ImagePlus size={11} />Upload media
+              </button>
+              <div className="h-px bg-border mx-2" />
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <Settings size={11} />Configure
+              </button>
+              <div className="h-px bg-border mx-2" />
               <button type="button" onClick={handleExport}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <Download size={11} />Export data
@@ -233,16 +254,12 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                 <Upload size={11} />Import data
               </button>
               <div className="h-px bg-border mx-2" />
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); }}
-                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
-                <Settings size={11} />Configure
-              </button>
-              <div className="h-px bg-border mx-2" />
               <div className="px-3 py-2 flex flex-col gap-1">
                 <span className="text-[10px] font-medium text-muted-foreground">Help</span>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">🖼 <strong className="text-foreground">Upload media</strong> — upload images and files to storage.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">⚙ <strong className="text-foreground">Configure</strong> — edit environment variables.</p>
                 <p className="text-[10px] text-muted-foreground leading-relaxed">⬇ <strong className="text-foreground">Export</strong> — downloads a zip with your database and storage files.</p>
                 <p className="text-[10px] text-muted-foreground leading-relaxed">⬆ <strong className="text-foreground">Import</strong> — merges a backup into existing data. No data is overwritten.</p>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">⚙ <strong className="text-foreground">Configure</strong> — edit environment variables.</p>
               </div>
             </div>
           )}
@@ -290,7 +307,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                     <>
                       <span className="size-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />
                       <span>End session</span>
-                      <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, backgroundColor: "rgb(251 146 60)", transformOrigin: "right", animation: "countdown-shrink 5s linear forwards" }} />
+                      <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, transformOrigin: "left", animation: "countdown-shrink 5s linear forwards, countdown-color 5s linear forwards" }} />
                     </>
                   ) : needsKey ? (
                     <><span className="size-1.5 rounded-full bg-destructive shrink-0" /><span>{p.label}</span></>
@@ -348,6 +365,9 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
       {/* ── Env editor panel ── */}
       {showEnvEditor && <EnvEditorPanel onClose={() => setShowEnvEditor(false)} />}
+
+      {/* ── Media library panel ── */}
+      {showMediaLibrary && <MediaLibraryPanel onClose={() => setShowMediaLibrary(false)} />}
 
       {/* ── Info panel (README) ── */}
       {showInfo && (
