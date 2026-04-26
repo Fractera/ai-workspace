@@ -35,7 +35,7 @@ Bring your own keys (BYOK), keep your code on your own server, and build applica
 ---
 
 <p align="center">
-  <a href="https://github.com/Fractera/ai-workspace/stargazers">
+  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
     <img src="docs/fractera-star.jpeg" alt="Star Fractera on GitHub" width="600"/>
   </a>
 </p>
