@@ -44,6 +44,7 @@ Bring your own keys (BYOK), keep your code on your own server, and build applica
 ---
 
 <p align="center">
+  <strong>👆 Click the image to star the repository</strong><br/><br/>
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
     <img src="docs/fractera-star.jpeg" alt="Star Fractera on GitHub" width="600"/>
   </a>
@@ -87,6 +88,7 @@ Built for speed, simplicity, and zero maintenance:
 ### Step 1: Fork this repository
 
 <p align="center">
+  <strong>👆 Click the image to fork the repository</strong><br/><br/>
   <a href="https://github.com/Fractera/ai-workspace/fork">
     <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
   </a>
