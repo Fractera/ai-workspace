@@ -21,9 +21,15 @@
   <img src="docs/mac and iphone 2.png" alt="Fractera AI Workspace — MacBook and iPhone" width="800"/>
 </p>
 
----
-
-⭐ **Support Open Source:** If Fractera saves you time and money, please **Star this repository** to help other developers discover privacy-first AI tools! ⭐
+<p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/⭐_Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="https://img.shields.io/badge/🍴_Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
+  </a>
+</p>
 
 ---
 
@@ -36,15 +42,6 @@
 - [Roadmap](#️-roadmap)
 - [FAQ](#-faq)
 - [Changelog](#-changelog)
-
----
-
-<p align="center">
-  <strong>👆 Click the image to star the repository</strong><br/><br/>
-  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
-    <img src="docs/fractera-star.jpeg" alt="Star Fractera on GitHub" width="600"/>
-  </a>
-</p>
 
 ---
 
@@ -112,12 +109,6 @@ Earn up to 8 free skills from the Fractera marketplace to supercharge your works
 
 ---
 
-<p align="center">
-  <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
-</p>
-
----
-
 ## 🗺️ Roadmap
 
 - [x] **v1.2** — Media Library, Database Browser, PWA icons, full agent documentation. *(Current)*
@@ -153,15 +144,6 @@ Yes. Your phone only displays the terminal output — all the heavy computation 
 **Can I connect a cloud database, S3, or other cloud services?**
 
 The platform puts no restrictions on this at all. Use whatever external services you normally use — connect them the same way you always do, through environment variables. You can add any variable directly in production via **Settings → Configure** inside the app, without touching the server. The built-in SQLite database and local file storage exist to protect you from unexpected costs by default — but the choice is entirely yours.
-
----
-
-<p align="center">
-  <strong>👆 Click the image to fork the repository</strong><br/><br/>
-  <a href="https://github.com/Fractera/ai-workspace/fork">
-    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
-  </a>
-</p>
 
 ---
 
@@ -243,6 +225,12 @@ Initial public release of Fractera AI Workspace — a self-hosted, open-source p
 - Dark/light/system theme switcher with persistent preference
 - Full shadcn/ui component library integrated
 - Toast notifications wired globally via root layout
+
+---
+
+<p align="center">
+  <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
+</p>
 
 ---
 
