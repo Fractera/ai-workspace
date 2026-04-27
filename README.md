@@ -100,6 +100,8 @@ See Fractera in action — watch short demos on our YouTube channel:
 
 **[▶ Built-in Media Storage](https://youtu.be/p10t2lGz_y0)** — Upload, crop, rename and preview images without leaving the workspace
 
+**[▶ Database from S3 in One Prompt](https://youtu.be/nf-e3O-MBC0)** — Claude Code reads object storage, extracts structured data from images, and creates a populated database table — no SQL written
+
 ---
 
 ## 🛠️ Tech Stack
