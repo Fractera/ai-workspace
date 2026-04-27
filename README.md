@@ -40,6 +40,15 @@
 ---
 
 <p align="center">
+  <strong>👆 Click the image to fork the repository</strong><br/><br/>
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
+  </a>
+</p>
+
+---
+
+<p align="center">
   <strong>👆 Click the image to star the repository</strong><br/><br/>
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
     <img src="docs/fractera-star.jpeg" alt="Star Fractera on GitHub" width="600"/>
