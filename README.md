@@ -94,13 +94,11 @@ Switching between different AI CLIs and web interfaces breaks your flow. Existin
 
 ## 🎬 App Walkthrough
 
-**Platform Activation — launching Claude Code, Gemini, Codex, Qwen & Kimi in one terminal:**
+See Fractera in action — watch short demos on our YouTube channel:
 
-<p align="center">
-  <a href="https://youtu.be/qH1BkwAXtEk" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.youtube.com/vi/qH1BkwAXtEk/maxresdefault.jpg" alt="Fractera AI Workspace — Platform Activation" width="800"/>
-  </a>
-</p>
+**[▶ Platform Activation](https://youtu.be/qH1BkwAXtEk)** — Launching Claude Code, Gemini, Codex, Qwen & Kimi in one terminal
+
+**[▶ Built-in Media Storage](https://youtu.be/p10t2lGz_y0)** — Upload, crop, rename and preview images without leaving the workspace
 
 ---
 
