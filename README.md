@@ -23,6 +23,8 @@ Each AI platform runs on its own paid subscription — no extra API keys needed.
 
 Keep your code private on your own server and build applications in minutes without paying for managed cloud services.
 
+Fractera includes an integrated database and S3-compatible media storage for images and documents — no external services required. Coming next: LightRAG (v1.3) for unified project memory shared across all agents, Open Claw (v1.4) as a single control point for your entire business, and a Skills Marketplace (v1.5) for extending the platform with community-built capabilities.
+
 <p align="center">
   <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
 </p>
