@@ -102,6 +102,8 @@ See Fractera in action — watch short demos on our YouTube channel:
 
 **[▶ Database from S3 in One Prompt](https://youtu.be/nf-e3O-MBC0)** — Claude Code reads object storage, extracts structured data from images, and creates a populated database table — no SQL written
 
+**[▶ Employees Page from One Prompt](https://youtu.be/BKLk48bi0iQ)** — Full CRUD page with image upload, crop, and object storage wired together by the AI from a single plain-language instruction
+
 ---
 
 ## 🛠️ Tech Stack
@@ -632,6 +634,13 @@ The platform puts no restrictions on this at all. Use whatever external services
 ---
 
 ## 📋 Changelog
+
+---
+
+**v1.2.2** — 2026-04-27
+
+- Added reusable upload service (`services/upload/`) with built-in image crop support
+- Added CLAUDE.md instructions for AI agents to use the upload service directly — enables any AI model to build object-storage features from a plain-language prompt with no custom upload code
 
 ---
 

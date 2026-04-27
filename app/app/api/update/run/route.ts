@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 import { execSync } from "child_process";
 import { resolve } from "path";
 
-const APP_DIR    = process.cwd();
-const BRIDGES_DIR = resolve(APP_DIR, "../bridges/claude-code");
+// process.cwd() is app/ — the git root is one level up
+const REPO_DIR    = resolve(process.cwd(), "..");
+const APP_DIR     = process.cwd();
+const BRIDGES_DIR = resolve(REPO_DIR, "bridges/platforms");
 
 function run(cmd: string, cwd: string): string {
   try {
@@ -22,8 +24,8 @@ export async function POST() {
   log.push(run(`cp database.sqlite ${backupName} 2>/dev/null || true`, APP_DIR));
 
   // 2. Pull upstream
-  log.push(run("git fetch upstream", APP_DIR));
-  log.push(run("git merge upstream/main --no-edit -m 'chore: merge upstream update'", APP_DIR));
+  log.push(run("git fetch upstream", REPO_DIR));
+  log.push(run("git merge upstream/main --no-edit -m 'chore: merge upstream update'", REPO_DIR));
 
   // 3. Install dependencies
   log.push(run("npm install --silent", APP_DIR));
@@ -43,7 +45,7 @@ export async function POST() {
   log.push(pm2);
 
   // 6. Get new version info
-  const commit = run("git log -1 --pretty='%h %s'", APP_DIR);
+  const commit = run("git log -1 --pretty='%h %s'", REPO_DIR);
   log.push(`Updated to: ${commit}`);
 
   return NextResponse.json({ ok: true, log: log.filter(Boolean) });

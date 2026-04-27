@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { execSync } from "child_process";
+import path from "path";
 
 const UPSTREAM = process.env.UPSTREAM_REPO_URL;
-const APP_DIR  = process.cwd();
+// process.cwd() is app/ — the git root is one level up
+const APP_DIR  = path.resolve(process.cwd(), "..");
 
 export async function GET() {
   if (!UPSTREAM) {
