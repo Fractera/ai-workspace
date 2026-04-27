@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { OpenCodeKeyDialog } from "./opencode-key-dialog.client";
 import { EnvEditorPanel } from "./env-editor-panel.client";
 import { MediaLibraryPanel } from "./media-library-panel.client";
+import { DbBrowserPanel } from "./db-browser-panel.client";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
@@ -61,6 +62,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [readmeContent, setReadmeContent]           = useState<string | null>(null);
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
   const [showMediaLibrary, setShowMediaLibrary]     = useState(false);
+  const [showDbBrowser, setShowDbBrowser]           = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const GITHUB_URL  = process.env.NEXT_PUBLIC_GITHUB_URL  ?? "";
@@ -172,6 +174,8 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
   async function handleInfo() {
     setShowEnvEditor(false);
+    setShowDbBrowser(false);
+    setShowMediaLibrary(false);
     setShowInfo((v) => !v);
     if (!readmeContent) {
       const res = await fetch("/api/readme");
@@ -235,12 +239,16 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           {dataMenuOpen && (
             <div id="data-dropdown" style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
               className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[160px]">
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowMediaLibrary((v) => !v); setShowEnvEditor(false); setShowInfo(false); }}
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowMediaLibrary((v) => !v); setShowEnvEditor(false); setShowDbBrowser(false); setShowInfo(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <ImagePlus size={11} />Upload media
               </button>
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowDbBrowser((v) => !v); setShowEnvEditor(false); setShowMediaLibrary(false); setShowInfo(false); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <Database size={11} />Database
+              </button>
               <div className="h-px bg-border mx-2" />
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); }}
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); setShowDbBrowser(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <Settings size={11} />Configure
               </button>
@@ -368,6 +376,9 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
       {/* ── Media library panel ── */}
       {showMediaLibrary && <MediaLibraryPanel onClose={() => setShowMediaLibrary(false)} />}
+
+      {/* ── DB browser panel ── */}
+      {showDbBrowser && <DbBrowserPanel onClose={() => setShowDbBrowser(false)} />}
 
       {/* ── Info panel (README) ── */}
       {showInfo && (

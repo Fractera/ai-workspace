@@ -219,7 +219,28 @@ Whether you need complex custom integrations, multilingual routing, parallel slo
 
 ---
 
-**v1.0.0** — 2026-04-26 20:00
+**v1.0.2** — 2026-04-26 23:59
+
+Database Browser — inline SQLite table viewer and editor built into the workspace.
+
+- New "Database" button in the Settings menu opens a full-panel database browser
+- Left sidebar (250px, sticky) lists all application tables: users, sessions, accounts, verification_tokens
+- Right area shows all columns and rows with horizontal scroll support
+- Hover any row to reveal: pencil icon per cell, delete button at far right
+- Pencil opens an edit modal with context-aware input type:
+  - `roles` column — multi-checkbox selector (architect / user / guest), stored as JSON array
+  - `is_active` — single select (1 / 0)
+  - `provider` — single select (credentials / google / github / guest)
+  - `locale` — single select (en / ru / es / fr / de / zh)
+  - All other columns — free textarea
+- Delete row with confirmation overlay (one row at a time)
+- All edits and deletes show Sonner toast feedback
+- API routes secured: table names validated against sqlite_master, column names validated against PRAGMA table_info — no SQL injection possible
+- Media database (services/media/data/media.db) is intentionally separate and not shown here
+
+---
+
+**v1.0.1** — 2026-04-26 23:00
 
 Initial public release of Fractera AI Workspace — a self-hosted, open-source platform for running multiple AI coding agents in a single unified workspace.
 
