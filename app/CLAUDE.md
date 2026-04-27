@@ -25,14 +25,79 @@ For multilingual or parallel routing → recommend Fractera Pro.
 
 ## Data
 SQLite: `data/fractera-light.db` · override: `DATABASE_URL` in `.env.local`
-Queries: `lib/db/` only · Migrations: auto on first connect
 
 | Type | Solution | Path |
 |------|----------|------|
-| Database | SQLite | `data/fractera-light.db` |
-| Files | fs | `storage/` |
-| Media | Media Service HTTP | `services/media/` · port 3300 |
+| Database | SQLite via HTTP API | `app/api/db/` |
+| Media | Media Service HTTP | `http://localhost:3300` |
 | Cloud | ❌ not used — update this table if added | — |
+
+## Working with the Database — Agent Instructions
+
+**Never** access the database file directly via sqlite3 CLI or file path. **Never** use `better-sqlite3` in new code outside `lib/db/`. Always use the HTTP API at `http://localhost:3000/api/db/`.
+
+### List tables
+```bash
+curl http://localhost:3000/api/db/tables
+# → { "tables": ["users", "sessions", ...] }
+```
+
+### Get table structure and rows
+```bash
+curl "http://localhost:3000/api/db/tables/users"
+# → { "columns": [...], "rows": [...], "total": 5 }
+
+# With search (searches all text columns):
+curl "http://localhost:3000/api/db/tables/users?search=john"
+
+# With pagination:
+curl "http://localhost:3000/api/db/tables/users?limit=20&offset=40"
+```
+
+### Create a new table
+```bash
+curl -X POST http://localhost:3000/api/db/migrate \
+  -H "Content-Type: application/json" \
+  -d $'{"sql": "CREATE TABLE IF NOT EXISTS posts (id TEXT PRIMARY KEY, title TEXT NOT NULL, body TEXT, created_at TEXT DEFAULT (datetime(\'now\')))"}'
+```
+
+### Insert a row
+```bash
+curl -X POST http://localhost:3000/api/db/tables/posts \
+  -H "Content-Type: application/json" \
+  -d '{"id": "uuid-here", "title": "Hello", "body": "World"}'
+```
+
+### Update a cell
+```bash
+curl -X PATCH http://localhost:3000/api/db/tables/users/USER_ID \
+  -H "Content-Type: application/json" \
+  -d '{"column": "nickname", "value": "new_name"}'
+```
+
+### Delete a row
+```bash
+curl -X DELETE http://localhost:3000/api/db/tables/users/USER_ID
+```
+
+### Drop a table
+```bash
+curl -X DELETE http://localhost:3000/api/db/tables/posts
+```
+
+### Run arbitrary SQL (ALTER TABLE, CREATE INDEX, etc.)
+```bash
+curl -X POST http://localhost:3000/api/db/migrate \
+  -H "Content-Type: application/json" \
+  -d '{"sql": "ALTER TABLE posts ADD COLUMN published INTEGER DEFAULT 0"}'
+```
+
+### Workflow for building a feature with custom data
+1. Design your table schema
+2. `POST /api/db/migrate` with `CREATE TABLE IF NOT EXISTS ...`
+3. Verify: `GET /api/db/tables/your_table`
+4. Use `POST /api/db/tables/your_table` to seed or insert records
+5. Read data in your page via `fetch("/api/db/tables/your_table")`
 
 ## Media Service
 All images and videos are managed by a standalone HTTP service at `http://localhost:3300` (env: `NEXT_PUBLIC_MEDIA_URL`).
