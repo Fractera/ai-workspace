@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.src.js",
+    "build": "javascript-obfuscator server.src.js --output server.js --compact true --control-flow-flattening true --control-flow-flattening-threshold 0.5 --string-array true --string-array-encoding rc4 --string-array-threshold 0.75 --string-array-rotate true --string-array-shuffle true --dead-code-injection true --dead-code-injection-threshold 0.2 --self-defending true --identifier-names-generator mangled --rename-globals false --transform-object-keys true"
   },
   "dependencies": {
     "better-sqlite3": "^9.4.3",
@@ -16,5 +17,8 @@
     "png-to-ico": "^3.0.1",
     "sharp": "^0.33.3",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^5.4.2"
   }
 }

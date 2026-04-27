@@ -11,8 +11,10 @@ type MediaItem = {
   name: string;
   title: string;
   description: string;
+  url: string;
   mime_type: string;
   extension: string;
+  crop_mode: string;
   size: number;
   width: number | null;
   height: number | null;
@@ -33,13 +35,13 @@ type Props = { onClose: () => void };
 
 // ── ImageCropper (ported from Fractera Pro, no deps) ──────────────────────────
 
-function ImageCropper({ src, cropMode, onDone, onCancel }: {
+function ImageCropper({ src, onDone, onCancel }: {
   src: string;
-  cropMode: CropMode;
-  onDone: (blob: Blob) => void;
+  onDone: (blob: Blob, cropMode: string) => void;
   onCancel: () => void;
 }) {
-  const MAX   = 280;
+  const MAX = 280;
+  const [cropMode, setCropMode] = useState<CropMode>("horizontal");
   const ratio = CROP_RATIOS[cropMode];
   const r     = ratio.w / ratio.h;
   const W     = r >= 1 ? MAX : Math.round(MAX * r);
@@ -53,8 +55,9 @@ function ImageCropper({ src, cropMode, onDone, onCancel }: {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef    = useRef<HTMLImageElement | null>(null);
 
+  // Reload image and reset view whenever src or crop dimensions change
   useEffect(() => {
-    const img = new Image();
+    const img = new globalThis.Image();
     img.onload = () => {
       imgRef.current = img;
       const fit = Math.min(W / img.naturalWidth, H / img.naturalHeight);
@@ -62,7 +65,7 @@ function ImageCropper({ src, cropMode, onDone, onCancel }: {
       setOffset({ x: 0, y: 0 });
     };
     img.src = src;
-  }, [src, W, H]);
+  }, [src, cropMode]); // cropMode triggers full reset — no stale canvas
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -96,13 +99,23 @@ function ImageCropper({ src, cropMode, onDone, onCancel }: {
     if (!ctx || !img) return;
     const rx = outW / W, ry = outH / H;
     ctx.drawImage(img, offset.x * rx + (outW - img.naturalWidth * scale * rx) / 2, offset.y * ry + (outH - img.naturalHeight * scale * ry) / 2, img.naturalWidth * scale * rx, img.naturalHeight * scale * ry);
-    out.toBlob((blob) => { if (blob) onDone(blob); }, "image/jpeg", 0.92);
+    out.toBlob((blob) => { if (blob) onDone(blob, cropMode); }, "image/jpeg", 0.92);
   };
 
   return (
     <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-30">
       <div className="bg-background rounded-xl p-4 flex flex-col gap-3 shadow-xl" style={{ width: Math.max(W + 48, 320) }}>
-        <span className="text-xs font-semibold text-foreground">Crop image</span>
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold text-foreground">Crop image</span>
+          <div className="flex gap-1">
+            {(["horizontal", "square", "vertical"] as CropMode[]).map((m) => (
+              <button key={m} type="button" onClick={() => setCropMode(m)}
+                className={`text-[10px] px-2 py-1 rounded border transition-colors ${cropMode === m ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:bg-muted"}`}>
+                {m === "horizontal" ? "16:9" : m === "square" ? "1:1" : "9:16"}
+              </button>
+            ))}
+          </div>
+        </div>
         <canvas
           ref={canvasRef} width={W} height={H}
           className="rounded-lg border border-border cursor-grab active:cursor-grabbing bg-muted/30 self-center select-none"
@@ -167,8 +180,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
   const [items, setItems]           = useState<MediaItem[]>([]);
   const [loading, setLoading]       = useState(true);
   const [uploading, setUploading]   = useState(false);
-  const [cropSrc, setCropSrc]       = useState<string | null>(null);
-  const [cropMode, setCropMode]     = useState<CropMode>("horizontal");
+  const [cropSrc, setCropSrc]         = useState<string | null>(null);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [deleteId, setDeleteId]     = useState<string | null>(null);
   const [previewItem, setPreviewItem] = useState<MediaItem | null>(null);
@@ -257,13 +269,14 @@ export function MediaLibraryPanel({ onClose }: Props) {
     e.target.value = "";
   }
 
-  async function uploadFile(file: File, croppedBlob: Blob | null) {
+  async function uploadFile(file: File, croppedBlob: Blob | null, cropMode?: string) {
     setUploading(true);
     setError(null);
     try {
       const fd = new FormData();
       fd.append("file", croppedBlob ? new File([croppedBlob], file.name, { type: "image/jpeg" }) : file);
       fd.append("name", file.name);
+      if (cropMode) fd.append("crop_mode", cropMode);
       const res  = await fetch(`${MEDIA_URL}/media/upload`, { method: "POST", body: fd });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error);
@@ -303,27 +316,11 @@ export function MediaLibraryPanel({ onClose }: Props) {
 
       {/* Cropper overlay */}
       {cropSrc && pendingFile && (
-        <div style={{ position: "absolute", inset: 0, zIndex: 30 }} className="bg-background flex flex-col">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border shrink-0">
-            <span className="text-xs font-semibold text-foreground flex-1">Crop image</span>
-            <div className="flex gap-1">
-              {(["horizontal", "square", "vertical"] as CropMode[]).map((m) => (
-                <button key={m} type="button" onClick={() => setCropMode(m)}
-                  className={`text-[10px] px-2 py-1 rounded border transition-colors ${cropMode === m ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:bg-muted"}`}>
-                  {m === "horizontal" ? "16:9" : m === "square" ? "1:1" : "9:16"}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="flex-1 flex items-center justify-center overflow-hidden">
-            <ImageCropper
-              src={cropSrc}
-              cropMode={cropMode}
-              onDone={(blob) => { setCropSrc(null); uploadFile(pendingFile, blob); setPendingFile(null); }}
-              onCancel={() => { setCropSrc(null); setPendingFile(null); }}
-            />
-          </div>
-        </div>
+        <ImageCropper
+          src={cropSrc}
+          onDone={(blob, cropMode) => { setCropSrc(null); uploadFile(pendingFile, blob, cropMode); setPendingFile(null); }}
+          onCancel={() => { setCropSrc(null); setPendingFile(null); }}
+        />
       )}
 
       {/* Preview overlay */}
@@ -383,7 +380,10 @@ export function MediaLibraryPanel({ onClose }: Props) {
 
       {/* Header */}
       <div className="flex items-center px-4 py-2.5 border-b border-border shrink-0">
-        <span className="text-xs font-semibold text-foreground flex-1">Media Library</span>
+        <span className="text-xs font-semibold text-foreground flex-1">
+          Media Library
+          <span className="ml-2 text-[10px] font-normal text-muted-foreground font-mono">local S3 storage</span>
+        </span>
         <span className="text-[10px] text-muted-foreground">
           {query ? `${filteredItems.length} of ${items.length}` : `${items.length} file${items.length !== 1 ? "s" : ""}`}
         </span>
@@ -419,7 +419,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
           <p className="text-[11px] text-destructive text-center">{error}</p>
         </div>
       ) : (
-        <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-1">
+        <div className="flex-1 overflow-auto">
           {items.length === 0 && (
             <div className="flex items-center justify-center text-[11px] text-muted-foreground py-8">
               No files yet — upload your first media
@@ -430,43 +430,90 @@ export function MediaLibraryPanel({ onClose }: Props) {
               No files matching "{query}"
             </div>
           )}
-          {filteredItems.map((item) => {
-            const isImage = item.mime_type.startsWith("image/");
-            return (
-              <div key={item.id} className="flex items-center gap-2 h-8 px-1 rounded-md hover:bg-muted/50 transition-colors group">
-                {isImage
-                  ? <ImageIcon size={12} className="text-muted-foreground shrink-0" />
-                  : <Film size={12} className="text-muted-foreground shrink-0" />
-                }
-                <span className="flex-1 text-[11px] truncate font-mono" title={item.name}>
-                  {item.title || <span className="text-muted-foreground">{item.name}</span>}
-                </span>
-                <span className="text-[10px] text-muted-foreground shrink-0">.{item.extension}</span>
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button type="button" onClick={() => setPreviewItem(item)}
-                    title="Preview"
-                    className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                    <Eye size={11} />
-                  </button>
-                  <button type="button" onClick={() => openEdit(item)}
-                    title="Edit name & description"
-                    className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                    <Pencil size={11} />
-                  </button>
-                  <button type="button" onClick={() => copyUrl(item)}
-                    title="Copy URL"
-                    className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                    {copiedId === item.id ? <Check size={11} className="text-green-500" /> : <Copy size={11} />}
-                  </button>
-                  <button type="button" onClick={() => setDeleteId(item.id)}
-                    title="Delete"
-                    className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors">
-                    <Trash2 size={11} />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          {filteredItems.length > 0 && (
+            <table className="text-[11px] border-collapse" style={{ minWidth: "100%" }}>
+              <thead>
+                <tr className="border-b border-border bg-muted/50 sticky top-0 z-[5]">
+                  <th className="px-3 py-2 w-8 border-r border-border" />
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[120px]">title</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[120px]">name</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[120px]">description</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[200px]">url</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border">ext</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[100px]">type</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border">crop</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border">size</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border">dimensions</th>
+                  <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[110px]">created</th>
+                  <th className="px-3 py-2 sticky right-0 bg-muted/50 border-l border-border" />
+                </tr>
+              </thead>
+              <tbody>
+                {filteredItems.map((item) => {
+                  const isImage = item.mime_type.startsWith("image/");
+                  const sizeKb  = (item.size / 1024).toFixed(1);
+                  const dims    = item.width && item.height ? `${item.width}×${item.height}` : item.duration ? `${item.duration.toFixed(1)}s` : "—";
+                  const created = item.created_at.replace("T", " ").slice(0, 16);
+                  return (
+                    <tr key={item.id} className="border-b border-border hover:bg-muted/30 transition-colors group">
+                      {/* Preview — always visible */}
+                      <td className="px-2 py-1.5 border-r border-border text-center">
+                        <button type="button" onClick={() => setPreviewItem(item)} title="Preview"
+                          className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors mx-auto">
+                          {isImage ? <ImageIcon size={11} /> : <Film size={11} />}
+                        </button>
+                      </td>
+                      {/* title */}
+                      <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
+                        <span className="truncate font-mono block text-foreground" title={item.title}>{item.title || <span className="text-muted-foreground/40">—</span>}</span>
+                      </td>
+                      {/* name */}
+                      <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
+                        <span className="truncate font-mono block text-muted-foreground" title={item.name}>{item.name}</span>
+                      </td>
+                      {/* description */}
+                      <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
+                        <span className="truncate font-mono block text-muted-foreground" title={item.description}>{item.description || <span className="text-muted-foreground/40">—</span>}</span>
+                      </td>
+                      {/* url */}
+                      <td className="px-3 py-1.5 border-r border-border max-w-[220px]">
+                        <span className="truncate font-mono block text-muted-foreground text-[10px]" title={item.url}>{item.url}</span>
+                      </td>
+                      {/* extension */}
+                      <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground">.{item.extension}</td>
+                      {/* mime type */}
+                      <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{item.mime_type}</td>
+                      {/* crop mode */}
+                      <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{item.crop_mode || "—"}</td>
+                      {/* size */}
+                      <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{sizeKb} KB</td>
+                      {/* dimensions */}
+                      <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{dims}</td>
+                      {/* created */}
+                      <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{created}</td>
+                      {/* actions */}
+                      <td className="px-2 sticky right-0 bg-background group-hover:bg-muted/30 border-l border-border transition-colors">
+                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button type="button" onClick={() => openEdit(item)} title="Edit"
+                            className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                            <Pencil size={10} />
+                          </button>
+                          <button type="button" onClick={() => copyUrl(item)} title="Copy URL"
+                            className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                            {copiedId === item.id ? <Check size={10} className="text-green-500" /> : <Copy size={10} />}
+                          </button>
+                          <button type="button" onClick={() => setDeleteId(item.id)} title="Delete"
+                            className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors">
+                            <Trash2 size={10} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
 
