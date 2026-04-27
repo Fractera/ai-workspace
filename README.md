@@ -395,6 +395,13 @@ The platform puts no restrictions on this at all. Use whatever external services
 
 ---
 
+**v1.2.1** — 2026-04-27 13:00
+
+- Crop format selector (16:9 / 1:1 / 9:16) moved inside the cropper — works correctly on mode switch
+- CLAUDE.md updated with full database and media storage API instructions for AI agents
+
+---
+
 **v1.2.0** — 2026-04-26 23:59
 
 Database Browser — inline SQLite table viewer and editor built into the workspace.
