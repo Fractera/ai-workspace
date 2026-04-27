@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/Mac and Iphone.png" alt="Fractera AI Workspace — MacBook and iPhone" width="800"/>
+  <img src="docs/mac and iphone 2.png" alt="Fractera AI Workspace — MacBook and iPhone" width="800"/>
 </p>
 
 ---
