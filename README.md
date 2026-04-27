@@ -40,6 +40,7 @@ Keep your code private on your own server and build applications in minutes with
 - [Prerequisites](#-prerequisites)
 - [Quickstart](#-quickstart)
 - [Deploy to a VPS](#-deploy-to-a-vps)
+- [Lightweight Deploy](#-lightweight-deploy--2month-server--home-computer)
 - [Free Skills](#-free-skills-marketplace)
 - [Roadmap](#️-roadmap)
 - [FAQ](#-faq)
@@ -408,6 +409,84 @@ sudo ufw enable
 Open `https://your-domain.com` in your browser. Register your account — the first user becomes the Architect. Go to **Settings → Configure** to set your app title, theme, and connect OpenRouter if needed.
 
 **Alternative: Instant Deploy** Visit [fractera.ai](https://fractera.ai), sign in with GitHub, and use the **Deploy skill** from the marketplace to handle all of the above automatically.
+
+---
+
+## 💡 Lightweight Deploy — $2/month Server + Home Computer
+
+If you want to minimize hosting costs, this workflow lets you run a production website on a $2–3/month VPS (1 GB RAM) while doing all AI coding on your home machine.
+
+### How it works
+
+You develop on your home computer where you have the AI terminals, 16 GB RAM, and all the CLI tools. When you're ready to publish, you push to GitHub. The server picks up the changes, rebuilds, and serves the updated site to visitors — with no AI terminals running on the server at all.
+
+### What runs on the cheap server
+
+- Next.js app (`npm start`) — ~200 MB RAM
+- Media service — ~50 MB RAM
+- Nginx + SSL — ~30 MB RAM
+- **Total: ~300–400 MB** — fits comfortably in 1 GB
+
+### What does NOT run on the server
+
+- AI terminals (Claude Code, Gemini, Codex, etc.) — not needed for serving the site
+- Bridge server — can be skipped entirely
+- Any CLI tools — not installed on the server
+
+### What visitors get
+
+The full website works normally — pages, auth, database, media files, all features you built. The only thing missing is the coding workspace, which is only visible to the architect anyway.
+
+### Step 1: Set up auto-deploy on your server
+
+After completing the standard VPS setup, add a deploy script:
+
+```bash
+# On your server, create /home/ai-workspace/deploy.sh
+nano /home/ai-workspace/deploy.sh
+```
+
+Paste:
+```bash
+#!/bin/bash
+cd /home/ai-workspace
+git pull origin main
+cd app && npm install --silent && npm run build
+pm2 restart fractera-app
+pm2 restart fractera-media
+echo "Deploy complete"
+```
+
+Make it executable:
+```bash
+chmod +x /home/ai-workspace/deploy.sh
+```
+
+### Step 2: Start only the app and media service (skip the bridge)
+
+```bash
+pm2 start "npm run start --prefix app" --name fractera-app
+pm2 start "node services/media/server.js" --name fractera-media
+pm2 save
+```
+
+### Step 3: Trigger deploy from your home computer after each push
+
+```bash
+# After git push, run on your home machine:
+ssh root@YOUR_SERVER_IP "/home/ai-workspace/deploy.sh"
+```
+
+Or set up a GitHub Action to trigger the deploy script automatically on every push to `main`.
+
+### Cost comparison
+
+| Setup | RAM needed | Monthly cost (Hetzner) |
+|---|---|---|
+| Full workspace (AI terminals) | 16 GB | ~$20–40/month |
+| Site only (this workflow) | 1 GB | ~$2–4/month |
+
+The AI coding happens on your home computer for free — you only pay to serve the result.
 
 ---
 
