@@ -39,8 +39,11 @@ Keep your code private on your own server and build applications in minutes with
 - [Tech Stack](#️-tech-stack)
 - [Prerequisites](#-prerequisites)
 - [Quickstart](#-quickstart)
-- [Deploy to a VPS](#-deploy-to-a-vps)
-- [Lightweight Deploy](#-lightweight-deploy--2month-server--home-computer)
+- [Deployment Scenarios](#-deployment-scenarios--choose-your-setup)
+- [Standard Deploy](#-deploy--standard-scenario)
+- [Hybrid Deploy](#-deploy--hybrid-scenario)
+- [Recommended Deploy](#-deploy--recommended-scenario)
+- [Free Deploy](#-deploy--free-scenario)
 - [Free Skills](#-free-skills-marketplace)
 - [Roadmap](#️-roadmap)
 - [FAQ](#-faq)
@@ -64,9 +67,11 @@ Switching between different AI CLIs and web interfaces breaks your flow. Existin
 | Feature | Cloud AI Workspaces | ⚡ **Fractera AI Workspace** |
 | :--- | :--- | :--- |
 | **Privacy & Security** | Code sent to 3rd-party servers | **100% Local / Self-Hosted** |
-| **Infrastructure Cost**| $20-$50/month subscriptions | **Free ($2-5/mo VPS is enough)** |
+| **Infrastructure Cost** | $20–$50/month per service to start — at high load costs can reach $20,000+ per month | **Free ($2–5/mo VPS is enough)** |
 | **Model Lock-in** | Stuck with one ecosystem | **Agnostic (Claude, Gemini, Codex, etc.)** |
-| **Database/Storage** | Managed & Metered | **Built-in SQLite + Local FS (Free)** |
+| **Database/Storage** | Managed & Metered | **Built-in SQLite + Local FS + Media Library (Free)** |
+| **Project Memory** | Not available | **LightRAG — unified memory across all agents (v1.3)** |
+| **Business Orchestration** | Not available | **Open Claw — manage your entire business from one place (v1.4)** |
 
 ---
 
@@ -75,10 +80,12 @@ Switching between different AI CLIs and web interfaces breaks your flow. Existin
 * 🔀 **Parallel Interactive Terminals:** Run multiple AI sessions simultaneously. Switch between Claude and Gemini without losing context.
 * 🔐 **Built-in Authentication:** Ready-to-use email/password auth, guest mode, and role-based access control. First user becomes the Architect (Admin).
 * 💽 **Absolute Data Portability:** Export and import your entire database and file storage in a single click.
+* 🗄️ **Integrated Database & Media Storage:** Built-in SQLite browser and local S3-compatible media library — store images, videos, and documents without external services.
 * 🖼️ **Media Library:** Upload, crop, preview, and manage images and videos. Generate full favicon and PWA icon sets from a single image.
-* 🗄️ **Database Browser:** View and edit your SQLite data directly from the workspace UI — no external tools needed.
 * 🔄 **Seamless Auto-Updates:** Pull the latest open-source version from upstream without touching the server via SSH.
-* 🧩 **Skills Marketplace:** Extend your workspace with community-built AI extensions at [fractera.ai](https://fractera.ai).
+* 🧠 **LightRAG — Unified Project Memory (v1.3):** Shared context and memory across all AI agents and sessions.
+* 🤖 **Open Claw — Business Orchestration (v1.4):** A single control point for your entire business — manage projects, agents, and workflows from one place.
+* 🧩 **Skills Marketplace (v1.5):** Extend your workspace with community-built AI skills at [fractera.ai](https://fractera.ai).
 
 ---
 
@@ -93,6 +100,23 @@ Built for speed, simplicity, and zero maintenance:
 * **Object Storage:** Local filesystem (`storage/`) — no S3, no cloud storage subscriptions
 * **Media Service:** Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
 * **Architecture:** Parallel Slot Architecture with built-in error isolation
+
+---
+
+## 📊 Deployment Scenarios — Choose Your Setup
+
+| | 🏆 Standard | 💰 Hybrid | ⚡ Recommended | 🆓 Free |
+|---|:---:|:---:|:---:|:---:|
+| **Server** | VPS 4–16 GB | VPS 1–4 GB | VPS flexible | None (Vercel) |
+| **Monthly cost** | $10–40 | $2–4 | $2–40 (pay as you go) | $0 |
+| **Dev + production on phone** | ✅ | ✅ home only | ✅ | ✅ home only |
+| **Cloud DB / S3 required** | ❌ | ❌ | ❌ | ✅ required |
+| **Authentication** | ✅ | ✅ | ✅ | ✅ |
+| **Local AI coding** | ✅ | ✅ | ✅ | ✅ |
+| **LightRAG global memory** | ✅ v1.3 | ❌ | ✅ v1.3 | ❌ |
+| **Open Claw orchestration** | ✅ v1.4 | ❌ | ✅ v1.4 | ❌ |
+
+Details for each scenario are in the deployment sections below.
 
 ---
 
@@ -249,12 +273,16 @@ kimi login        # Kimi Code — uses your Moonshot account
 
 ---
 
-## 🌍 Deploy to a VPS
+## 🌍 Deploy — Standard Scenario
 
-This guide walks you through deploying Fractera on a $2–5/month Ubuntu 22+ server from scratch. Follow every step in order.
+**Server requirements: 4–16 GB RAM · $10–40/month**
+
+Full workspace — AI terminals run directly on the server. Code, test, and serve production from the same machine, including from your phone browser.
+
+This guide walks you through deploying Fractera on Ubuntu 22+. Follow every step in order.
 
 ### Prerequisites
-- A VPS running Ubuntu 22.04+ (any provider: Hetzner, DigitalOcean, Vultr, etc.)
+- A VPS running Ubuntu 22.04+ with 4–16 GB RAM (Hetzner, DigitalOcean, Vultr, etc.)
 - A domain name pointed to your server's IP (or use the IP directly for testing)
 - SSH access to your server
 
@@ -412,9 +440,11 @@ Open `https://your-domain.com` in your browser. Register your account — the fi
 
 ---
 
-## 💡 Lightweight Deploy — $2/month Server + Home Computer
+## 💡 Deploy — Hybrid Scenario
 
-If you want to minimize hosting costs, this workflow lets you run a production website on a $2–3/month VPS (1 GB RAM) while doing all AI coding on your home machine.
+**Server requirements: 1–4 GB RAM · $2–4/month — Economical option**
+
+Do all AI coding on your home computer. The server only serves the finished site to visitors. Many providers now offer 4 GB RAM for $2–3/month — more than enough for this scenario.
 
 ### How it works
 
@@ -490,6 +520,47 @@ The AI coding happens on your home computer for free — you only pay to serve t
 
 ---
 
+## ⚡ Deploy — Recommended Scenario
+
+**Server: flexible VPS with pay-as-you-go pricing — Best value**
+
+Find a provider that lets you change your server plan instantly and bills by actual resource usage (Hetzner, Scaleway, DigitalOcean, Vultr all support this). The idea: scale up when coding, scale down when idle.
+
+**Workflow:**
+1. When you want to code — upgrade the server to 8–16 GB RAM in one click from the provider dashboard
+2. Open the workspace in your browser, run AI terminals, build features
+3. When done — downgrade back to the minimum plan (1–2 GB) to just serve the site
+4. You pay full price only for the hours you actually use the power
+
+**Typical monthly cost:** $3–8 if you code a few hours per day. Peak sessions cost a few cents per hour.
+
+The only downside is that you need to visit your provider's dashboard to change the plan. This takes about 30 seconds.
+
+---
+
+## 🆓 Deploy — Free Scenario
+
+**No server needed · $0/month — For testing and early-stage projects**
+
+Deploy only the `app/` folder to Vercel. This is the only scenario that requires external cloud services (database and file storage), because Vercel's serverless architecture does not support persistent local files.
+
+**This scenario requires:**
+- A cloud database (PlanetScale, Supabase, Turso, or any PostgreSQL/MySQL provider)
+- An S3-compatible object storage (Cloudflare R2, AWS S3, Backblaze B2)
+- The **Vercel Migration skill** from [fractera.ai](https://fractera.ai) — it automatically switches the app configuration from local SQLite and filesystem to your cloud services
+
+**To deploy:**
+1. Install the Vercel Migration skill from the marketplace
+2. The skill reconfigures the app to use your cloud database and S3
+3. Deploy the `app/` folder to Vercel as a standard Next.js project
+4. Your site is live for free within Vercel's free tier limits
+
+**To move back to a self-hosted server** at any time — use the **Return from Vercel skill**. It migrates your cloud data back to local SQLite and filesystem storage on your VPS.
+
+> Vercel is a great starting point for early-stage projects. When your project grows and you need AI terminals, LightRAG memory, or Open Claw orchestration, switch to any of the self-hosted scenarios above. [See deployment comparison ↑](#-deployment-scenarios--choose-your-setup)
+
+---
+
 ## 🎁 Free Skills Marketplace
 
 Earn up to 8 free skills from the Fractera marketplace to supercharge your workspace. Send proof to `admin@fractera.ai`:
@@ -506,8 +577,9 @@ Earn up to 8 free skills from the Fractera marketplace to supercharge your works
 ## 🗺️ Roadmap
 
 - [x] **v1.2** — Media Library, Database Browser, PWA icons, full agent documentation. *(Current)*
-- [ ] **v1.3** — LightRAG Integration: shared context and memory across all AI agents.
-- [ ] **v1.4** — Open Claw: multi-agent orchestration.
+- [ ] **v1.3** — LightRAG: unified memory across all agents and sessions.
+- [ ] **v1.4** — Open Claw: single control point for your entire business — projects, agents, workflows.
+- [ ] **v1.5** — Skills Marketplace: community-built AI skills at fractera.ai.
 
 *All updates are free for self-hosted users. Need enterprise features like multilingual routing? Check out [Fractera Pro](https://github.com/Fractera/fractera).*
 
@@ -536,7 +608,7 @@ Yes. Your phone only displays the terminal output — all the heavy computation 
 
 **Can I host Fractera on Vercel or similar platforms?**
 
-No. Fractera requires a real dedicated server because it runs multiple long-lived background processes simultaneously — the Next.js app, the bridge server, and the media service. Serverless platforms like Vercel are designed for short-lived functions and cannot support this. A dedicated VPS also gives you full cost control — you will never be surprised by a large bill from unexpected compute usage.
+Yes, but with limitations. Vercel works for early-stage projects and is the only free hosting option — however it requires external cloud database and S3 storage, and does not support AI terminals, LightRAG, or Open Claw. It is recommended as a starting point when you are still validating your idea. When you are ready to scale, migrating to a self-hosted server takes one click with the migration skill. [See full comparison ↑](#-deployment-scenarios--choose-your-setup)
 
 **Can I connect a cloud database, S3, or other cloud services?**
 
