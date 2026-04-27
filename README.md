@@ -34,13 +34,13 @@ Keep your code private on your own server and build applications in minutes with
 ---
 
 ## 📑 Table of Contents
-- [Why Fractera?](#-why-fractera)
+- [Why Fractera?](#-why-fractera-the-privacy-first-advantage)
 - [Core Features](#-core-features)
-- [Tech Stack](#%EF%B8%8F-tech-stack)
-- [Quickstart (Local Dev)](#-quickstart)
-- [Production Deployment](#-deploy-to-a-vps)
-- [Earn Free Skills](#-free-skills-marketplace)
-- [Roadmap](#-roadmap)
+- [Tech Stack](#️-tech-stack)
+- [Quickstart](#-quickstart)
+- [Deploy to a VPS](#-deploy-to-a-vps)
+- [Free Skills](#-free-skills-marketplace)
+- [Roadmap](#️-roadmap)
 - [FAQ](#-faq)
 - [Changelog](#-changelog)
 
