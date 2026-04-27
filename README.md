@@ -41,6 +41,7 @@ Fractera includes an integrated database and S3-compatible media storage for ima
 - [Tech Stack](#️-tech-stack)
 - [Prerequisites](#-prerequisites)
 - [Quickstart](#-quickstart)
+- [App Walkthrough](#-app-walkthrough)
 - [Deployment Scenarios](#-deployment-scenarios--choose-your-setup)
 - [Standard Deploy](#-deploy--standard-scenario)
 - [Hybrid Deploy](#-deploy--hybrid-scenario)
@@ -88,6 +89,18 @@ Switching between different AI CLIs and web interfaces breaks your flow. Existin
 * 🧠 **LightRAG — Unified Project Memory (v1.3):** Shared context and memory across all AI agents and sessions.
 * 🤖 **Open Claw — Business Orchestration (v1.4):** A single control point for your entire business — manage projects, agents, and workflows from one place.
 * 🧩 **Skills Marketplace (v1.5):** Extend your workspace with community-built AI skills at [fractera.ai](https://fractera.ai).
+
+---
+
+## 🎬 App Walkthrough
+
+**Platform Activation — launching Claude Code, Gemini, Codex, Qwen & Kimi in one terminal:**
+
+<p align="center">
+  <a href="https://youtu.be/qH1BkwAXtEk" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.youtube.com/vi/qH1BkwAXtEk/maxresdefault.jpg" alt="Fractera AI Workspace — Platform Activation" width="800"/>
+  </a>
+</p>
 
 ---
 
