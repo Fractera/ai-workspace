@@ -229,11 +229,5 @@ Initial public release of Fractera AI Workspace — a self-hosted, open-source p
 ---
 
 <p align="center">
-  <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
-</p>
-
----
-
-<p align="center">
   <i>Built with ❤️ for developers who value freedom.</i>
 </p>
