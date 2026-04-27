@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
+  <img src="docs/Mac and Iphone.png" alt="Fractera AI Workspace — MacBook and iPhone" width="800"/>
 </p>
 
 ---
@@ -109,6 +109,12 @@ Earn up to 8 free skills from the Fractera marketplace to supercharge your works
 - 🐦 Post on X (Twitter) with a link `(+1 skill)`
 - ✍️ Write an article on Medium `(+2 skills)`
 - 💻 Write on dev.to or any dev blog `(+2 skills)`
+
+---
+
+<p align="center">
+  <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
+</p>
 
 ---
 
