@@ -41,6 +41,7 @@ Keep your code private on your own server and build applications in minutes with
 - [Production Deployment](#-deploy-to-a-vps)
 - [Earn Free Skills](#-free-skills-marketplace)
 - [Roadmap](#-roadmap)
+- [FAQ](#-faq)
 - [Changelog](#-changelog)
 
 ---
@@ -371,6 +372,22 @@ Whether you need complex custom integrations, multilingual routing, parallel slo
 - 💻 **CTO:** Roma Bolshiyanov (Armstrong)
 
 *Drop us an email to discuss your project requirements and get a quote!*
+
+---
+
+## ❓ FAQ
+
+**Can Fractera run on a weak mobile phone?**
+
+Yes. Your phone only displays the terminal output — all the heavy computation happens on your server. The phone itself does almost nothing, so even an older or low-end device works fine as a client.
+
+**Can I host Fractera on Vercel or similar platforms?**
+
+No. Fractera requires a real dedicated server because it runs multiple long-lived background processes simultaneously — the Next.js app, the bridge server, and the media service. Serverless platforms like Vercel are designed for short-lived functions and cannot support this. A dedicated VPS also gives you full cost control — you will never be surprised by a large bill from unexpected compute usage.
+
+**Can I connect a cloud database, S3, or other cloud services?**
+
+The platform puts no restrictions on this at all. Use whatever external services you normally use — connect them the same way you always do, through environment variables. You can add any variable directly in production via **Settings → Configure** inside the app, without touching the server. The built-in SQLite database and local file storage exist to protect you from unexpected costs by default — but the choice is entirely yours.
 
 ---
 
