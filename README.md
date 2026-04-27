@@ -37,6 +37,7 @@ Keep your code private on your own server and build applications in minutes with
 - [Why Fractera?](#-why-fractera-the-privacy-first-advantage)
 - [Core Features](#-core-features)
 - [Tech Stack](#️-tech-stack)
+- [Prerequisites](#-prerequisites)
 - [Quickstart](#-quickstart)
 - [Deploy to a VPS](#-deploy-to-a-vps)
 - [Free Skills](#-free-skills-marketplace)
@@ -91,6 +92,79 @@ Built for speed, simplicity, and zero maintenance:
 * **Object Storage:** Local filesystem (`storage/`) — no S3, no cloud storage subscriptions
 * **Media Service:** Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
 * **Architecture:** Parallel Slot Architecture with built-in error isolation
+
+---
+
+## ✅ Prerequisites
+
+Before you start, install the following on your machine.
+
+### System requirements
+
+- **OS:** macOS 15+, Windows 11 24H2+, or Ubuntu 20.04+
+- **RAM:** 4 GB minimum · 16 GB recommended for large codebases and long sessions
+- **Shell:** Bash, Zsh, or PowerShell
+
+### Node.js 20+
+
+Required to run the app, bridge server, and media service.
+
+Download from [nodejs.org](https://nodejs.org) or use your package manager. Verify:
+
+```bash
+node --version  # must be v20.0.0 or higher
+```
+
+### AI platform CLIs
+
+Install the platforms you want to use. Each one uses your existing paid subscription — no API key needed except for OpenRouter.
+
+**Claude Code** (Anthropic)
+```bash
+# macOS / Linux
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Windows (PowerShell)
+irm https://claude.ai/install.ps1 | iex
+```
+
+**Codex** (OpenAI)
+```bash
+npm i -g @openai/codex
+# or
+brew install codex
+```
+
+**Gemini CLI** (Google)
+```bash
+npm install -g @google/gemini-cli
+# or
+brew install gemini-cli
+```
+
+**Qwen Code** (Alibaba)
+```bash
+# macOS / Linux
+bash -c "$(curl -fsSL https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.sh)" -s --source qwenchat
+
+# Windows
+curl -fsSL -o %TEMP%\install-qwen.bat https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.bat && %TEMP%\install-qwen.bat --source qwenchat
+```
+
+**Kimi Code** (Moonshot)
+```bash
+# macOS / Linux
+curl -LsSf https://code.kimi.com/install.sh | bash
+
+# Windows (PowerShell)
+Invoke-RestMethod https://code.kimi.com/install.ps1 | Invoke-Expression
+```
+
+**Open Code** (OpenRouter — 300+ models)
+```bash
+curl -fsSL https://opencode.ai/install | bash
+```
+> Open Code requires an API key from [openrouter.ai](https://openrouter.ai). Many models are free. Set the key via **Settings → Configure** inside the app.
 
 ---
 
