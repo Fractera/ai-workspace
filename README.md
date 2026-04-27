@@ -40,15 +40,6 @@
 ---
 
 <p align="center">
-  <strong>👆 Click the image to fork the repository</strong><br/><br/>
-  <a href="https://github.com/Fractera/ai-workspace/fork">
-    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
-  </a>
-</p>
-
----
-
-<p align="center">
   <strong>👆 Click the image to star the repository</strong><br/><br/>
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
     <img src="docs/fractera-star.jpeg" alt="Star Fractera on GitHub" width="600"/>
@@ -163,6 +154,15 @@ Yes. Your phone only displays the terminal output — all the heavy computation 
 **Can I connect a cloud database, S3, or other cloud services?**
 
 The platform puts no restrictions on this at all. Use whatever external services you normally use — connect them the same way you always do, through environment variables. You can add any variable directly in production via **Settings → Configure** inside the app, without touching the server. The built-in SQLite database and local file storage exist to protect you from unexpected costs by default — but the choice is entirely yours.
+
+---
+
+<p align="center">
+  <strong>👆 Click the image to fork the repository</strong><br/><br/>
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
+  </a>
+</p>
 
 ---
 
