@@ -5,6 +5,34 @@
 2. Read `../../NEXT_STEP.md` — current tasks
 3. Work only in `@appSlot/`
 
+## For the Architect — Database & Storage Capabilities
+
+AI models running inside this workspace are fully trained to work with the database and local media storage. You do not need to write SQL manually or manage files directly — just describe what you need.
+
+**What the model can do with the database:**
+- Read any table, search records, filter and paginate results
+- Create new tables with any schema you describe
+- Insert, update, and delete individual records
+- Alter existing tables (add columns, create indexes)
+- Execute any SQL statement
+
+**What the model can do with media storage (local S3):**
+- Upload images and videos
+- Crop images to horizontal (16:9), square (1:1), or vertical (9:16) formats
+- List, search, preview, rename, and delete stored files
+- Generate a full favicon and PWA icon set from a single source image
+- Return a direct URL to any stored file for use in pages and components
+
+**How to use:** Simply tell the model what you want in plain language. Examples:
+- *"Create a table for blog posts with title, body, author and published date"*
+- *"Add a status column to the products table"*
+- *"Find all users registered after January 2026"*
+- *"Upload this image and use it as the hero on the homepage"*
+
+The model uses the HTTP API at `http://localhost:3000/api/db/` and `http://localhost:3300/` — it never touches database files or storage folders directly.
+
+**To strengthen security:** Update the system prompt in your AI platform settings to restrict which tables or operations the model is allowed to perform. The API itself has no restrictions by default — access control is managed at the instruction level.
+
 ## Stack
 Next.js 16.2 · React 19 · SQLite · NextAuth v5 · Tailwind v4 · shadcn/ui
 No ISR · No i18n · No [lang] segment · English only
