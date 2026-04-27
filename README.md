@@ -17,9 +17,11 @@
   <strong>OpenRouter:</strong> 300+ models
 </p>
 
-> **One workspace. Every AI coding platform. Zero cloud dependency.** > Fractera AI Workspace is an open-source, self-hosted interface that brings Claude Code, Codex, Gemini CLI, Qwen, Kimi, and 300+ OpenRouter models into a single, powerful unified terminal. 
+> **One workspace. Every AI coding platform. Zero cloud dependency.** Fractera AI Workspace is an open-source, self-hosted interface that brings Claude Code, Codex, Gemini CLI, Qwen, Kimi, and 300+ OpenRouter models into a single, powerful unified terminal.
 
-Bring your own keys (BYOK), keep your code on your own server, and build applications in minutes without paying for expensive managed services.
+Each AI platform runs on its own paid subscription — no extra API keys needed. Claude Code uses your Anthropic subscription, Gemini CLI uses your Google account, Codex uses your OpenAI subscription, and so on. The only exception is Open Code, which connects to OpenRouter and lets you access 300+ free and paid models with a single key.
+
+Keep your code private on your own server and build applications in minutes without paying for managed cloud services.
 
 <p align="center">
   <img src="docs/fractera-coding.png" alt="Fractera AI Workspace Demo" width="800"/>
@@ -34,12 +36,12 @@ Bring your own keys (BYOK), keep your code on your own server, and build applica
 ## 📑 Table of Contents
 - [Why Fractera?](#-why-fractera)
 - [Core Features](#-core-features)
-- [Supported Platforms](#-supported-ai-platforms)
 - [Tech Stack](#%EF%B8%8F-tech-stack)
 - [Quickstart (Local Dev)](#-quickstart)
 - [Production Deployment](#-deploy-to-a-vps)
 - [Earn Free Skills](#-free-skills-marketplace)
 - [Roadmap](#-roadmap)
+- [Changelog](#-changelog)
 
 ---
 
@@ -68,18 +70,26 @@ Switching between different AI CLIs and web interfaces breaks your flow. Existin
 ## 🚀 Core Features
 
 * 🔀 **Parallel Interactive Terminals:** Run multiple AI sessions simultaneously. Switch between Claude and Gemini without losing context.
-* 🔐 **Built-in Authentication:** Ready-to-use email/password auth, guest mode, and role-based access control (RBAC). First user becomes the Architect (Admin).
+* 🔐 **Built-in Authentication:** Ready-to-use email/password auth, guest mode, and role-based access control. First user becomes the Architect (Admin).
 * 💽 **Absolute Data Portability:** Export and import your entire database and file storage in a single click.
+* 🖼️ **Media Library:** Upload, crop, preview, and manage images and videos. Generate full favicon and PWA icon sets from a single image.
+* 🗄️ **Database Browser:** View and edit your SQLite data directly from the workspace UI — no external tools needed.
 * 🔄 **Seamless Auto-Updates:** Pull the latest open-source version from upstream without touching the server via SSH.
 * 🧩 **Skills Marketplace:** Extend your workspace with community-built AI extensions at [fractera.ai](https://fractera.ai).
 
 ---
 
 ## 🛠️ Tech Stack
+
 Built for speed, simplicity, and zero maintenance:
-* **Frontend/Backend:** Next.js, Node.js
-* **Database:** SQLite (No external DB required)
-* **Architecture:** Parallel Slot Architecture with built-in error isolation.
+
+* **Frontend:** Next.js 16.2, React 19, Tailwind v4, shadcn/ui
+* **Backend:** Next.js API routes, Node.js bridge server (WebSocket), Express media service
+* **Database:** SQLite via better-sqlite3 — no external database required
+* **Authentication:** NextAuth v5 — email/password, guest mode, role-based access (architect / user / guest)
+* **Object Storage:** Local filesystem (`storage/`) — no S3, no cloud storage subscriptions
+* **Media Service:** Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
+* **Architecture:** Parallel Slot Architecture with built-in error isolation
 
 ---
 
@@ -104,73 +114,225 @@ cd ai-workspace
 ```
 
 ### Step 2: Install Dependencies
+
+The project has three services — install dependencies for all of them:
+
 ```bash
-# Install app dependencies
+# App (Next.js)
 cd app && npm install
 
-# Install bridge dependencies
+# Bridge server (WebSocket connections to AI platforms)
 cd ../bridges/platforms && npm install
+
+# Media service (image/video storage, favicon generation)
+cd ../services/media && npm install
+
+cd ..
 ```
 
 ### Step 3: Configure Environment
+
 ```bash
-cd ../app
+cd app
 cp .env.example .env.local
 ```
-*Note: The default `.env.local` includes a working `AUTH_SECRET` so the app starts immediately. You can configure API keys, themes, and titles later inside the UI.*
 
-### Step 4: Run the Application
-You will need two terminal windows.
+The default `.env.local` includes a working `AUTH_SECRET` so the app starts immediately — **no manual editing required**.
 
-**Terminal 1 (Bridge Server):**
+All further configuration (title, theme, language, OpenRouter key) is done **inside the running app** through the Settings panel. Register your first account, click **Start Coding**, then open **Settings → Configure**.
+
+### Step 4: Start the Application
+
+One command from the repo root starts all three services simultaneously:
+
 ```bash
-# From the repo root:
-node bridges/platforms/server.js
-```
-
-**Terminal 2 (App Server):**
-```bash
-# From the /app directory:
+# From ai-workspace/ (repo root):
 npm run dev
 ```
-Open `http://localhost:3000`. Register your account (the first user becomes the Admin/Architect).
 
-### Step 5: Authenticate Your AI 
-Run each platform's auth command once in your local terminal. Credentials remain securely on your machine:
+This starts:
+- `http://localhost:3000` — the main workspace
+- `ws://localhost:3200–3206` — bridge server for all AI platforms
+- `http://localhost:3300` — media service
+
+Open [http://localhost:3000](http://localhost:3000). The first registered account automatically becomes the **Architect** (admin) and gets access to the full coding workspace.
+
+### Step 5: Connect Your AI Platforms
+
+Each platform works through your **existing paid subscription** — no separate API key is needed. Run the authentication command once in your terminal and your credentials are stored securely on your machine:
+
 ```bash
-claude auth         # Claude Code
-codex auth          # Codex
-gemini auth         # Gemini CLI
-qwen auth           # Qwen Code
-kimi auth           # Kimi Code
-openCode API login  # OpenCode
+claude auth       # Claude Code — uses your Anthropic subscription
+gemini auth       # Gemini CLI — uses your Google account
+codex login       # Codex — uses your OpenAI subscription
+qwen auth         # Qwen Code — uses your Alibaba Cloud account
+kimi login        # Kimi Code — uses your Moonshot account
 ```
-*(For OpenCode with OpenRouter, set the API key via Settings → Configure in the UI).*
+
+**Open Code (OpenRouter)** is the exception — it requires an API key because it routes requests to 300+ different models. Get a free key at [openrouter.ai](https://openrouter.ai) and set it via **Settings → Configure** in the UI. Many models on OpenRouter are completely free.
 
 ---
 
 ## 🌍 Deploy to a VPS
 
-Run Fractera on any cheap $2–5/month server (Ubuntu 22+ recommended).
+This guide walks you through deploying Fractera on a $2–5/month Ubuntu 22+ server from scratch. Follow every step in order.
+
+### Prerequisites
+- A VPS running Ubuntu 22.04+ (any provider: Hetzner, DigitalOcean, Vultr, etc.)
+- A domain name pointed to your server's IP (or use the IP directly for testing)
+- SSH access to your server
+
+### Step 1: Connect to your server
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/ai-workspace.git](https://github.com/YOUR_USERNAME/ai-workspace.git)
-cd ai-workspace
+ssh root@YOUR_SERVER_IP
+```
 
-# Install & Build
+### Step 2: Install Node.js 20+
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+node --version  # should print v20.x.x
+```
+
+### Step 3: Install PM2 (process manager)
+
+PM2 keeps your services running after you close the terminal and restarts them automatically if they crash.
+
+```bash
+npm install -g pm2
+```
+
+### Step 4: Clone your fork
+
+```bash
+cd /home
+git clone https://github.com/YOUR_USERNAME/ai-workspace.git
+cd ai-workspace
+```
+
+### Step 5: Install dependencies
+
+```bash
 cd app && npm install
 cd ../bridges/platforms && npm install
-cd ../app
-cp .env.example .env.local
-npm run build
-
-# Start services (Use PM2 or systemd in production)
-npm start &
-node ../bridges/platforms/server.js &
+cd ../services/media && npm install
+cd ../..
 ```
-> ⚠️ **Production Security Note:** Replace `AUTH_SECRET` in your `.env.local` with a strong secret (generate at `generate-secret.vercel.app/32`). Point your domain to port 3000 and use Nginx/Caddy as a reverse proxy for HTTPS.
 
-**Alternative: Instant Deploy** Visit [fractera.ai](https://fractera.ai), sign in with GitHub, and use the **Deploy skill** from the marketplace to handle VPS setup, environment, and HTTPS automatically.
+### Step 6: Configure environment
+
+```bash
+cd app
+cp .env.example .env.local
+nano .env.local
+```
+
+Required changes:
+- Replace `AUTH_SECRET` with a strong random secret — generate one at [generate-secret.vercel.app/32](https://generate-secret.vercel.app/32)
+- Set `NEXT_PUBLIC_GITHUB_URL` to your fork URL
+
+> ⚠️ Never use the default `AUTH_SECRET` in production. Changing it later will log out all existing users.
+
+### Step 7: Build the app
+
+```bash
+cd app
+npm run build
+```
+
+### Step 8: Start all services with PM2
+
+```bash
+cd /home/ai-workspace
+
+# Start the Next.js app
+pm2 start "npm run start --prefix app" --name fractera-app
+
+# Start the bridge server
+pm2 start "node bridges/platforms/server.js" --name fractera-bridge
+
+# Start the media service
+pm2 start "node services/media/server.js" --name fractera-media
+
+# Save PM2 config so it restarts on server reboot
+pm2 save
+pm2 startup  # run the command it outputs
+```
+
+Check everything is running:
+```bash
+pm2 status
+```
+
+### Step 9: Install Nginx
+
+```bash
+sudo apt-get install -y nginx
+```
+
+### Step 10: Configure Nginx as reverse proxy
+
+```bash
+sudo nano /etc/nginx/sites-available/fractera
+```
+
+Paste this configuration (replace `your-domain.com`):
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    # Main app
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Media service
+    location /media-api/ {
+        proxy_pass http://localhost:3300/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+    }
+}
+```
+
+Enable the config:
+```bash
+sudo ln -s /etc/nginx/sites-available/fractera /etc/nginx/sites-enabled/
+sudo nginx -t  # test config
+sudo systemctl reload nginx
+```
+
+### Step 11: Enable HTTPS with Let's Encrypt
+
+```bash
+sudo apt-get install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d your-domain.com
+```
+
+Certbot will automatically configure Nginx for HTTPS and set up auto-renewal.
+
+### Step 12: Open firewall ports
+
+```bash
+sudo ufw allow OpenSSH
+sudo ufw allow 'Nginx Full'
+sudo ufw enable
+```
+
+### Step 13: Verify
+
+Open `https://your-domain.com` in your browser. Register your account — the first user becomes the Architect. Go to **Settings → Configure** to set your app title, theme, and connect OpenRouter if needed.
+
+**Alternative: Instant Deploy** Visit [fractera.ai](https://fractera.ai), sign in with GitHub, and use the **Deploy skill** from the marketplace to handle all of the above automatically.
 
 ---
 
@@ -189,9 +351,9 @@ Earn up to 8 free skills from the Fractera marketplace to supercharge your works
 
 ## 🗺️ Roadmap
 
-- [x] **v1.0** — Multi-platform terminals, built-in auth, data export. *(Current)*
-- [ ] **v1.1** — **LightRAG Integration:** Shared context/memory across all AI agents.
-- [ ] **v1.2** — **Open Claw:** Multi-agent orchestration.
+- [x] **v1.2** — Media Library, Database Browser, PWA icons, full agent documentation. *(Current)*
+- [ ] **v1.3** — LightRAG Integration: shared context and memory across all AI agents.
+- [ ] **v1.4** — Open Claw: multi-agent orchestration.
 
 *All updates are free for self-hosted users. Need enterprise features like multilingual routing? Check out [Fractera Pro](https://github.com/Fractera/fractera).*
 
@@ -212,14 +374,11 @@ Whether you need complex custom integrations, multilingual routing, parallel slo
 
 ---
 
-
----
-
 ## 📋 Changelog
 
 ---
 
-**v1.0.2** — 2026-04-26 23:59
+**v1.2.0** — 2026-04-26 23:59
 
 Database Browser — inline SQLite table viewer and editor built into the workspace.
 
@@ -234,34 +393,13 @@ Database Browser — inline SQLite table viewer and editor built into the worksp
   - `locale` — single select (en / ru / es / fr / de / zh)
   - All other columns — free textarea
 - Delete row with confirmation overlay (one row at a time)
-- All edits and deletes show Sonner toast feedback
+- All edits and deletes show toast feedback
 - API routes secured: table names validated against sqlite_master, column names validated against PRAGMA table_info — no SQL injection possible
 - Media database (services/media/data/media.db) is intentionally separate and not shown here
 
 ---
 
-**v1.0.1** — 2026-04-26 23:00
-
-Initial public release of Fractera AI Workspace — a self-hosted, open-source platform for running multiple AI coding agents in a single unified workspace.
-
-- Multi-platform terminal workspace: Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code, Open Code (OpenRouter)
-- Parallel interactive terminal sessions — switch between agents without losing context
-- Single bridge server process manages all platform WebSocket connections on ports 3200–3206
-- Built-in authentication: email/password registration, guest mode, architect role (first registered user)
-- Role-based access control — architect gets coding workspace, users get standard access
-- Data export/import — full backup and restore of SQLite database and storage files as a single zip
-- Safe import merge — incoming data is merged with existing records, nothing is overwritten
-- Auto-update from upstream GitHub repository via UI button, no SSH required
-- Settings panel with environment variable editor — configure API keys, title, theme without touching files
-- Info panel with live README rendering from GitHub or local file
-- Proxy-based route protection (Next.js 16 native, no middleware.ts)
-- Dark/light/system theme switcher with persistent preference
-- Full shadcn/ui component library integrated
-- Sonner toast notifications wired globally via root layout
-
----
-
-**v1.0.1** — 2026-04-26 23:00
+**v1.1.0** — 2026-04-26 23:00
 
 Media Library — standalone media service and full asset management system.
 
@@ -282,8 +420,27 @@ Media Library — standalone media service and full asset management system.
 
 ---
 
+**v1.0.0** — 2026-04-26 20:00
+
+Initial public release of Fractera AI Workspace — a self-hosted, open-source platform for running multiple AI coding agents in a single unified workspace.
+
+- Multi-platform terminal workspace: Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code, Open Code (OpenRouter)
+- Parallel interactive terminal sessions — switch between agents without losing context
+- Single bridge server process manages all platform WebSocket connections on ports 3200–3206
+- Built-in authentication: email/password registration, guest mode, architect role (first registered user)
+- Role-based access control — architect gets coding workspace, users get standard access
+- Data export/import — full backup and restore of SQLite database and storage files as a single zip
+- Safe import merge — incoming data is merged with existing records, nothing is overwritten
+- Auto-update from upstream GitHub repository via UI button, no SSH required
+- Settings panel with environment variable editor — configure API keys, title, theme without touching files
+- Info panel with live README rendering from GitHub or local file
+- Proxy-based route protection (Next.js 16 native, no middleware.ts)
+- Dark/light/system theme switcher with persistent preference
+- Full shadcn/ui component library integrated
+- Toast notifications wired globally via root layout
+
+---
+
 <p align="center">
   <i>Built with ❤️ for developers who value freedom.</i>
 </p>
-
-
