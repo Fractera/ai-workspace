@@ -1,6 +1,14 @@
 
 <p align="center">
-  <img src="docs/Logo Fractera.jpg" alt="Fractera" width="150" style="border-radius: 50%; border: 8px solid white;"/>
+  <svg width="166" height="166" viewBox="0 0 166 166" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <clipPath id="circle">
+        <circle cx="83" cy="83" r="75"/>
+      </clipPath>
+    </defs>
+    <circle cx="83" cy="83" r="83" fill="white"/>
+    <image href="docs/Logo Fractera.jpg" x="8" y="8" width="150" height="150" clip-path="url(#circle)" preserveAspectRatio="xMidYMid slice"/>
+  </svg>
 </p>
 
 <h1 align="center">Fractera AI Workspace: Run Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code and Open Code in your browser — including on your phone. Built-in database and S3 storage.</h1>
