@@ -29,6 +29,22 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Connect with Us
 - Acknowledgments
 
+### quick-start.md
+- Before you begin
+- Step 1: Install Qwen Code
+  - Quick Install (Recommended)
+  - Manual Installation
+- Step 2: Log in to your account
+- Step 3: Start your first session
+- Chat with Qwen Code
+  - Ask your first question
+  - Make your first code change
+  - Use Git with Qwen Code
+  - Fix a bug or add a feature
+- Test out other common workflows
+- Essential commands
+- Pro tips for beginners
+
 ### agents-md.md
 - Common Commands
   - Building

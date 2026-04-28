@@ -31,4 +31,4 @@ See [qwen-code/AGENTS.md](qwen-code/AGENTS.md) for the full file index with all 
 
 ### Files
 
-`overview.md` · `agents-md.md`
+`overview.md` · `quick-start.md` · `agents-md.md`
