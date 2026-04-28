@@ -4,6 +4,72 @@ Source: https://moonshotai.github.io/kimi-cli + AGENTS.md from https://github.co
 
 ---
 
+## What is Kimi Code
+
+Kimi Code is an intelligent programming service for developers included in Kimi membership. Built on Kimi's latest flagship models — provides AI-assisted capabilities (code reading, file editing, command execution) via CLI and VS Code extension. Subscribers can also obtain an API Key to integrate into third-party tools.
+
+### Core Advantages
+
+- **Continuous model upgrades** — always uses latest Kimi flagship model; model ID `kimi-for-coding` stays stable, backend updates automatically
+- **Broad compatibility** — works with Kimi Code CLI, VS Code, Claude Code, Roo Code, OpenCode, OpenClaw, and more
+- **Ultra-fast response** — up to 100 tokens/s output speed
+- **High-frequency concurrency** — ~300–1,200 requests per 5-hour window, up to 30 concurrent requests
+
+---
+
+## API Access
+
+### OAuth (Official Clients)
+
+```bash
+kimi /login    # CLI — auto OAuth, no API key needed
+```
+
+VS Code extension: login button in sidebar.
+
+### API Key (Third-Party Tools)
+
+Generate in **Kimi Code Console** (up to 5 keys; shown only once — save immediately).
+
+#### Service Endpoints
+
+| Protocol | Base URL |
+|---|---|
+| OpenAI Compatible | `https://api.kimi.com/coding/v1` |
+| Anthropic Compatible | `https://api.kimi.com/coding/` |
+
+Model ID: always use `kimi-for-coding` (stable ID — backend auto-updates to latest model).
+
+### Using in Claude Code
+
+```bash
+# Set in Claude Code settings or environment
+ANTHROPIC_BASE_URL=https://api.kimi.com/coding/
+ANTHROPIC_API_KEY=<your-kimi-code-api-key>
+```
+
+### Kimi Platform vs Kimi Code Platform
+
+| Item | Kimi Code | Kimi Platform |
+|---|---|---|
+| Base URL (OpenAI) | `https://api.kimi.com/coding/v1` | `https://api.moonshot.cn/v1` |
+| Billing | Membership subscription, rate limited | Pay-as-you-go |
+| Best for | Terminal/IDE Agent programming | Product integration, enterprise, multimodal |
+
+---
+
+## Quota and Limits
+
+- Quota refreshes every **7 days** from subscription date — unused quota does not carry over
+- **Rolling 5-hour frequency window** — too many requests triggers rate limiting, auto-recovers after window rolls
+- All devices and API Keys **share the same quota** (CLI + VS Code + third-party tools)
+- Devices inactive 30+ days auto-unbound — run `/login` again to restore
+- Kimi Code shares quota with Kimi membership monthly total — if monthly quota hits limit, Kimi Code freezes until reset or upgrade
+
+Check quota, manage API Keys, view devices: **Kimi Code Console**
+
+---
+
 ## Subscription Plans
 
 | Plan | Monthly | Annual | Description |
