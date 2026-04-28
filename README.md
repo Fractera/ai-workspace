@@ -259,11 +259,11 @@ CTO: Roma Bolshiyanov (Armstrong)
 
 <p align="center"><strong>What is the main use case?</strong></p>
 
-<p align="center">Production coding in the browser — from any device, including a phone. A product manager on a treadmill opens a new tab, builds a feature, sends it for review, and it goes live — without a laptop, without a local setup, without a deployment pipeline.</p>
+<p align="center">Production coding in the browser — from any device, including a phone. A product manager on a treadmill opens a new tab, builds a feature, sends it for review, and it goes live — without a laptop, without a local setup, without a deployment pipeline. The same applies to a desktop or laptop: open a browser, code, ship — no local installation, no environment setup, no deployment pipeline.</p>
 
 <p align="center"><strong>Is there a local mode?</strong></p>
 
-<p align="center">No. There is no localhost, no local setup. Everything runs in the cloud — server, storage, AI agents. You open a URL and start coding.</p>
+<p align="center">Yes. Local mode is available and is the primary workflow for developers working from a desktop or laptop. The development experience is identical to any other project — run the server locally, edit code, iterate. The cloud-first, no-setup scenario is aimed at product managers who need to ship without touching infrastructure.</p>
 
 <p align="center"><strong>Why mobile?</strong></p>
 
