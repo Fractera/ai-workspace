@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Loader2, Trash2, Copy, Eye, ImagePlus, X, Check, Film, Image as ImageIcon, Search, Pencil } from "lucide-react";
+import { Loader2, Trash2, Copy, ImagePlus, X, Check, Search, Pencil, MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 
 const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL ?? "http://localhost:3300";
@@ -191,6 +191,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
   const [editName, setEditName]     = useState("");
   const [editDesc, setEditDesc]     = useState("");
   const [editSaving, setEditSaving] = useState(false);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function openEdit(item: MediaItem) {
@@ -445,7 +446,6 @@ export function MediaLibraryPanel({ onClose }: Props) {
                   <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border">size</th>
                   <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border">dimensions</th>
                   <th className="text-left px-3 py-2 font-mono font-medium text-muted-foreground whitespace-nowrap border-r border-border min-w-[110px]">created</th>
-                  <th className="px-3 py-2 sticky right-0 bg-muted/50 border-l border-border" />
                 </tr>
               </thead>
               <tbody>
@@ -456,12 +456,34 @@ export function MediaLibraryPanel({ onClose }: Props) {
                   const created = item.created_at.replace("T", " ").slice(0, 16);
                   return (
                     <tr key={item.id} className="border-b border-border hover:bg-muted/30 transition-colors group">
-                      {/* Preview — always visible */}
-                      <td className="px-2 py-1.5 border-r border-border text-center">
-                        <button type="button" onClick={() => setPreviewItem(item)} title="Preview"
+                      {/* Actions menu */}
+                      <td className="px-2 py-1.5 border-r border-border text-center relative">
+                        <button type="button" onClick={() => setOpenMenuId(openMenuId === item.id ? null : item.id)}
                           className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors mx-auto">
-                          {isImage ? <ImageIcon size={11} /> : <Film size={11} />}
+                          <MoreHorizontal size={11} />
                         </button>
+                        {openMenuId === item.id && (
+                          <div className="absolute left-0 top-full mt-0.5 z-50 bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[120px]"
+                            onMouseLeave={() => setOpenMenuId(null)}>
+                            <button type="button" onClick={() => { setPreviewItem(item); setOpenMenuId(null); }}
+                              className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-foreground hover:bg-muted transition-colors">
+                              Preview
+                            </button>
+                            <button type="button" onClick={() => { openEdit(item); setOpenMenuId(null); }}
+                              className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-foreground hover:bg-muted transition-colors">
+                              <Pencil size={10} />Edit
+                            </button>
+                            <button type="button" onClick={() => { copyUrl(item); setOpenMenuId(null); }}
+                              className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-foreground hover:bg-muted transition-colors">
+                              {copiedId === item.id ? <Check size={10} className="text-green-500" /> : <Copy size={10} />}Copy URL
+                            </button>
+                            <div className="h-px bg-border mx-2" />
+                            <button type="button" onClick={() => { setDeleteId(item.id); setOpenMenuId(null); }}
+                              className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-destructive hover:bg-destructive/10 transition-colors">
+                              <Trash2 size={10} />Delete
+                            </button>
+                          </div>
+                        )}
                       </td>
                       {/* title */}
                       <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
@@ -491,23 +513,6 @@ export function MediaLibraryPanel({ onClose }: Props) {
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{dims}</td>
                       {/* created */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{created}</td>
-                      {/* actions */}
-                      <td className="px-2 sticky right-0 bg-background group-hover:bg-muted/30 border-l border-border transition-colors">
-                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button type="button" onClick={() => openEdit(item)} title="Edit"
-                            className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                            <Pencil size={10} />
-                          </button>
-                          <button type="button" onClick={() => copyUrl(item)} title="Copy URL"
-                            className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                            {copiedId === item.id ? <Check size={10} className="text-green-500" /> : <Copy size={10} />}
-                          </button>
-                          <button type="button" onClick={() => setDeleteId(item.id)} title="Delete"
-                            className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors">
-                            <Trash2 size={10} />
-                          </button>
-                        </div>
-                      </td>
                     </tr>
                   );
                 })}
