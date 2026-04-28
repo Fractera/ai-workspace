@@ -1,17 +1,20 @@
-# Open Claw — Installation & Getting Started
+# Open Claw — Installation
 
-Source: https://docs.openclaw.ai/install · /quickstart · /getting-started
+Source: https://docs.openclaw.ai/install
 
 ---
 
 ## System Requirements
 
-- Node.js 24 (or 22.14+)
-- macOS · Linux · Windows · WSL2
+- Node 24 (recommended) or Node 22.14+ — installer handles this automatically
+- macOS · Linux · Windows (native + WSL2, WSL2 more stable)
+- pnpm only needed if building from source
 
 ---
 
-## Installation
+## Recommended: Installer Script
+
+Detects OS, installs Node if needed, installs OpenClaw, launches onboarding.
 
 ### macOS / Linux / WSL2
 
@@ -19,11 +22,31 @@ Source: https://docs.openclaw.ai/install · /quickstart · /getting-started
 curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
-### Windows PowerShell
+### Windows (PowerShell)
 
 ```powershell
 iwr -useb https://openclaw.ai/install.ps1 | iex
 ```
+
+### Without onboarding
+
+```bash
+curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard
+```
+
+---
+
+## Alternative Install Methods
+
+### Local prefix installer (no system-wide Node)
+
+Keeps OpenClaw and Node under `~/.openclaw`:
+
+```bash
+curl -fsSL https://openclaw.ai/install-cli.sh | bash
+```
+
+Switch channels: `openclaw update --channel dev` / `openclaw update --channel stable`
 
 ### npm / pnpm / bun
 
@@ -32,95 +55,78 @@ npm install -g openclaw@latest
 openclaw onboard --install-daemon
 ```
 
-### Skip onboarding
-
-```bash
-curl -fsSL https://openclaw.ai/install.sh | bash --no-onboard
-```
-
 ### From source
 
 ```bash
 git clone https://github.com/openclaw/openclaw.git
-cd openclaw && pnpm install && pnpm build && pnpm ui:build
+cd openclaw
+pnpm install && pnpm build && pnpm ui:build
 pnpm link --global
-```
-
-Also available: Docker · Podman · Nix · Ansible · Bun
-
----
-
-## Setup (5 minutes)
-
-### Step 1 — Install (above)
-
-### Step 2 — Run onboarding wizard (~2 min)
-
-```bash
 openclaw onboard --install-daemon
 ```
 
-Configures: model provider (Anthropic / OpenAI / Google), API key, Gateway daemon.
-
-Daemon type per OS:
-- macOS → LaunchAgent
-- Linux / WSL2 → systemd user service
-- Windows → Scheduled Task
-
-### Step 3 — Verify Gateway
+### From GitHub main branch
 
 ```bash
-openclaw gateway status
+npm install -g github:openclaw/openclaw#main
 ```
 
-Should show: listening on port **18789**
+### Containers & package managers
 
-### Step 4 — Open Dashboard
-
-```bash
-openclaw dashboard
-```
-
-Opens Control UI in browser.
-
-### Step 5 — Send first message
-
-Type in the chat interface to confirm AI response.
+Docker · Podman · Nix · Ansible · Bun — see official docs for each.
 
 ---
 
 ## Verify Installation
 
 ```bash
-openclaw --version     # CLI available
-openclaw doctor        # Configuration issues
-openclaw gateway status  # Daemon status
+openclaw --version       # CLI available
+openclaw doctor          # config issues
+openclaw gateway status  # Gateway running
 ```
 
 ---
 
-## Architecture
+## Managed Startup (after install)
 
-| Component | Description |
-|---|---|
-| Gateway daemon | Manages all API requests, runs on port 18789 |
-| Dashboard / Control UI | Browser-based management interface |
-| Channel connectors | Discord · Slack · Telegram · Teams · Signal |
-| Tool / plugin system | Extensible integrations |
+```bash
+openclaw onboard --install-daemon
+# or
+openclaw gateway install
+```
+
+- macOS → LaunchAgent
+- Linux / WSL2 → systemd user service
+- Windows → Scheduled Task (Startup-folder fallback if task creation denied)
+
+---
+
+## Cloud / VPS Deployment
+
+Supported: VPS · Docker · Kubernetes · Fly.io · Hetzner · GCP · Azure · Railway · Render · Northflank
+
+---
+
+## Troubleshooting: `openclaw not found`
+
+```bash
+node -v           # Node installed?
+npm prefix -g     # Where are global packages?
+echo "$PATH"      # Is global bin dir in PATH?
+```
+
+If `$(npm prefix -g)/bin` not in PATH, add to `~/.zshrc` or `~/.bashrc`:
+
+```bash
+export PATH="$(npm prefix -g)/bin:$PATH"
+```
+
+Then open a new terminal.
 
 ---
 
 ## Fractera Integration Notes
 
-- **Port:** 18789 — no conflict with Fractera (3000), bridge (3200–3206), media (3300), LightRAG (9621)
-- **Node requirement:** Node 24 or 22.14+ — Fractera requires Node 20+. Users need Node 24 for Open Claw. Worth noting in install script.
-- **Model providers:** Anthropic, OpenAI, Google — same credentials users already have for Fractera platforms
-- **Planned for:** Fractera v1.4
-
----
-
-## Status
-
-- [x] install.md — done
-- [ ] REST API reference — not found at /api (404)
-- [ ] Fractera integration implementation — pending v1.4
+- Gateway port: **18789** — no conflict with Fractera stack
+- Node requirement: Node 24 — Fractera requires 20+, install.sh should warn users
+- Planned for: Fractera **v1.4**
