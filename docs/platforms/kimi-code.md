@@ -317,11 +317,114 @@ Note: `make build` and `make build-bin` automatically run `make build-web` to em
 
 ---
 
-## Common Issues
+## Troubleshooting
+
+### Installation and Authentication
+
+**Empty model list during `/login`**
+- Invalid/expired API key — check key validity
+- Network issue — verify access to `api.kimi.com` or `api.moonshot.cn`
+- Wrong Base URL — Kimi Code uses `api.kimi.com/coding/...`, Kimi Platform uses `api.moonshot.cn/v1`
+
+**Invalid API key**
+- Check for extra spaces or missing characters
+- Check key status in console
+- Check env var override: `echo $KIMI_API_KEY` — may override config file
+
+**Membership expired / quota exhausted**
+```bash
+kimi /usage    # check current quota and membership status
+```
+
+### Interaction Issues
+
+**`cd` doesn't work in shell mode**
+Each shell command runs in an independent subprocess — `cd` only affects that subprocess.
+Solutions:
+```bash
+kimi --work-dir /path/to/project    # specify working directory at startup
+```
+Or use absolute paths in commands.
+
+**Working directory deleted during session**
+Kimi detects this and exits cleanly with a crash report containing the session ID. Recover:
+```bash
+kimi -r <session-id>    # from the correct directory
+```
+
+**Image paste fails**
+`Ctrl-V` paste fails with "Current model does not support image input" → switch to an image-capable model.
+
+### ACP Issues
+
+**IDE cannot connect to Kimi Code CLI**
+```bash
+kimi --version              # confirm CLI installed
+~/.local/bin/kimi acp       # use absolute path if needed
+cat ~/.kimi/logs/kimi.log   # check logs
+```
+
+### MCP Issues
+
+**MCP server startup fails**
+```bash
+kimi mcp list                    # view configured servers
+kimi mcp test <server-name>      # test server
+```
+Common causes: command not in PATH, invalid JSON in `~/.kimi/mcp.json`
+
+**OAuth authorization fails**
+```bash
+kimi mcp auth <server-name>              # re-authorize
+kimi mcp reset-auth <server-name>        # reset if corrupted
+```
+
+**Header format error**
+```bash
+# Correct (space after colon)
+kimi mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: your-key"
+
+# Wrong (no space or equals sign)
+kimi mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY=your-key"
+```
+
+### Print / Wire Mode Issues
+
+**Invalid JSONL input** — each line must be complete JSON, UTF-8, `\n` line endings (not `\r\n`)
+
+```json
+{"role": "user", "content": "Hello"}
+```
+
+**No output in print mode**
+```bash
+kimi --print --prompt "Hello"               # provide input via --prompt
+kimi --print --output-format stream-json    # use streaming output
+```
+
+### Updates
+
+**Upgrade Kimi Code CLI**
+```bash
+uv tool upgrade kimi-cli --no-cache    # --no-cache ensures latest version
+```
+
+**Disable update reminders**
+```bash
+export KIMI_CLI_NO_AUTO_UPDATE=1    # add to ~/.zshrc or ~/.bashrc
+```
+
+**macOS slow first run** — Gatekeeper security check on first launch, subsequent runs normal.
+Add terminal app to: System Settings → Privacy & Security → Developer Tools
+
+### VS Code Extension
 
 | Problem | Fix |
 |---|---|
-| `kimi: command not found` | Add install path to `$PATH`; re-source `~/.bashrc` or `~/.zshrc` |
-| Auth fails | Run `kimi /login` and follow OAuth flow |
-| Python version error | Requires Python 3.12+; check with `python3 --version` |
-| MCP tool not loading | Check `~/.kimi/` for MCP config; run `kimi --help` to verify tool registration |
+| No workspace open error | Open a folder in VS Code |
+| CLI not found | Install CLI manually, set `kimi.executablePath` in VS Code settings |
+| Login fails | Try API key mode instead of OAuth |
+| No response to messages | Confirm CLI available, model configured, workspace folder open; check "Kimi Code: Show Logs" |
+| Connection timeout (30s) | Check network connection, retry |
+
+**Contact:** code@moonshot.ai
