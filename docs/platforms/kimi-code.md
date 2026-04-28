@@ -85,6 +85,63 @@ Default model: **kimi-for-coding** (powered by kimi-k2.6)
 
 ---
 
+## Usage Modes
+
+| Mode | Command | Description |
+|---|---|---|
+| Interactive CLI | `kimi` | Chat with AI in terminal, natural language tasks |
+| Browser UI | `kimi web` | Graphical interface — session management, file references, code highlighting |
+| Agent integration | `kimi acp` | ACP server mode for IDE integration |
+
+---
+
+## Quick Start
+
+```bash
+# 1. Navigate to your project
+cd your-project
+kimi
+
+# 2. On first launch — configure API source
+/login
+
+# 3. Ask a question
+# "What is the overall architecture of this project? Where is the entry file?"
+
+# 4. Make a code change
+# "Add a Quick Start section to the README"
+# Kimi shows diff and asks confirmation before modifying files
+
+# 5. Execute a command
+# "Run the tests and fix any failing cases"
+
+# 6. Generate AGENTS.md for the project
+/init
+```
+
+### Common Commands
+
+| Command | Description |
+|---|---|
+| `kimi` | Start interactive conversation |
+| `kimi web` | Open browser UI |
+| `/login` | Configure or switch API source |
+| `/usage` | View remaining quota and limits |
+| `/help` | View all commands and shortcuts |
+| `/init` | Generate AGENTS.md for current project |
+| `Ctrl-J` | Newline without submitting |
+| `Ctrl-C` / `Ctrl-D` | Interrupt current operation / Exit |
+
+---
+
+## Uninstall
+
+```bash
+uv tool uninstall kimi-cli
+```
+
+---
+
 ## Install
 
 ```bash
