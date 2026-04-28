@@ -33,7 +33,7 @@ Fractera requires:
 | Provider | Type | Cost | Guide | Fractera fit |
 |---|---|---|---|---|
 | **Hetzner** | VPS | ~€3–5/mo | [hetzner.md](hetzner.md) | **Recommended** — cheapest reliable Linux VPS, EU/US |
-| **Oracle Cloud** | Cloud | **Free** | — | Best free option — 4 ARM vCPUs + 24GB RAM Always Free |
+| **Oracle Cloud** | Cloud | **Free** | [oracle-cloud.md](oracle-cloud.md) | Best free option — 4 ARM vCPUs + 24GB RAM Always Free |
 | DigitalOcean | VPS | ~$6/mo | [digitalocean.md](digitalocean.md) | Good, simple, reliable |
 | Fly.io | PaaS | ~$5–8/mo | [fly.md](fly.md) | Easy HTTPS, good for small instances |
 | GCP | Cloud | ~$5–12/mo | [gcp.md](gcp.md) | e2-micro free tier available |
@@ -121,11 +121,13 @@ TimeoutStartSec=90
 | [hostinger.md](hostinger.md) | Hostinger VPS |
 | [kubernetes.md](kubernetes.md) | Kubernetes |
 | [linux-server.md](linux-server.md) | Generic Linux server tuning |
+| [northflank.md](northflank.md) | Northflank (one-click) |
+| [oracle-cloud.md](oracle-cloud.md) | Oracle Cloud Always Free ARM |
 
 ---
 
 ## TODO
 
 - [ ] Write `fractera-vps.md` — Fractera-specific VPS steps for `install.sh` server mode
-- [ ] Add Oracle Cloud Always Free guide
+- [x] Add Oracle Cloud Always Free guide
 - [ ] Add Railway guide
