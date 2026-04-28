@@ -1,14 +1,6 @@
 
 <p align="center">
-  <svg width="166" height="166" viewBox="0 0 166 166" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-      <clipPath id="circle">
-        <circle cx="83" cy="83" r="75"/>
-      </clipPath>
-    </defs>
-    <circle cx="83" cy="83" r="83" fill="white"/>
-    <image href="docs/Logo Fractera.jpg" x="8" y="8" width="150" height="150" clip-path="url(#circle)" preserveAspectRatio="xMidYMid slice"/>
-  </svg>
+  <img src="docs/Logo Fractera.jpg" alt="Fractera" width="120"/>
 </p>
 
 <h1 align="center">Fractera AI Workspace: Run Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code and Open Code in your browser — including on your phone. Built-in database and S3 storage.</h1>
@@ -53,10 +45,6 @@ Which AI model should you use for this task? Which platform should you run it on
 These questions answer themselves once you try Fractera. You won't go back.
 </p>
 
-<p align="center">
-  <img src="docs/menu-db-s3-ilustration.jpg" alt="Fractera — Database and S3 Storage" width="800"/>
-</p>
-
 ---
 
 <h2 align="center">Core Features</h2>
@@ -81,9 +69,21 @@ These questions answer themselves once you try Fractera. You won't go back.
 <strong>Skills Marketplace (v1.5).</strong> Extend your workspace with community-built AI skills at <a href="https://fractera.ai">fractera.ai</a>.
 </p>
 
+<p align="center">
+  <img src="docs/menu-db-s3-ilustration.jpg" width="800" alt="Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee."/>
+</p>
+
+<p align="center"><em>Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee.</em></p>
+
 ---
 
 <h2 align="center">App Walkthrough</h2>
+
+<p align="center">
+  <img src="docs/Prodaction dev mode.png" width="800" alt="Fractera architecture includes built-in authentication with role-based access. The first registered user becomes the Architect with full project access. Additional users receive extended viewer permissions. The platform builds and serves the project in production mode."/>
+</p>
+
+<p align="center"><em>Fractera architecture includes built-in authentication connected to its own database. Registration assigns roles automatically: the Architect receives full access to modify the project; users receive extended viewer permissions. The project is built and served in production mode.</em></p>
 
 <p align="center">Short video demonstrations:</p>
 
