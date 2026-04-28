@@ -260,6 +260,90 @@ export KIMI_MODEL_CAPABILITIES="thinking,image_in"
 
 Note: `KIMI_SHARE_DIR` does not affect Agent Skills search paths — use `--skills-dir` for that.
 
+---
+
+## Providers and Models
+
+### /login Platforms
+
+| Platform | Description |
+|---|---|
+| Kimi Code | Kimi Code platform — includes search and fetch services |
+| platform.kimi.com | China region API endpoint |
+| platform.kimi.ai | Global region API endpoint |
+
+For other platforms — manually edit the config file.
+
+### Provider Types
+
+| Type | Description |
+|---|---|
+| `kimi` | Kimi API (Kimi Code + Kimi Platform) |
+| `openai_legacy` | OpenAI Chat Completions API + compatible services |
+| `openai_responses` | OpenAI Responses API (newer format) |
+| `anthropic` | Anthropic Claude API |
+| `gemini` | Google Gemini API |
+| `vertexai` | Google Vertex AI |
+
+```toml
+# Kimi
+[providers.kimi-for-coding]
+type = "kimi"
+base_url = "https://api.kimi.com/coding/v1"
+api_key = "sk-xxx"
+
+# OpenAI compatible
+[providers.openai]
+type = "openai_legacy"
+base_url = "https://api.openai.com/v1"
+api_key = "sk-xxx"
+
+# Anthropic
+[providers.anthropic]
+type = "anthropic"
+base_url = "https://api.anthropic.com"
+api_key = "sk-ant-xxx"
+
+# Gemini
+[providers.gemini]
+type = "gemini"
+base_url = "https://generativelanguage.googleapis.com"
+api_key = "xxx"
+
+# Vertex AI
+[providers.vertexai]
+type = "vertexai"
+base_url = "https://xxx-aiplatform.googleapis.com"
+api_key = ""
+env = { GOOGLE_CLOUD_PROJECT = "your-project-id" }
+```
+
+### Model Capabilities
+
+| Capability | Description |
+|---|---|
+| `thinking` | Supports Thinking mode (deep reasoning), can be toggled |
+| `always_thinking` | Always uses Thinking mode, cannot be disabled |
+| `image_in` | Supports image input (Ctrl-V paste) |
+| `video_in` | Supports video input |
+
+```toml
+[models.gemini-3-pro-preview]
+provider = "gemini"
+model = "gemini-3-pro-preview"
+max_context_size = 262144
+capabilities = ["thinking", "image_in"]
+```
+
+### Search and Fetch Services
+
+| Service | Tool | Without Config |
+|---|---|---|
+| `moonshot_search` | `SearchWeb` | Tool unavailable |
+| `moonshot_fetch` | `FetchURL` | Falls back to local fetching |
+
+Both auto-configured by `/login` on Kimi Code platform. `FetchURL` works on other platforms via local fallback.
+
 **CJK IME fix** (XShell over SSH, broken IME after paste):
 ```bash
 export KIMI_CLI_PASTE_LINE_THRESHOLD="2"
