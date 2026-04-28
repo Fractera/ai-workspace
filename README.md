@@ -92,7 +92,7 @@ Which AI model should you use for this task? Which platform should you run it on
 <h2 align="center">App Walkthrough</h2>
 
 <p align="center">
-  <img src="docs/Prodaction dev mode.png" width="800" alt="Fractera architecture includes built-in authentication with role-based access. The first registered user becomes the Architect with full project access. Additional users receive extended viewer permissions. The platform builds and serves the project in production mode."/>
+  <img src="docs/production build mode.png" width="800" alt="Fractera architecture includes built-in authentication with role-based access. The first registered user becomes the Architect with full project access. Additional users receive extended viewer permissions. The platform builds and serves the project in production mode."/>
 </p>
 
 <p align="center"><em>Fractera architecture includes built-in authentication connected to its own database. Registration assigns roles automatically: the Architect receives full access to modify the project; users receive extended viewer permissions. The project is built and served in production mode.</em></p>
