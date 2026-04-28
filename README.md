@@ -1,5 +1,5 @@
 
-<h1 align="center">⚡ Fractera AI Workspace: Run Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code and Open Code in your browser — including on your phone. Built-in database and S3 storage.</h1>
+<h1 align="center">Fractera AI Workspace: Run Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code and Open Code in your browser — including on your phone. Built-in database and S3 storage.</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"/>
@@ -18,34 +18,34 @@
 </p>
 
 <p align="center">
-  <img src="docs/mac and iphone 2.png" alt="Fractera AI Workspace — MacBook and iPhone" width="800"/>
+  <img src="docs/collage.jpg" alt="Fractera AI Workspace" width="800"/>
 </p>
 
 <p align="center">
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/⭐_Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
+    <img src="https://img.shields.io/badge/Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
   </a>
   &nbsp;&nbsp;
   <a href="https://github.com/Fractera/ai-workspace/fork">
-    <img src="https://img.shields.io/badge/🍴_Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
+    <img src="https://img.shields.io/badge/Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
   </a>
 </p>
 
 ---
 
-## 📑 Table of Contents
-- [Why Fractera?](#-why-fractera-the-privacy-first-advantage)
-- [Core Features](#-core-features)
-- [Tech Stack](#️-tech-stack)
-- [App Walkthrough](#-app-walkthrough)
-- [Free Skills](#-free-skills-marketplace)
-- [Roadmap](#️-roadmap)
-- [FAQ](#-faq)
-- [Changelog](#-changelog)
+## Table of Contents
+- [Why Fractera?](#why-fractera)
+- [Core Features](#core-features)
+- [Tech Stack](#tech-stack)
+- [App Walkthrough](#app-walkthrough)
+- [Free Skills](#free-skills-marketplace)
+- [Roadmap](#roadmap)
+- [FAQ](#faq)
+- [Changelog](#changelog)
 
 ---
 
-## 🥊 Why Fractera?
+## Why Fractera?
 
 Which AI model should you use for this task? Which platform should you run it on? What do you do when you run out of tokens? How do you write code from your phone? How do you stop depending on cloud databases and S3 storage? How do you stay in full control of your project — from the first line of code to publishing? How do you build faster and spend far fewer tokens?
 
@@ -53,101 +53,102 @@ These questions answer themselves once you try Fractera. You won't go back.
 
 ---
 
-## 🚀 Core Features
+## Core Features
 
-* 🔀 **Parallel Interactive Terminals:** Run multiple AI sessions simultaneously. Switch between Claude and Gemini without losing context.
-* 🔐 **Built-in Authentication:** Ready-to-use email/password auth, guest mode, and role-based access control. First user becomes the Architect (Admin).
-* 💽 **Absolute Data Portability:** Export and import your entire database and file storage in a single click.
-* 🗄️ **Integrated Database & Media Storage:** Built-in SQLite browser and local S3-compatible media library — store images, videos, and documents without external services.
-* 🖼️ **Media Library:** Upload, crop, preview, and manage images and videos. Generate full favicon and PWA icon sets from a single image.
-* 🔄 **Seamless Auto-Updates:** Pull the latest open-source version from upstream without touching the server via SSH.
-* 🧠 **LightRAG — Unified Project Memory (v1.3):** Shared context and memory across all AI agents and sessions.
-* 🤖 **Open Claw — Business Orchestration (v1.4):** A single control point for your entire business — manage projects, agents, and workflows from one place.
-* 🧩 **Skills Marketplace (v1.5):** Extend your workspace with community-built AI skills at [fractera.ai](https://fractera.ai).
-
----
-
-## 🎬 App Walkthrough
-
-See Fractera in action — watch short demos on our YouTube channel:
-
-**[▶ Platform Activation](https://youtu.be/qH1BkwAXtEk)** — Launching Claude Code, Gemini, Codex, Qwen & Kimi in one terminal
-
-**[▶ Built-in Media Storage](https://youtu.be/p10t2lGz_y0)** — Upload, crop, rename and preview images without leaving the workspace
-
-**[▶ Database from S3 in One Prompt](https://youtu.be/nf-e3O-MBC0)** — Claude Code reads object storage, extracts structured data from images, and creates a populated database table — no SQL written
-
-**[▶ Employees Page from One Prompt](https://youtu.be/BKLk48bi0iQ)** — Full CRUD page with image upload, crop, and object storage wired together by the AI from a single plain-language instruction
+- **Parallel Interactive Terminals.** Run multiple AI sessions simultaneously. Switch between platforms without losing context.
+- **Built-in Authentication.** Email/password auth, guest mode, and role-based access control. The first registered user becomes the Architect (Admin).
+- **Absolute Data Portability.** Export and import your entire database and file storage in a single operation.
+- **Integrated Database and Media Storage.** Built-in SQLite browser and local S3-compatible media library — store images, videos, and documents without external services.
+- **Media Library.** Upload, crop, preview, and manage images and videos. Generate a full favicon and PWA icon set from a single source image.
+- **Seamless Auto-Updates.** Pull the latest open-source version from upstream without SSH access to the server.
+- **LightRAG — Unified Project Memory (v1.3).** Shared context and memory across all AI agents and sessions.
+- **Open Claw — Business Orchestration (v1.4).** A single control point for your entire business — manage projects, agents, and workflows from one place.
+- **Skills Marketplace (v1.5).** Extend your workspace with community-built AI skills at [fractera.ai](https://fractera.ai).
 
 ---
 
-## 🛠️ Tech Stack
+## App Walkthrough
 
-Built for speed, simplicity, and zero maintenance:
+Short video demonstrations:
 
-* **Frontend:** Next.js 16.2, React 19, Tailwind v4, shadcn/ui
-* **Backend:** Next.js API routes, Node.js bridge server (WebSocket), Express media service
-* **Database:** SQLite via better-sqlite3 — no external database required
-* **Authentication:** NextAuth v5 — email/password, guest mode, role-based access (architect / user / guest)
-* **Object Storage:** Local filesystem (`storage/`) — no S3, no cloud storage subscriptions
-* **Media Service:** Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
-* **Architecture:** Parallel Slot Architecture with built-in error isolation
+**[Platform Activation](https://youtu.be/qH1BkwAXtEk)** — Launching Claude Code, Gemini, Codex, Qwen and Kimi in one terminal
 
----
+**[Built-in Media Storage](https://youtu.be/p10t2lGz_y0)** — Upload, crop, rename and preview images without leaving the workspace
 
+**[Database from S3 in One Prompt](https://youtu.be/nf-e3O-MBC0)** — Claude Code reads object storage, extracts structured data from images, and creates a populated database table — no SQL written
 
-## 🎁 Free Skills Marketplace
-
-Earn up to 8 free skills from the Fractera marketplace to supercharge your workspace. Send proof to `admin@fractera.ai`:
-
-- 🍴 Fork this repository `(+1 skill)`
-- ⭐ Star this repository `(+1 skill)`
-- 📝 Leave a review on fractera.ai `(+1 skill)`
-- 🐦 Post on X (Twitter) with a link `(+1 skill)`
-- ✍️ Write an article on Medium `(+2 skills)`
-- 💻 Write on dev.to or any dev blog `(+2 skills)`
+**[Employees Page from One Prompt](https://youtu.be/BKLk48bi0iQ)** — Full CRUD page with image upload, crop, and object storage wired together by the AI from a single plain-language instruction
 
 ---
 
-## 🗺️ Roadmap
+## Tech Stack
+
+- **Frontend:** Next.js 16.2, React 19, Tailwind v4, shadcn/ui
+- **Backend:** Next.js API routes, Node.js bridge server (WebSocket), Express media service
+- **Database:** SQLite via better-sqlite3 — no external database required
+- **Authentication:** NextAuth v5 — email/password, guest mode, role-based access (architect / user / guest)
+- **Object Storage:** Local filesystem (`storage/`) — no cloud storage subscriptions
+- **Media Service:** Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
+- **Architecture:** Parallel Slot Architecture with built-in error isolation
+
+---
+
+## Free Skills Marketplace
+
+Earn up to 8 free skills from the Fractera marketplace. Send proof to `admin@fractera.ai`:
+
+- Fork this repository `(+1 skill)`
+- Star this repository `(+1 skill)`
+- Leave a review on fractera.ai `(+1 skill)`
+- Post on X (Twitter) with a link `(+1 skill)`
+- Write an article on Medium `(+2 skills)`
+- Write on dev.to or any dev blog `(+2 skills)`
+
+---
+
+## Roadmap
 
 - [x] **v1.2** — Media Library, Database Browser, PWA icons, full agent documentation. *(Current)*
 - [ ] **v1.3** — LightRAG: unified memory across all agents and sessions.
 - [ ] **v1.4** — Open Claw: single control point for your entire business — projects, agents, workflows.
 - [ ] **v1.5** — Skills Marketplace: community-built AI skills at fractera.ai.
 
-*All updates are free for self-hosted users. Need enterprise features like multilingual routing? Check out [Fractera Pro](https://github.com/Fractera/fractera).*
+All updates are free for self-hosted users. For enterprise features including multilingual routing, see [Fractera Pro](https://github.com/Fractera/fractera).
 
 ---
 
-## 💼 Custom Development & Support
+## Custom Development and Support
 
-**Need a custom AI application or tailored infrastructure?** While Fractera AI Workspace is open-source, our team is available for hire to build bespoke, production-ready AI solutions for your business.
+Fractera AI Workspace is open-source. The team is also available for custom engagements — bespoke AI applications, multilingual routing, parallel slot architecture, or proprietary builds on top of Fractera.
 
-Whether you need complex custom integrations, multilingual routing, parallel slot architecture, or a completely proprietary app built on top of Fractera, we can build it for you.
-
-**📫 Let's build something amazing together:**
-- ✉️ **Reach out to us:** [admin@fractera.ai](mailto:admin@fractera.ai)
-- 👔 **CEO:** Julia Kovalchuk
-- 💻 **CTO:** Roma Bolshiyanov (Armstrong)
-
-*Drop us an email to discuss your project requirements and get a quote!*
+**Contact:**
+- Email: [admin@fractera.ai](mailto:admin@fractera.ai)
+- CEO: Julia Kovalchuk
+- CTO: Roma Bolshiyanov (Armstrong)
 
 ---
 
-## ❓ FAQ
+## FAQ
 
-**Can Fractera run on a weak mobile phone?**
+**Can Fractera run on a low-end mobile phone?**
 
-Yes. Your phone only displays the terminal output — all the heavy computation happens on your server. The phone itself does almost nothing, so even an older or low-end device works fine as a client.
+Yes. The phone only renders terminal output — all computation runs on your server. Any browser-capable device works as a client.
 
-**Can I connect a cloud database, S3, or other cloud services?**
+**Can I connect a cloud database, S3, or other external services?**
 
-The platform puts no restrictions on this at all. Use whatever external services you normally use — connect them the same way you always do, through environment variables. You can add any variable directly in production via **Settings → Configure** inside the app, without touching the server. The built-in SQLite database and local file storage exist to protect you from unexpected costs by default — but the choice is entirely yours.
+There are no restrictions. Connect external services through environment variables the same way you normally would. Variables can be set directly in production via **Settings → Configure** inside the app without server access. The built-in SQLite database and local file storage are defaults that protect against unexpected cloud costs — the choice remains yours.
 
 ---
 
-## 📋 Changelog
+<p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
+  </a>
+</p>
+
+---
+
+## Changelog
 
 ---
 
@@ -229,5 +230,5 @@ Initial public release of Fractera AI Workspace — a self-hosted, open-source p
 ---
 
 <p align="center">
-  <i>Built with ❤️ for developers who value freedom.</i>
+  Built for developers who value independence.
 </p>
