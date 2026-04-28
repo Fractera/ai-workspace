@@ -141,8 +141,12 @@ There are no restrictions. Connect external services through environment variabl
 ---
 
 <p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
+  </a>
+  &nbsp;&nbsp;
   <a href="https://github.com/Fractera/ai-workspace/fork">
-    <img src="docs/fractera-fork.jpeg" alt="Fork Fractera on GitHub" width="600"/>
+    <img src="https://img.shields.io/badge/Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
   </a>
 </p>
 
