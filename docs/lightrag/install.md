@@ -120,6 +120,7 @@ python examples/lightrag_openai_demo.py
 
 ## Status
 
-- [ ] env.example — needed
+- [x] install.md — done
+- [x] env.example — saved in `docs/lightrag/env.example.md`
 - [ ] REST API documentation — needed
 - [ ] Fractera integration plan — pending
