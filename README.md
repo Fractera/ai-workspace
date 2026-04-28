@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/collage.jpg" alt="Fractera AI Workspace" width="800"/>
+  <img src="docs/Fractera start image.jpg" alt="Fractera AI Workspace" width="800"/>
 </p>
 
 <p align="center">
