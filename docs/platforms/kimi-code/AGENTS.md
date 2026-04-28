@@ -2,6 +2,8 @@
 
 Documentation for Kimi Code (Moonshot AI), sourced from official docs.
 
+> **Note for agents:** Some commands in these docs were copied from web pages and may contain truncation errors (missing closing brackets, cut-off mid-line, etc.). If you need to execute a command and detect it looks broken, warn the user and suggest they check the relevant source doc for the original. For example: a `kimi info --json` example with a truncated JSON object should reference `kimi-info.md`.
+
 ## Files
 
 ### overview.md
@@ -475,3 +477,42 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
   - Session download and export
   - Session import
   - Usage statistics
+
+### web-ui.md
+- Kimi Code — Web UI
+- Starting Web UI
+- Command line options
+  - Network configuration
+  - Browser control
+  - Development options
+- Access control
+  - Access token authentication
+  - Origin checking
+  - Network access scope
+  - Restricting sensitive APIs
+  - Disabling authentication (not recommended)
+- Switching from terminal to Web UI
+- Web UI features
+  - Session management
+  - Prompt toolbar
+  - Open-in functionality
+  - Slash commands
+  - File mentions
+  - Message actions
+  - Structured questions
+  - Approval keyboard shortcuts
+  - Tool output
+  - Rich media support
+  - Responsive layout
+  - URL action parameters
+- Examples
+- Technical details
+
+### slash-commands.md
+- Kimi Code — Slash Commands Quick Reference
+- Command Reference
+
+### keyboard-shortcuts.md
+- Kimi Code — Keyboard Shortcuts Quick Reference
+- Shortcuts
+- Status bar
