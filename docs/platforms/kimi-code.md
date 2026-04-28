@@ -4,6 +4,21 @@ Source: https://moonshotai.github.io/kimi-cli + AGENTS.md from https://github.co
 
 ---
 
+## Subscription Plans
+
+| Plan | Monthly | Annual | Description |
+|---|---|---|---|
+| **Moderato** | $15/mo ($19 regular) | $180/yr | Weekly refreshed quotas, multi-device login |
+| **Allegretto** | $31/mo ($39 regular) | $372/yr | Ample weekly limits, increased concurrency — recommended |
+| **Allegro** | $79/mo ($99 regular) | $948/yr | Expansive quota for intensive development |
+| **Vivace** | $159/mo ($199 regular) | $1,908/yr | Highest weekly quotas for complex projects and large codebases |
+
+All plans include other Kimi membership benefits.
+
+Default model: **kimi-for-coding** (powered by kimi-k2.6)
+
+---
+
 ## Install
 
 ```bash
