@@ -249,27 +249,27 @@ CTO: Roma Bolshiyanov (Armstrong)
 
 <h2 align="center">FAQ</h2>
 
-<p align="center"><strong>Can Fractera run on a low-end mobile phone?</strong></p>
+<h3 align="center">Can Fractera run on a low-end mobile phone?</h3>
 
 <p align="center">Yes. The phone only renders terminal output — all computation runs on your server. Any browser-capable device works as a client.</p>
 
-<p align="center"><strong>Can I connect a cloud database, S3, or other external services?</strong></p>
+<h3 align="center">Can I connect a cloud database, S3, or other external services?</h3>
 
 <p align="center">There are no restrictions. Connect external services through environment variables the same way you normally would. Variables can be set directly in production via <strong>Settings → Configure</strong> inside the app without server access. The built-in SQLite database and local file storage are defaults that protect against unexpected cloud costs — the choice remains yours.</p>
 
-<p align="center"><strong>What is the main use case?</strong></p>
+<h3 align="center">What is the main use case?</h3>
 
 <p align="center">Production coding in the browser — from any device, including a phone. A product manager getting things done outside the office — commuting, traveling, on vacation, or even mid-workout on a treadmill — opens a new tab, builds a feature, sends it for review, and it goes live — without a laptop, without a local setup, without a deployment pipeline. The same applies to a desktop or laptop: open a browser, code, ship — no local installation, no environment setup, no deployment pipeline.</p>
 
-<p align="center"><strong>Is there a local mode?</strong></p>
+<h3 align="center">Is there a local mode?</h3>
 
 <p align="center">Yes. Local mode is available and is the primary workflow for developers working from a desktop or laptop. The development experience is identical to any other project — run the server locally, edit code, iterate. The cloud-first, no-setup scenario is aimed at product managers who need to ship without touching infrastructure.</p>
 
-<p align="center"><strong>Why mobile?</strong></p>
+<h3 align="center">Why mobile?</h3>
 
 <p align="center">Not because you build large applications on a phone — because you <em>can</em> do something meaningful on one. The constraint proves the platform works anywhere. A tool that runs on a phone runs everywhere.</p>
 
-<p align="center"><strong>How does onboarding work?</strong></p>
+<h3 align="center">How does onboarding work?</h3>
 
 <p align="center">You subscribe via the App Store → a server is provisioned automatically → a subdomain is assigned → you open the URL. The first registered user becomes the Architect. Pick your AI platform — Claude Code, Codex, or any other — and start building.</p>
 
