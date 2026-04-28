@@ -281,6 +281,10 @@ CTO: Roma Bolshiyanov (Armstrong)
 
 <p align="center">You don't need to specify database schema design, API route structure, minimum request counts, or static generation strategy — Fractera's skeleton enforces correct patterns for all of these automatically. The AI orchestrates within a well-defined architecture rather than inventing one from scratch, which is where most unexpected complexity and cost comes from.</p>
 
+<h3 align="center">Who is the target audience?</h3>
+
+<p align="center">Fractera was built for product managers and aims to become the go-to tool for entrepreneurs. Developers use it to significantly accelerate their workflow — especially on smaller projects.</p>
+
 ---
 
 <p align="center">
