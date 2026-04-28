@@ -41,8 +41,8 @@
 
 <p align="center">
 Which AI model should you use for this task? Which platform should you run it on? What do you do when you run out of tokens? How do you write code from your phone? How do you stop depending on cloud databases and S3 storage? How do you stay in full control of your project — from the first line of code to publishing? How do you build faster and spend far fewer tokens?
-<br/><br/>
-These questions answer themselves once you try Fractera. You won't go back.
+<br/>
+<b>These questions answer themselves once you try Fractera. You won't go back.</b>
 </p>
 
 ---
@@ -72,7 +72,16 @@ These questions answer themselves once you try Fractera. You won't go back.
 <br/><br/>
 <strong>Skills Marketplace (v1.5).</strong> Extend your workspace with community-built AI skills at <a href="https://fractera.ai">fractera.ai</a>.
 </p>
-
+<br/>
+<p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="https://img.shields.io/badge/Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
+  </a>
+</p>
 
 
 <p align="center"><em>Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee.</em></p>
@@ -117,6 +126,16 @@ These questions answer themselves once you try Fractera. You won't go back.
 <strong>Media Service:</strong> Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
 <br/>
 <strong>Architecture:</strong> Parallel Slot Architecture with built-in error isolation
+</p>
+<br/>
+<p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="https://img.shields.io/badge/Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
+  </a>
 </p>
 
 ---
