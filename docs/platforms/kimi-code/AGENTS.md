@@ -58,3 +58,37 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
     - Configuring in Third-Party Tools
 - Platform Comparison
 - Quota and Limits
+
+### faq.md
+- Kimi Code FAQ
+- Installation and Authentication
+  - Empty model list during /login
+  - Invalid API key
+  - Membership expired or quota exhausted
+- Interaction Issues
+  - cd command doesn't work in shell mode
+  - Working directory deleted or removed
+  - Image paste fails
+- ACP Issues
+  - IDE cannot connect to Kimi Code CLI
+- MCP Issues
+  - MCP server startup fails
+  - OAuth authorization fails
+  - Header format error
+- Print/Wire Mode Issues
+  - Invalid JSONL input format
+  - No output in print mode
+- Updates and Upgrades
+  - macOS slow first run
+  - How to upgrade Kimi Code CLI
+  - Update prompt on startup
+  - How to disable update reminders
+- VS Code Extension FAQ
+  - VS Code prompts that no workspace is open
+  - VS Code prompts that CLI cannot be found
+  - VS Code login fails
+  - VS Code sends messages with no response
+  - VS Code connection timeout
+  - VS Code error before sending a message
+- Feedback and Contact
+  - Documentation didn't solve your problem
