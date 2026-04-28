@@ -257,6 +257,22 @@ CTO: Roma Bolshiyanov (Armstrong)
 
 <p align="center">There are no restrictions. Connect external services through environment variables the same way you normally would. Variables can be set directly in production via <strong>Settings → Configure</strong> inside the app without server access. The built-in SQLite database and local file storage are defaults that protect against unexpected cloud costs — the choice remains yours.</p>
 
+<p align="center"><strong>What is the main use case?</strong></p>
+
+<p align="center">Production coding in the browser — from any device, including a phone. A product manager on a treadmill opens a new tab, builds a feature, sends it for review, and it goes live — without a laptop, without a local setup, without a deployment pipeline.</p>
+
+<p align="center"><strong>Is there a local mode?</strong></p>
+
+<p align="center">No. There is no localhost, no local setup. Everything runs in the cloud — server, storage, AI agents. You open a URL and start coding.</p>
+
+<p align="center"><strong>Why mobile?</strong></p>
+
+<p align="center">Not because you build large applications on a phone — because you <em>can</em> do something meaningful on one. The constraint proves the platform works anywhere. A tool that runs on a phone runs everywhere.</p>
+
+<p align="center"><strong>How does onboarding work?</strong></p>
+
+<p align="center">You subscribe via the App Store → a server is provisioned automatically → a subdomain is assigned → you open the URL. The first registered user becomes the Architect. Pick your AI platform — Claude Code, Codex, or any other — and start building.</p>
+
 ---
 
 <p align="center">
