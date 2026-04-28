@@ -28,42 +28,104 @@ Fractera requires:
 
 ---
 
-## Hosting Providers Documented by OpenClaw
+## Provider Overview
 
-Source: docs.openclaw.ai (deployment guides)
-
-| Provider | Type | Notes |
-|---|---|---|
-| VPS (any Linux) | Standard | Hetzner, DigitalOcean, Vultr, Linode |
-| Hetzner | VPS | Recommended by OpenClaw, cheap, EU |
-| Docker VM | Container | Shared Docker steps |
-| Kubernetes | Container | K8s |
-| Fly.io | PaaS | Good for always-on small instances |
-| GCP | Cloud | Google Cloud |
-| Azure | Cloud | Microsoft Azure |
-| Railway | PaaS | Easy deploy, free tier |
-| Render | PaaS | Free tier available |
-| Northflank | PaaS | Container-based |
+| Provider | Type | Cost | Guide | Fractera fit |
+|---|---|---|---|---|
+| **Hetzner** | VPS | ~€3–5/mo | [hetzner.md](hetzner.md) | **Recommended** — cheapest reliable Linux VPS, EU/US |
+| **Oracle Cloud** | Cloud | **Free** | — | Best free option — 4 ARM vCPUs + 24GB RAM Always Free |
+| DigitalOcean | VPS | ~$6/mo | [digitalocean.md](digitalocean.md) | Good, simple, reliable |
+| Fly.io | PaaS | ~$5–8/mo | [fly.md](fly.md) | Easy HTTPS, good for small instances |
+| GCP | Cloud | ~$5–12/mo | [gcp.md](gcp.md) | e2-micro free tier available |
+| Azure | Cloud | ~$55–195/mo | [azure.md](azure.md) | Enterprise; overkill for personal use |
+| Hostinger | VPS | ~$4–5/mo | [hostinger.md](hostinger.md) | Good price, hPanel management |
+| Railway | PaaS | free tier | — | One-click, browser setup |
+| Northflank | PaaS | — | — | One-click, container-based |
+| Render | PaaS | free tier | — | Free tier available |
+| Kubernetes | Container | varies | [kubernetes.md](kubernetes.md) | AKS/EKS/GKE/k3s — for teams |
+| Docker VM | Container | varies | [docker-vm.md](docker-vm.md) | Generic Docker on any Linux VPS |
+| Linux (generic) | Any | varies | [linux-server.md](linux-server.md) | General tuning for any provider |
 
 ---
 
-## Fractera Hosting Recommendation (current thinking)
+## Fractera Hosting Recommendations
 
-For the `install.sh` server scenario, the target is a **standard Linux VPS**:
-- Ubuntu 22.04+
-- 1–2 GB RAM
-- Node 20+ via NodeSource
-- PM2 for process management
-- Nginx as reverse proxy
-- Let's Encrypt for HTTPS
+### Personal / Solo Developer
+**Hetzner CX11** — €3.29/mo, 2 vCPU, 2GB RAM, Ubuntu 22.04
+- Enough for Fractera (app + bridge + media = ~300–400MB RAM)
+- Add 2GB swap for safety
+- PM2 + Nginx + Let's Encrypt
 
-This matches what Fractera README already documents and what OpenClaw uses for VPS deployment.
+**Oracle Cloud Always Free ARM** — $0/mo, 4 ARM vCPUs, 24GB RAM
+- Enough for Fractera + LightRAG (v1.3) + OpenClaw (v1.4) simultaneously
+- Best option if cost is the priority
+
+### Team / Production
+**Hetzner CX21** — €5.77/mo, 2 vCPU, 4GB RAM
+- Comfortable headroom for multiple users
+- Same setup, just bigger
+
+**Fly.io** — ~$5–8/mo
+- Automatic HTTPS, easy scaling
+- No SSH needed for basic ops
+
+---
+
+## install.sh Server Mode Target (v1.5+)
+
+For the automated `install.sh` server deployment, the baseline target:
+- **OS:** Ubuntu 22.04+
+- **RAM:** 1 GB minimum (2 GB recommended)
+- **Node:** 20+ via NodeSource
+- **Process manager:** PM2
+- **Reverse proxy:** Nginx
+- **HTTPS:** Let's Encrypt / Certbot
+
+This matches Fractera README standard deployment and OpenClaw VPS pattern.
+
+---
+
+## Startup Tuning (All Providers)
+
+From OpenClaw Linux server guide — applies to Fractera too:
+
+```bash
+# Add to ~/.bashrc or PM2 ecosystem config
+export NODE_COMPILE_CACHE=/var/tmp/fractera-compile-cache
+mkdir -p /var/tmp/fractera-compile-cache
+export OPENCLAW_NO_RESPAWN=1
+```
+
+For systemd units:
+```ini
+[Service]
+Environment=NODE_COMPILE_CACHE=/var/tmp/fractera-compile-cache
+Restart=always
+RestartSec=2
+TimeoutStartSec=90
+```
+
+---
+
+## Files in This Folder
+
+| File | Provider |
+|---|---|
+| [README.md](README.md) | This index |
+| [azure.md](azure.md) | Microsoft Azure Linux VM |
+| [digitalocean.md](digitalocean.md) | DigitalOcean Droplet |
+| [docker-vm.md](docker-vm.md) | Generic Docker VM runtime |
+| [fly.md](fly.md) | Fly.io |
+| [gcp.md](gcp.md) | GCP Compute Engine |
+| [hetzner.md](hetzner.md) | Hetzner VPS |
+| [hostinger.md](hostinger.md) | Hostinger VPS |
+| [kubernetes.md](kubernetes.md) | Kubernetes |
+| [linux-server.md](linux-server.md) | Generic Linux server tuning |
 
 ---
 
 ## TODO
 
-- [ ] Pull OpenClaw VPS deployment guide into `docs/hosting/vps.md`
-- [ ] Pull OpenClaw Docker guide into `docs/hosting/docker.md`
-- [ ] Pull OpenClaw Fly.io guide into `docs/hosting/fly.md`
-- [ ] Write `docs/hosting/fractera-vps.md` — Fractera-specific VPS steps for `install.sh` server mode
+- [ ] Write `fractera-vps.md` — Fractera-specific VPS steps for `install.sh` server mode
+- [ ] Add Oracle Cloud Always Free guide
+- [ ] Add Railway guide
