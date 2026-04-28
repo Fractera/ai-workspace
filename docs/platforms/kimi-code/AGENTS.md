@@ -327,3 +327,41 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
   - Flow diagram format
   - D2 format example
   - Executing a flow skill
+
+### agents-subagents.md
+- Kimi Code — Agents and Subagents
+- Built-in Agents
+  - default
+  - okabe
+- Custom Agent Files
+  - Basic structure
+  - Inheritance and overrides
+  - Configuration fields
+- System Prompt Built-in Parameters
+  - System prompt example
+- Defining Subagents in Agent Files
+- Built-in Subagent Types
+- How Subagents Run
+- Built-in Tools List
+  - Agent
+  - AskUserQuestion
+  - SetTodoList
+  - Shell
+  - ReadFile
+  - ReadMediaFile
+  - Glob
+  - Grep
+  - WriteFile
+  - StrReplaceFile
+  - SearchWeb
+  - FetchURL
+  - Think
+  - SendDMail
+  - EnterPlanMode
+  - ExitPlanMode
+  - TaskList
+  - TaskOutput
+  - TaskStop
+- Tool Security Boundaries
+  - Workspace scope
+  - Approval mechanism
