@@ -252,3 +252,25 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
 - Security
   - Approval mechanism
   - Prompt injection risks
+
+### hooks.md
+- Kimi Code — Hooks (Beta)
+- What is a Hook
+- Supported Hook Events
+- Configuring Hooks
+  - Configuration Fields
+- Communication Protocol
+  - Input (Standard Input)
+  - Output (Exit Code)
+  - Structured JSON Output
+- Hook Script Examples
+  - Protect Sensitive Files
+  - Auto-format Code
+  - Check for Incomplete Tasks
+- Viewing Configured Hooks
+- Design Principles
+  - Fail-Open Policy
+  - Parallel Execution
+  - Stop Hook Anti-Loop
+  - Context Variables
+- Comparison with Plugins
