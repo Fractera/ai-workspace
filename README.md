@@ -1,4 +1,8 @@
 
+<p align="center">
+  <img src="docs/Logo Fractera.jpg" alt="Fractera" width="150" style="border-radius: 50%; border: 8px solid white;"/>
+</p>
+
 <h1 align="center">Fractera AI Workspace: Run Claude Code, Codex, Gemini CLI, Qwen Code, Kimi Code and Open Code in your browser — including on your phone. Built-in database and S3 storage.</h1>
 
 <p align="center">
