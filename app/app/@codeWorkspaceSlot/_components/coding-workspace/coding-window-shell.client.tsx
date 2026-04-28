@@ -134,7 +134,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           onTerminalClose(platformId);
           setConfirmingPlatform(null);
           countdownRef.current = null;
-        }, 3000);
+        }, 2000);
       }
     } else if (isRunning) {
       if (countdownRef.current) clearTimeout(countdownRef.current);
@@ -315,7 +315,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                     <>
                       <span className="size-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />
                       <span>End session</span>
-                      <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, transformOrigin: "left", animation: "countdown-shrink 3s linear forwards, countdown-color 3s linear forwards" }} />
+                      <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, transformOrigin: "left", animation: "countdown-shrink 2s linear forwards, countdown-color 2s linear forwards" }} />
                     </>
                   ) : needsKey ? (
                     <><span className="size-1.5 rounded-full bg-destructive shrink-0" /><span>{p.label}</span></>
