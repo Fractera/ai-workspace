@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Loader2, Pencil, Trash2, X } from "lucide-react";
+import { Loader2, Pencil, Trash2, X, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { toast } from "sonner";
 
 type Row = Record<string, unknown>;
@@ -46,6 +46,7 @@ export function DbBrowserPanel({ onClose }: Props) {
   const [editCell, setEditCell]           = useState<{ rowId: string; column: string; value: string } | null>(null);
   const [editValue, setEditValue]         = useState("");
   const [editSaving, setEditSaving]       = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     fetch("/api/db/tables")
@@ -239,19 +240,34 @@ export function DbBrowserPanel({ onClose }: Props) {
       ) : (
         <div className="flex-1 flex min-h-0 overflow-x-auto">
 
-          {/* Left sidebar — table list, always 250px, sticky on desktop */}
-          <div style={{ width: SIDEBAR_W, minWidth: SIDEBAR_W }}
-            className="border-r border-border flex flex-col py-2 overflow-y-auto shrink-0 sticky left-0 bg-background z-10">
-            {tables.map((t) => (
-              <button key={t} type="button" onClick={() => selectTable(t)}
-                className={`text-left px-4 py-2 text-[11px] font-mono transition-colors ${
-                  selectedTable === t
-                    ? "bg-primary/10 text-primary border-r-2 border-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}>
-                {t}
-              </button>
-            ))}
+          {/* Left sidebar — collapsible table list */}
+          <div
+            style={{ width: sidebarCollapsed ? 40 : SIDEBAR_W, minWidth: sidebarCollapsed ? 40 : SIDEBAR_W, transition: "width 0.2s ease, min-width 0.2s ease" }}
+            className="border-r border-border flex flex-col overflow-y-auto shrink-0 sticky left-0 bg-background z-10 relative">
+            {/* Toggle button */}
+            <button
+              type="button"
+              onClick={() => setSidebarCollapsed((v) => !v)}
+              className="absolute top-1.5 right-1.5 z-10 h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {sidebarCollapsed ? <PanelLeftOpen size={12} /> : <PanelLeftClose size={12} />}
+            </button>
+            {/* Table list — hidden when collapsed */}
+            {!sidebarCollapsed && (
+              <div className="flex flex-col pt-2 overflow-hidden">
+                {tables.map((t) => (
+                  <button key={t} type="button" onClick={() => selectTable(t)}
+                    className={`text-left px-4 py-2 text-[11px] font-mono transition-colors whitespace-nowrap overflow-hidden text-ellipsis ${
+                      selectedTable === t
+                        ? "bg-primary/10 text-primary border-r-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }`}>
+                    {t}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right — data table */}
