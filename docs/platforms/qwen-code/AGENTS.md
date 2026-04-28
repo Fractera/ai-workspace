@@ -29,6 +29,27 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Connect with Us
 - Acknowledgments
 
+### commands.md
+- 1. Slash Commands (/)
+  - 1.1 Session and Project Management
+  - 1.2 Interface and Workspace Control
+  - 1.3 Language Settings
+  - 1.4 Tool and Model Management
+  - 1.5 Built-in Skills
+  - 1.6 Side Question (/btw)
+  - 1.7 Information, Settings, and Help
+  - 1.8 Common Shortcuts
+  - 1.9 CLI Auth Subcommands
+- 2. @ Commands (Introducing Files)
+- 3. Exclamation Commands (!) — Shell Command Execution
+- 4. Custom Commands
+  - Command Naming Rules
+  - Markdown File Format Specification (Recommended)
+  - TOML File Format (Deprecated)
+  - Parameter Processing Mechanism
+  - Practical Creation Example
+  - Custom Command Best Practices
+
 ### workflows.md
 - Understand new codebases
   - Get a quick codebase overview
