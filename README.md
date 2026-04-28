@@ -127,6 +127,34 @@ Which AI model should you use for this task? Which platform should you run it on
 <br/>
 <strong>Architecture:</strong> Parallel Slot Architecture with built-in error isolation
 </p>
+
+---
+
+<h2 align="center">Mobile Application</h2>
+
+<p align="center"><em>Coming in v1.6 — native apps for iOS and Android are in development.</em></p>
+
+<p align="center">
+<svg width="160" height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="48" rx="8" fill="#111111"/>
+  <path d="M18 24C18 19.582 21.582 16 26 16H28V14H26C20.477 14 16 18.477 16 24C16 29.523 20.477 34 26 34H28V32H26C21.582 32 18 28.418 18 24Z" fill="white"/>
+  <path d="M32 14H30V16H32C36.418 16 40 19.582 40 24C40 28.418 36.418 32 32 32H30V34H32C37.523 34 42 29.523 42 24C42 18.477 37.523 14 32 14Z" fill="white"/>
+  <path d="M28 20V28L35 24L28 20Z" fill="white"/>
+  <text x="50" y="19" font-family="Arial,sans-serif" font-size="9" fill="#aaaaaa" letter-spacing="0.5">COMING SOON</text>
+  <text x="50" y="33" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">App Store</text>
+</svg>
+&nbsp;&nbsp;&nbsp;
+<svg width="160" height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="48" rx="8" fill="#111111"/>
+  <path d="M16 14.5L30 24L16 33.5V14.5Z" fill="#4CAF50"/>
+  <path d="M16 14.5L30 24L24 28.3L16 14.5Z" fill="#2196F3"/>
+  <path d="M16 33.5L24 19.7L30 24L16 33.5Z" fill="#F44336"/>
+  <path d="M30 24L42 17V31L30 24Z" fill="#FFC107"/>
+  <text x="50" y="19" font-family="Arial,sans-serif" font-size="9" fill="#aaaaaa" letter-spacing="0.5">COMING SOON</text>
+  <text x="50" y="33" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">Google Play</text>
+</svg>
+</p>
+
 <br/>
 <p align="center">
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
@@ -161,7 +189,8 @@ Write on dev.to or any dev blog <code>(+2 skills)</code>
 <strong>v1.2</strong> — Media Library, Database Browser, PWA icons, full agent documentation. <em>(Current)</em><br/>
 <strong>v1.3</strong> — LightRAG: unified memory across all agents and sessions.<br/>
 <strong>v1.4</strong> — Open Claw: single control point for your entire business — projects, agents, workflows.<br/>
-<strong>v1.5</strong> — Skills Marketplace: community-built AI skills at fractera.ai.
+<strong>v1.5</strong> — Skills Marketplace: community-built AI skills at fractera.ai.<br/>
+<strong>v1.6</strong> — Native mobile application for App Store and Google Play.
 <br/><br/>
 All updates are free for self-hosted users. For enterprise features including multilingual routing, see <a href="https://github.com/Fractera/fractera">Fractera Pro</a>.
 </p>
