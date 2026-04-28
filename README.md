@@ -141,6 +141,42 @@ Which AI model should you use for this task? Which platform should you run it on
 
 ---
 
+<h2 align="center">Getting Started</h2>
+
+<p align="center">You need a terminal. On Mac — it is called Terminal, find it with Spotlight (Cmd+Space, type "Terminal"). On Windows — press Win+R, type <code>cmd</code>, press Enter. On Linux — you already know.</p>
+
+<p align="center"><strong>Step 1. Install Claude Code.</strong><br/>
+Copy this line, paste it into the terminal, press Enter:</p>
+
+```bash
+# Mac / Linux
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Windows (PowerShell)
+irm https://claude.ai/install.ps1 | iex
+```
+
+<p align="center">Already have Claude Code? Skip this step.</p>
+
+<p align="center"><strong>Step 2. Sign in to Claude.</strong><br/>
+Run this command and follow the instructions on screen:</p>
+
+```bash
+claude auth
+```
+
+<p align="center"><strong>Step 3. Install and launch Fractera.</strong><br/>
+Copy this line, paste it into the terminal, press Enter:</p>
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Fractera/ai-workspace/main/install.sh | bash
+```
+
+<p align="center">That is everything. The script will check your system, download Fractera, install all dependencies, and open it in your browser automatically.<br/><br/>
+The first account you register becomes the Administrator. You will see a coding workspace with all AI platforms ready to use.</p>
+
+---
+
 <h2 align="center">Mobile Application — Product Manager Mode</h2>
 
 <p align="center"><em>Coming in v1.6 — native apps for iOS and Android are in development.</em></p>
