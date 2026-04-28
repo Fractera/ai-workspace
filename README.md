@@ -259,7 +259,7 @@ CTO: Roma Bolshiyanov (Armstrong)
 
 <p align="center"><strong>What is the main use case?</strong></p>
 
-<p align="center">Production coding in the browser — from any device, including a phone. A product manager on a treadmill opens a new tab, builds a feature, sends it for review, and it goes live — without a laptop, without a local setup, without a deployment pipeline. The same applies to a desktop or laptop: open a browser, code, ship — no local installation, no environment setup, no deployment pipeline.</p>
+<p align="center">Production coding in the browser — from any device, including a phone. A product manager getting things done outside the office — commuting, traveling, on vacation, or even mid-workout on a treadmill — opens a new tab, builds a feature, sends it for review, and it goes live — without a laptop, without a local setup, without a deployment pipeline. The same applies to a desktop or laptop: open a browser, code, ship — no local installation, no environment setup, no deployment pipeline.</p>
 
 <p align="center"><strong>Is there a local mode?</strong></p>
 
