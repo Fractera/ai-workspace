@@ -40,3 +40,21 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
   - Allegretto — Pro Choice (Recommended)
   - Allegro — Premium Mode
   - Vivace — Ultimate Boost
+
+### overview-docs.md
+- Kimi Code Overview
+- What is Kimi Code
+- Core Advantages
+- Getting Started
+  - Using the Official Client
+    - CLI
+    - VS Code
+- API Access
+  - OAuth Automatic Authentication (Official Clients)
+  - API Key (Third-Party Tools / Self-Built Apps)
+    - Service Endpoint
+    - Obtaining an API Key
+    - Model ID
+    - Configuring in Third-Party Tools
+- Platform Comparison
+- Quota and Limits
