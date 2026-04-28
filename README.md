@@ -141,29 +141,20 @@ Which AI model should you use for this task? Which platform should you run it on
 
 ---
 
-<h2 align="center">Mobile Application</h2>
+<h2 align="center">Mobile Application — Product Manager Mode</h2>
 
 <p align="center"><em>Coming in v1.6 — native apps for iOS and Android are in development.</em></p>
 
 <p align="center">
-<svg width="160" height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
-  <rect width="160" height="48" rx="8" fill="#111111"/>
-  <path d="M18 24C18 19.582 21.582 16 26 16H28V14H26C20.477 14 16 18.477 16 24C16 29.523 20.477 34 26 34H28V32H26C21.582 32 18 28.418 18 24Z" fill="white"/>
-  <path d="M32 14H30V16H32C36.418 16 40 19.582 40 24C40 28.418 36.418 32 32 32H30V34H32C37.523 34 42 29.523 42 24C42 18.477 37.523 14 32 14Z" fill="white"/>
-  <path d="M28 20V28L35 24L28 20Z" fill="white"/>
-  
-  <text x="50" y="33" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">App Store</text>
-</svg>
-&nbsp;&nbsp;&nbsp;
-<svg width="160" height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
-  <rect width="160" height="48" rx="8" fill="#111111"/>
-  <path d="M16 14.5L30 24L16 33.5V14.5Z" fill="#4CAF50"/>
-  <path d="M16 14.5L30 24L24 28.3L16 14.5Z" fill="#2196F3"/>
-  <path d="M16 33.5L24 19.7L30 24L16 33.5Z" fill="#F44336"/>
-  <path d="M30 24L42 17V31L30 24Z" fill="#FFC107"/>
-  
-  <text x="50" y="33" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">Google Play</text>
-</svg>
+Fractera is built for two audiences: developers who want full control over the code, and product managers who need to ship products without touching infrastructure.
+<br/><br/>
+The App Store release is designed specifically for product managers. Download the app, open it, and a dedicated server is provisioned automatically — with all development dependencies, AI coding platforms, LightRAG global memory, and Open Claw agent orchestration pre-installed and ready. No configuration. No terminal. No deployment pipeline.
+<br/><br/>
+Describe the feature you need. The AI builds it. The moment you confirm the changes, they are live in production — instantly, with no build step, no dev mode, no staging environment. From idea to published product in seconds.
+</p>
+
+<p align="center">
+  <img src="docs/Store.png" alt="Fractera — App Store and Google Play" width="600"/>
 </p>
 
 <br/>
