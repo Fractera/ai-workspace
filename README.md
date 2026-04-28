@@ -52,6 +52,7 @@ Which AI model should you use for this task? Which platform should you run it on
 <p align="center">
   <img src="docs/menu-db-s3-ilustration.jpg" width="800" alt="Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee."/>
 </p>
+<p align="center"><em>Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee.</em></p>
 
 <p align="center">
 <strong>Parallel Interactive Terminals.</strong> Run multiple AI sessions simultaneously. Switch between platforms without losing context.
