@@ -344,6 +344,63 @@ capabilities = ["thinking", "image_in"]
 
 Both auto-configured by `/login` on Kimi Code platform. `FetchURL` works on other platforms via local fallback.
 
+---
+
+## Data Locations
+
+All data stored under `~/.kimi/` (override with `KIMI_SHARE_DIR`).
+
+### Directory Structure
+
+```
+~/.kimi/
+├── config.toml           # Main configuration file
+├── kimi.json             # Metadata (work_dirs, thinking state)
+├── mcp.json              # MCP server configuration
+├── credentials/          # OAuth credentials (<provider>.json, chmod 600)
+├── sessions/             # Session data
+│   └── <work-dir-hash>/
+│       └── <session-id>/
+│           ├── context.jsonl   # Full conversation context (JSONL)
+│           ├── wire.jsonl      # Wire events log
+│           ├── state.json      # Runtime state (approvals, plan mode, subagents)
+│           └── subagents/<agent_id>/
+│               ├── context.jsonl
+│               ├── wire.jsonl
+│               ├── meta.json
+│               ├── prompt.txt
+│               └── output
+├── imported_sessions/    # Sessions imported via kimi vis
+├── plans/                # Plan mode files (<slug>.md)
+├── user-history/         # Input history (<work-dir-hash>.jsonl)
+└── logs/
+    └── kimi.log          # Runtime logs (INFO by default; --debug for TRACE)
+```
+
+### state.json Contents
+
+- `title` — user-set session title
+- `approval` — YOLO mode state, auto-approved operation types
+- `plan_mode` — plan mode on/off
+- `plan_slug` — plan file path in `~/.kimi/plans/<slug>.md`
+- `subagent_instances` — subagent instance state and metadata
+- `additional_dirs` — directories added via `--add-dir` or `/add-dir`
+
+Uses atomic writes to prevent data corruption on crash.
+
+### Cleaning Data
+
+| Need | Action |
+|---|---|
+| Reset configuration | Delete `~/.kimi/config.toml` |
+| Clear all sessions | Delete `~/.kimi/sessions/` |
+| Clear sessions for specific dir | Use `/sessions` in Shell mode |
+| Clear plan files | Delete `~/.kimi/plans/` or use `/plan clear` |
+| Clear input history | Delete `~/.kimi/user-history/` |
+| Clear logs | Delete `~/.kimi/logs/` |
+| Clear MCP config | Delete `~/.kimi/mcp.json` or `kimi mcp remove` |
+| Clear login credentials | Delete `~/.kimi/credentials/` or `/logout` |
+
 **CJK IME fix** (XShell over SSH, broken IME after paste):
 ```bash
 export KIMI_CLI_PASTE_LINE_THRESHOLD="2"
