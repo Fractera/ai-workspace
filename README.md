@@ -33,110 +33,129 @@
 
 ---
 
-## Table of Contents
-- [Why Fractera?](#why-fractera)
-- [Core Features](#core-features)
-- [Tech Stack](#tech-stack)
-- [App Walkthrough](#app-walkthrough)
-- [Free Skills](#free-skills-marketplace)
-- [Roadmap](#roadmap)
-- [FAQ](#faq)
-- [Changelog](#changelog)
+<h2 align="center">Why Fractera?</h2>
 
----
-
-## Why Fractera?
-
+<p align="center">
 Which AI model should you use for this task? Which platform should you run it on? What do you do when you run out of tokens? How do you write code from your phone? How do you stop depending on cloud databases and S3 storage? How do you stay in full control of your project — from the first line of code to publishing? How do you build faster and spend far fewer tokens?
-
+<br/><br/>
 These questions answer themselves once you try Fractera. You won't go back.
+</p>
+
+<p align="center">
+  <img src="docs/menu-db-s3-ilustration.jpg" alt="Fractera — Database and S3 Storage" width="800"/>
+</p>
 
 ---
 
-## Core Features
+<h2 align="center">Core Features</h2>
 
-- **Parallel Interactive Terminals.** Run multiple AI sessions simultaneously. Switch between platforms without losing context.
-- **Built-in Authentication.** Email/password auth, guest mode, and role-based access control. The first registered user becomes the Architect (Admin).
-- **Absolute Data Portability.** Export and import your entire database and file storage in a single operation.
-- **Integrated Database and Media Storage.** Built-in SQLite browser and local S3-compatible media library — store images, videos, and documents without external services.
-- **Media Library.** Upload, crop, preview, and manage images and videos. Generate a full favicon and PWA icon set from a single source image.
-- **Seamless Auto-Updates.** Pull the latest open-source version from upstream without SSH access to the server.
-- **LightRAG — Unified Project Memory (v1.3).** Shared context and memory across all AI agents and sessions.
-- **Open Claw — Business Orchestration (v1.4).** A single control point for your entire business — manage projects, agents, and workflows from one place.
-- **Skills Marketplace (v1.5).** Extend your workspace with community-built AI skills at [fractera.ai](https://fractera.ai).
-
----
-
-## App Walkthrough
-
-Short video demonstrations:
-
-**[Platform Activation](https://youtu.be/qH1BkwAXtEk)** — Launching Claude Code, Gemini, Codex, Qwen and Kimi in one terminal
-
-**[Built-in Media Storage](https://youtu.be/p10t2lGz_y0)** — Upload, crop, rename and preview images without leaving the workspace
-
-**[Database from S3 in One Prompt](https://youtu.be/nf-e3O-MBC0)** — Claude Code reads object storage, extracts structured data from images, and creates a populated database table — no SQL written
-
-**[Employees Page from One Prompt](https://youtu.be/BKLk48bi0iQ)** — Full CRUD page with image upload, crop, and object storage wired together by the AI from a single plain-language instruction
+<p align="center">
+<strong>Parallel Interactive Terminals.</strong> Run multiple AI sessions simultaneously. Switch between platforms without losing context.
+<br/><br/>
+<strong>Built-in Authentication.</strong> Email/password auth, guest mode, and role-based access control. The first registered user becomes the Architect (Admin).
+<br/><br/>
+<strong>Absolute Data Portability.</strong> Export and import your entire database and file storage in a single operation.
+<br/><br/>
+<strong>Integrated Database and Media Storage.</strong> Built-in SQLite browser and local S3-compatible media library — store images, videos, and documents without external services.
+<br/><br/>
+<strong>Media Library.</strong> Upload, crop, preview, and manage images and videos. Generate a full favicon and PWA icon set from a single source image.
+<br/><br/>
+<strong>Seamless Auto-Updates.</strong> Pull the latest open-source version from upstream without SSH access to the server.
+<br/><br/>
+<strong>LightRAG — Unified Project Memory (v1.3).</strong> Shared context and memory across all AI agents and sessions.
+<br/><br/>
+<strong>Open Claw — Business Orchestration (v1.4).</strong> A single control point for your entire business — manage projects, agents, and workflows from one place.
+<br/><br/>
+<strong>Skills Marketplace (v1.5).</strong> Extend your workspace with community-built AI skills at <a href="https://fractera.ai">fractera.ai</a>.
+</p>
 
 ---
 
-## Tech Stack
+<h2 align="center">App Walkthrough</h2>
 
-- **Frontend:** Next.js 16.2, React 19, Tailwind v4, shadcn/ui
-- **Backend:** Next.js API routes, Node.js bridge server (WebSocket), Express media service
-- **Database:** SQLite via better-sqlite3 — no external database required
-- **Authentication:** NextAuth v5 — email/password, guest mode, role-based access (architect / user / guest)
-- **Object Storage:** Local filesystem (`storage/`) — no cloud storage subscriptions
-- **Media Service:** Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
-- **Architecture:** Parallel Slot Architecture with built-in error isolation
+<p align="center">Short video demonstrations:</p>
 
----
-
-## Free Skills Marketplace
-
-Earn up to 8 free skills from the Fractera marketplace. Send proof to `admin@fractera.ai`:
-
-- Fork this repository `(+1 skill)`
-- Star this repository `(+1 skill)`
-- Leave a review on fractera.ai `(+1 skill)`
-- Post on X (Twitter) with a link `(+1 skill)`
-- Write an article on Medium `(+2 skills)`
-- Write on dev.to or any dev blog `(+2 skills)`
+<p align="center">
+<a href="https://youtu.be/qH1BkwAXtEk"><strong>Platform Activation</strong></a> — Launching Claude Code, Gemini, Codex, Qwen and Kimi in one terminal
+<br/><br/>
+<a href="https://youtu.be/p10t2lGz_y0"><strong>Built-in Media Storage</strong></a> — Upload, crop, rename and preview images without leaving the workspace
+<br/><br/>
+<a href="https://youtu.be/nf-e3O-MBC0"><strong>Database from S3 in One Prompt</strong></a> — Claude Code reads object storage, extracts structured data from images, and creates a populated database table — no SQL written
+<br/><br/>
+<a href="https://youtu.be/BKLk48bi0iQ"><strong>Employees Page from One Prompt</strong></a> — Full CRUD page with image upload, crop, and object storage wired together by the AI from a single plain-language instruction
+</p>
 
 ---
 
-## Roadmap
+<h2 align="center">Tech Stack</h2>
 
-- [x] **v1.2** — Media Library, Database Browser, PWA icons, full agent documentation. *(Current)*
-- [ ] **v1.3** — LightRAG: unified memory across all agents and sessions.
-- [ ] **v1.4** — Open Claw: single control point for your entire business — projects, agents, workflows.
-- [ ] **v1.5** — Skills Marketplace: community-built AI skills at fractera.ai.
-
-All updates are free for self-hosted users. For enterprise features including multilingual routing, see [Fractera Pro](https://github.com/Fractera/fractera).
+<p align="center">
+<strong>Frontend:</strong> Next.js 16.2, React 19, Tailwind v4, shadcn/ui
+<br/>
+<strong>Backend:</strong> Next.js API routes, Node.js bridge server (WebSocket), Express media service
+<br/>
+<strong>Database:</strong> SQLite via better-sqlite3 — no external database required
+<br/>
+<strong>Authentication:</strong> NextAuth v5 — email/password, guest mode, role-based access (architect / user / guest)
+<br/>
+<strong>Object Storage:</strong> Local filesystem (<code>storage/</code>) — no cloud storage subscriptions
+<br/>
+<strong>Media Service:</strong> Standalone HTTP service on port 3300 — upload, crop, favicon generation, PWA icons
+<br/>
+<strong>Architecture:</strong> Parallel Slot Architecture with built-in error isolation
+</p>
 
 ---
 
-## Custom Development and Support
+<h2 align="center">Free Skills Marketplace</h2>
 
+<p align="center">
+Earn up to 8 free skills from the Fractera marketplace. Send proof to <code>admin@fractera.ai</code>:
+<br/><br/>
+Fork this repository <code>(+1 skill)</code><br/>
+Star this repository <code>(+1 skill)</code><br/>
+Leave a review on fractera.ai <code>(+1 skill)</code><br/>
+Post on X (Twitter) with a link <code>(+1 skill)</code><br/>
+Write an article on Medium <code>(+2 skills)</code><br/>
+Write on dev.to or any dev blog <code>(+2 skills)</code>
+</p>
+
+---
+
+<h2 align="center">Roadmap</h2>
+
+<p align="center">
+<strong>v1.2</strong> — Media Library, Database Browser, PWA icons, full agent documentation. <em>(Current)</em><br/>
+<strong>v1.3</strong> — LightRAG: unified memory across all agents and sessions.<br/>
+<strong>v1.4</strong> — Open Claw: single control point for your entire business — projects, agents, workflows.<br/>
+<strong>v1.5</strong> — Skills Marketplace: community-built AI skills at fractera.ai.
+<br/><br/>
+All updates are free for self-hosted users. For enterprise features including multilingual routing, see <a href="https://github.com/Fractera/fractera">Fractera Pro</a>.
+</p>
+
+---
+
+<h2 align="center">Custom Development and Support</h2>
+
+<p align="center">
 Fractera AI Workspace is open-source. The team is also available for custom engagements — bespoke AI applications, multilingual routing, parallel slot architecture, or proprietary builds on top of Fractera.
-
-**Contact:**
-- Email: [admin@fractera.ai](mailto:admin@fractera.ai)
-- CEO: Julia Kovalchuk
-- CTO: Roma Bolshiyanov (Armstrong)
+<br/><br/>
+Email: <a href="mailto:admin@fractera.ai">admin@fractera.ai</a><br/>
+CEO: Julia Kovalchuk<br/>
+CTO: Roma Bolshiyanov (Armstrong)
+</p>
 
 ---
 
-## FAQ
+<h2 align="center">FAQ</h2>
 
-**Can Fractera run on a low-end mobile phone?**
+<p align="center"><strong>Can Fractera run on a low-end mobile phone?</strong></p>
 
-Yes. The phone only renders terminal output — all computation runs on your server. Any browser-capable device works as a client.
+<p align="center">Yes. The phone only renders terminal output — all computation runs on your server. Any browser-capable device works as a client.</p>
 
-**Can I connect a cloud database, S3, or other external services?**
+<p align="center"><strong>Can I connect a cloud database, S3, or other external services?</strong></p>
 
-There are no restrictions. Connect external services through environment variables the same way you normally would. Variables can be set directly in production via **Settings → Configure** inside the app without server access. The built-in SQLite database and local file storage are defaults that protect against unexpected cloud costs — the choice remains yours.
+<p align="center">There are no restrictions. Connect external services through environment variables the same way you normally would. Variables can be set directly in production via <strong>Settings → Configure</strong> inside the app without server access. The built-in SQLite database and local file storage are defaults that protect against unexpected cloud costs — the choice remains yours.</p>
 
 ---
 
@@ -152,7 +171,7 @@ There are no restrictions. Connect external services through environment variabl
 
 ---
 
-## Changelog
+<h2 align="center">Changelog</h2>
 
 ---
 
@@ -233,6 +252,4 @@ Initial public release of Fractera AI Workspace — a self-hosted, open-source p
 
 ---
 
-<p align="center">
-  Built for developers who value independence.
-</p>
+<p align="center">Built for developers who value independence.</p>
