@@ -50,6 +50,10 @@ These questions answer themselves once you try Fractera. You won't go back.
 <h2 align="center">Core Features</h2>
 
 <p align="center">
+  <img src="docs/menu-db-s3-ilustration.jpg" width="800" alt="Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee."/>
+</p>
+
+<p align="center">
 <strong>Parallel Interactive Terminals.</strong> Run multiple AI sessions simultaneously. Switch between platforms without losing context.
 <br/><br/>
 <strong>Built-in Authentication.</strong> Email/password auth, guest mode, and role-based access control. The first registered user becomes the Architect (Admin).
@@ -69,9 +73,7 @@ These questions answer themselves once you try Fractera. You won't go back.
 <strong>Skills Marketplace (v1.5).</strong> Extend your workspace with community-built AI skills at <a href="https://fractera.ai">fractera.ai</a>.
 </p>
 
-<p align="center">
-  <img src="docs/menu-db-s3-ilustration.jpg" width="800" alt="Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee."/>
-</p>
+
 
 <p align="center"><em>Fractera ships with a built-in database and local S3-compatible object storage. Both are self-hosted services that require no cloud account and no monthly fee.</em></p>
 
