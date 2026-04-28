@@ -365,3 +365,113 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
 - Tool Security Boundaries
   - Workspace scope
   - Approval mechanism
+
+### wire-protocol.md
+- Kimi Code — Wire Protocol
+- What is Wire
+- Use Cases
+- Wire Protocol
+  - Protocol Type Definitions
+  - initialize
+  - prompt
+  - replay
+  - steer
+  - set_plan_mode
+  - cancel
+  - event
+  - request
+- Standard Error Codes
+- Wire Message Types
+  - Event types
+  - Request types
+  - TurnBegin
+  - TurnEnd
+  - StepBegin
+  - StepInterrupted / CompactionBegin / CompactionEnd
+  - StatusUpdate
+  - ContentPart
+  - ToolCall
+  - ToolCallPart
+  - ToolResult
+  - ApprovalResponse
+  - SubagentEvent
+  - SteerInput
+  - PlanDisplay
+  - HookTriggered / HookResolved
+  - ApprovalRequest
+  - ToolCallRequest
+  - QuestionRequest
+  - HookRequest
+- DisplayBlock
+- Kimi Agent (Rust) Wire Server
+  - Features
+  - Limitations
+  - Installation
+  - Usage
+
+### cli-reference.md
+- Kimi Code — kimi Command Reference
+- Basic Information
+- Agent Configuration
+- Configuration Files
+- Model Selection
+- Working Directory
+- Session Management
+- Input and Commands
+- Loop Control
+  - Ralph Loop
+- UI Modes
+- Print Mode Options
+- MCP Configuration
+- Approval Control
+- Plan Mode
+- Thinking Mode
+- Skills Configuration
+- Subcommands
+  - kimi login
+  - kimi logout
+  - kimi export
+  - kimi vis
+  - kimi web
+
+### acp.md
+- Kimi Code — kimi acp Subcommand
+- Description
+- Use Cases
+- Authentication
+
+### kimi-info.md
+- Kimi Code — kimi info Subcommand
+- Options
+- Output
+- Examples
+
+### kimi-mcp.md
+- Kimi Code — kimi mcp Subcommand
+- add
+  - Parameters
+  - Options
+- list
+- remove
+- auth
+- reset-auth
+- test
+
+### kimi-term.md
+- Kimi Code — kimi term Subcommand
+- Description
+- Options
+- System Requirements
+
+### agent-tracing.md
+- Kimi Code — Agent Tracing Visualizer
+- Launch
+- Command-line options
+- Features
+  - Wire event timeline
+  - Context viewer
+  - Session explorer
+  - Session directory shortcuts
+  - Session download and export
+  - Session import
+  - Usage statistics
