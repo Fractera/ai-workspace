@@ -150,5 +150,5 @@ await rag.ainsert(["Text 1", "Text 2"], file_paths=["doc1.pdf", "doc2.pdf"])
 - [x] install.md — done
 - [x] env.example.md — done
 - [x] architecture.md — done
-- [ ] REST API endpoints reference — needed
+- [x] REST API endpoints reference — done (api-reference.md)
 - [ ] Fractera integration implementation — pending
