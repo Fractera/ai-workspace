@@ -214,10 +214,10 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="shrink-0 flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground select-none px-3 cursor-help">
-                {bridgeStatus === "online"  && <><Wifi size={12} className="text-green-500" /><span className="text-green-500 font-medium">Bridge</span></>}
-                {bridgeStatus === "offline" && <><WifiOff size={12} className="text-destructive" /><span className="text-destructive">Offline</span></>}
-                {bridgeStatus === "unknown" && <><Loader2 size={12} className="animate-spin" /><span>Bridge…</span></>}
+              <div className="shrink-0 flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground select-none px-2 cursor-help">
+                {bridgeStatus === "online"  && <><Wifi size={12} className="text-green-500" />{!isMobile && <span className="text-green-500 font-medium">Bridge</span>}</>}
+                {bridgeStatus === "offline" && <><WifiOff size={12} className="text-destructive" />{!isMobile && <span className="text-destructive">Offline</span>}</>}
+                {bridgeStatus === "unknown" && <><Loader2 size={12} className="animate-spin" />{!isMobile && <span>Bridge…</span>}</>}
               </div>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="max-w-[220px] whitespace-pre-line text-[11px] leading-relaxed" style={{ zIndex: 99999 }}>
@@ -231,10 +231,10 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           <button
             type="button"
             onClick={() => setDataMenuOpen((v) => !v)}
-            className="flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted select-none px-3 transition-colors"
+            className="flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted select-none px-2 transition-colors"
           >
             {importing ? <Loader2 size={12} className="animate-spin" /> : <Settings size={12} />}
-            <span className="font-medium">Settings</span>
+            {!isMobile && <span className="font-medium">Settings</span>}
           </button>
           {dataMenuOpen && (
             <div id="data-dropdown" style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
