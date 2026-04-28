@@ -43,3 +43,13 @@ Each subdirectory contains documentation files for one platform, sourced from of
 - Git commit messages
 - Versioning
 - Release workflow
+
+### home.md
+- Kimi Code — Home Page
+- One subscription, code anywhere
+  - CLI example session
+- Kimi Code Plans
+  - Moderato — Advanced Flow
+  - Allegretto — Pro Choice (Recommended)
+  - Allegro — Premium Mode
+  - Vivace — Ultimate Boost
