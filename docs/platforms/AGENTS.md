@@ -105,3 +105,163 @@ Each subdirectory contains documentation files for one platform, sourced from of
   - VS Code error before sending a message
 - Feedback and Contact
   - Documentation didn't solve your problem
+
+### quick-start.md
+- Kimi Code CLI — Quick Start
+- Before You Start
+- Installation
+- First Run
+  - Start and Log In
+  - Step 1: Ask a Question
+  - Step 2: Make a Code Change
+  - Step 3: Execute a Command
+- Common Commands Cheat Sheet
+- FAQ
+  - Why do I get an authentication failure after entering my API Key?
+  - kimi command not found after installation
+  - Browser doesn't pop up after /login
+- Upgrade and Uninstall
+
+### operations.md
+- Kimi Code — Core Operations
+- Input and Control
+  - Multi-line Input
+  - Clipboard and Media Paste
+  - @ Path Completion
+  - Slash Commands
+  - Sending Messages While Running (Steer)
+  - Side Questions
+  - Approvals and Confirmations
+  - Switching Models
+  - Structured Questions
+  - Background Tasks
+- Context Management
+  - Session Resumption
+    - Resume the Most Recent Session
+    - Interactive Session Selection
+    - Resume a Specific Session
+    - Switch Sessions During Operation
+    - Resumption Prompt on Exit
+    - Startup Replay
+    - Session State Persistence
+  - Export and Import
+    - Export Session
+    - Import Context
+  - Clear and Compact
+    - Clear Context
+    - Compact Context
+- Work Modes
+  - Agent and Shell Mode
+  - Plan Mode
+    - Entering Plan Mode
+    - Reviewing Plans
+    - Managing Plan Mode
+  - Thinking Mode
+  - Print Mode
+    - Basic Usage
+    - Output Final Message Only
+    - JSON Format
+    - Message Format
+    - Exit Codes
+    - Use Cases
+
+### config.md
+- Kimi Code — Config Files
+- Config File Location
+- Configuration Items
+- Complete Configuration Example
+- providers
+- models
+- loop_control
+- background
+- services
+  - moonshot_search
+  - moonshot_fetch
+- mcp
+- hooks
+- Config Overrides and Priority
+  - Priority
+  - CLI Parameters
+  - Environment Variable Overrides
+- JSON Configuration Migration
+
+### env-vars.md
+- Kimi Code — Environment Variables
+- Kimi Environment Variables
+  - KIMI_BASE_URL
+  - KIMI_API_KEY
+  - KIMI_MODEL_NAME
+  - KIMI_MODEL_MAX_CONTEXT_SIZE
+  - KIMI_MODEL_CAPABILITIES
+  - KIMI_MODEL_TEMPERATURE
+  - KIMI_MODEL_TOP_P
+  - KIMI_MODEL_MAX_TOKENS
+- OpenAI-Compatible Environment Variables
+  - OPENAI_BASE_URL
+  - OPENAI_API_KEY
+- Other Environment Variables
+  - KIMI_SHARE_DIR
+  - KIMI_CLI_NO_AUTO_UPDATE
+  - KIMI_CLI_PASTE_CHAR_THRESHOLD
+  - KIMI_CLI_PASTE_LINE_THRESHOLD
+
+### providers-models.md
+- Kimi Code — Providers and Models
+- Platform Selection
+- Provider Types
+  - kimi
+  - openai_legacy
+  - openai_responses
+  - anthropic
+  - gemini
+  - vertexai
+- Model Capabilities
+  - thinking
+  - always_thinking
+  - image_in
+  - video_in
+- Search and Fetch Services
+
+### data-locations.md
+- Kimi Code — Data Locations
+- Directory Structure
+- Configuration and Metadata
+  - config.toml
+  - kimi.json
+  - mcp.json
+- Credentials
+- Session Data
+  - context.jsonl
+  - wire.jsonl
+  - state.json
+  - subagents/\<agent_id\>/
+- Plan Files
+- Input History
+- Logs
+- Cleaning Data
+
+### config-overrides.md
+- Kimi Code — Config Overrides
+- Priority
+- CLI Parameters
+  - Configuration file related
+  - Model related
+  - Behavior related
+- Environment Variable Overrides
+- Configuration Priority Example
+
+### mcp.md
+- Kimi Code — Model Context Protocol
+- What is MCP
+- MCP Server Management
+  - Add a server
+  - List servers
+  - Remove a server
+  - OAuth authorization
+  - Test a server
+- MCP Configuration File
+  - Temporary configuration loading
+- Loading Status
+- Security
+  - Approval mechanism
+  - Prompt injection risks
