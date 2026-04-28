@@ -29,6 +29,26 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Connect with Us
 - Acknowledgments
 
+### workflows.md
+- Understand new codebases
+  - Get a quick codebase overview
+  - Find relevant code
+- Fix bugs efficiently
+- Refactor code
+- Use specialized subagents
+- Work with tests
+- Create pull requests
+- Handle documentation
+- Reference files and directories
+- Resume previous conversations
+  - How it works
+- Run parallel Qwen Code sessions with Git worktrees
+- Use Qwen Code as a unix-style utility
+  - Add Qwen Code to your verification process
+  - Pipe in, pipe out
+  - Control output format
+- Ask Qwen Code about its capabilities
+
 ### quick-start.md
 - Before you begin
 - Step 1: Install Qwen Code
