@@ -224,11 +224,13 @@ export function DbBrowserPanel({ onClose }: Props) {
 
       {/* ── Header ── */}
       <div className="flex items-center px-4 py-2.5 border-b border-border shrink-0">
-        <span className="text-xs font-semibold text-foreground flex-1">Database</span>
+        <span className="text-xs font-semibold text-foreground">Database</span>
         {selectedTable && (
-          <span className="text-[10px] text-muted-foreground font-mono mr-2">
-            {selectedTable} · {rows.length} rows
-          </span>
+          <>
+            <span className="mx-2 text-muted-foreground/40 text-xs">/</span>
+            <span className="text-xs font-mono text-primary">{selectedTable}</span>
+            <span className="ml-2 text-[10px] text-muted-foreground font-mono">{rows.length} rows</span>
+          </>
         )}
       </div>
 
