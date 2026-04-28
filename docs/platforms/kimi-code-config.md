@@ -217,8 +217,51 @@ command = "prettier --write"
 
 Note: `--config` and `--config-file` cannot be used together.
 
-### Environment Variable Overrides
+---
 
-- `kimi` type providers: use `KIMI_*` variables
-- `openai_legacy` or `openai_responses` type: use `OPENAI_*` variables
-- Other types: env var overrides not supported
+## Environment Variables
+
+### Kimi Provider Variables
+
+| Variable | Description |
+|---|---|
+| `KIMI_BASE_URL` | API base URL |
+| `KIMI_API_KEY` | API key |
+| `KIMI_MODEL_NAME` | Model identifier |
+| `KIMI_MODEL_MAX_CONTEXT_SIZE` | Max context length in tokens |
+| `KIMI_MODEL_CAPABILITIES` | Comma-separated capabilities: `thinking,image_in,video_in,always_thinking` |
+| `KIMI_MODEL_TEMPERATURE` | Generation temperature |
+| `KIMI_MODEL_TOP_P` | Nucleus sampling top_p |
+| `KIMI_MODEL_MAX_TOKENS` | Max tokens per response |
+
+```bash
+export KIMI_BASE_URL="https://api.kimi.com/coding/v1"
+export KIMI_API_KEY="sk-xxx"
+export KIMI_MODEL_NAME="kimi-for-coding"
+export KIMI_MODEL_MAX_CONTEXT_SIZE="262144"
+export KIMI_MODEL_CAPABILITIES="thinking,image_in"
+```
+
+### OpenAI-Compatible Provider Variables
+
+| Variable | Description |
+|---|---|
+| `OPENAI_BASE_URL` | API base URL |
+| `OPENAI_API_KEY` | API key |
+
+### Other Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `KIMI_SHARE_DIR` | `~/.kimi` | Share directory — config, sessions, logs, runtime data |
+| `KIMI_CLI_NO_AUTO_UPDATE` | — | Set to `1` to disable background update checks |
+| `KIMI_CLI_PASTE_CHAR_THRESHOLD` | `1000` | Chars threshold for folding pasted text |
+| `KIMI_CLI_PASTE_LINE_THRESHOLD` | `15` | Lines threshold for folding pasted text |
+
+Note: `KIMI_SHARE_DIR` does not affect Agent Skills search paths — use `--skills-dir` for that.
+
+**CJK IME fix** (XShell over SSH, broken IME after paste):
+```bash
+export KIMI_CLI_PASTE_LINE_THRESHOLD="2"
+```
+Folds any paste containing a newline into a single-line placeholder. Thresholds use OR logic.
