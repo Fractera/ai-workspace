@@ -238,7 +238,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           </button>
           {dataMenuOpen && (
             <div id="data-dropdown" style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
-              className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[160px]">
+              className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[208px]">
               <button type="button" onClick={() => { setDataMenuOpen(false); setShowMediaLibrary((v) => !v); setShowEnvEditor(false); setShowDbBrowser(false); setShowInfo(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <ImagePlus size={11} />Upload media
@@ -264,10 +264,10 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
               <div className="h-px bg-border mx-2" />
               <div className="px-3 py-2 flex flex-col gap-1">
                 <span className="text-[10px] font-medium text-muted-foreground">Help</span>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">🖼 <strong className="text-foreground">Upload media</strong> — upload images and files to storage.</p>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">⚙ <strong className="text-foreground">Configure</strong> — edit environment variables.</p>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">⬇ <strong className="text-foreground">Export</strong> — downloads a zip with your database and storage files.</p>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">⬆ <strong className="text-foreground">Import</strong> — merges a backup into existing data. No data is overwritten.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed"><strong className="text-foreground">Upload media</strong> — upload images and files to storage.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed"><strong className="text-foreground">Configure</strong> — edit environment variables.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed"><strong className="text-foreground">Export</strong> — downloads a zip with your database and storage files.</p>
+                <p className="text-[10px] text-muted-foreground leading-relaxed"><strong className="text-foreground">Import</strong> — merges a backup into existing data. No data is overwritten.</p>
               </div>
             </div>
           )}
