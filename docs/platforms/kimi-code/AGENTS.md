@@ -274,3 +274,56 @@ Documentation for Kimi Code (Moonshot AI), sourced from official docs.
   - Stop Hook Anti-Loop
   - Context Variables
 - Comparison with Plugins
+
+### plugins.md
+- Kimi Code — Plugins (Beta)
+- What are Plugins
+- Installing Plugins
+  - Install from a local directory
+  - Install from a ZIP file
+  - Install from a Git repository
+  - List installed plugins
+  - View plugin details
+  - Remove a plugin
+- Creating a Plugin
+  - Directory structure
+  - plugin.json format
+  - Field descriptions
+  - Tool field descriptions
+- Credential Injection
+  - inject configuration example
+  - Supported injection variables
+  - config.json template
+- Tool Script Specification
+  - Input format
+  - Output format
+  - Python example
+  - TypeScript example
+- Bundling a Skill
+  - Directory layout
+- Complete Example
+- Plugin Installation Location
+
+### skills.md
+- Kimi Code — Skills
+- What are Agent Skills
+- Skill Discovery
+  - Built-in skills
+  - User-level skills
+  - Project-level skills
+- Built-in Skills
+- Creating a Skill
+  - Directory structure
+  - SKILL.md format
+  - Frontmatter fields
+  - Best practices
+- Example Skills
+  - PowerPoint creation
+  - Python project standards
+  - Git commit conventions
+- Using Slash Commands to Load a Skill
+- Flow Skills
+  - Creating a flow skill
+  - Flow diagram format
+  - D2 format example
+  - Executing a flow skill
