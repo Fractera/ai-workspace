@@ -128,6 +128,114 @@ Flags: --print --output-format stream-json
 
 ---
 
+## Key Features
+
+### Shell Command Mode
+
+Press `Ctrl-X` to switch to shell command mode — run shell commands directly without leaving Kimi Code CLI. Note: built-in shell commands like `cd` are not supported yet.
+
+### VS Code Extension
+
+Kimi Code CLI integrates with VS Code via the Kimi Code VS Code Extension.
+
+### ACP (Agent Client Protocol)
+
+Kimi Code CLI is an ACP server — works with any ACP-compatible editor (Zed, JetBrains, etc.).
+
+```bash
+# Run in terminal first, complete login
+kimi /login
+
+# Start as ACP server
+kimi acp
+```
+
+Config for Zed / JetBrains (`~/.config/zed/settings.json` or `~/.jetbrains/acp.json`):
+
+```json
+{
+  "agent_servers": {
+    "Kimi Code CLI": {
+      "type": "custom",
+      "command": "kimi",
+      "args": ["acp"],
+      "env": {}
+    }
+  }
+}
+```
+
+### Zsh Integration
+
+```bash
+git clone https://github.com/MoonshotAI/zsh-kimi-cli.git \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/kimi-cli
+```
+
+Add `kimi-cli` to plugins in `~/.zshrc`:
+```
+plugins=(... kimi-cli)
+```
+
+After restart: press `Ctrl-X` to switch to agent mode.
+
+---
+
+## MCP Support
+
+```bash
+# Add streamable HTTP server
+kimi mcp add --transport http context7 https://mcp.context7.com/mcp \
+  --header "CONTEXT7_API_KEY: ctx7sk-your-key"
+
+# Add HTTP server with OAuth
+kimi mcp add --transport http --auth oauth linear https://mcp.linear.app/mcp
+
+# Add stdio server
+kimi mcp add --transport stdio chrome-devtools -- npx chrome-devtools-mcp@latest
+
+# List, remove, authorize
+kimi mcp list
+kimi mcp remove chrome-devtools
+kimi mcp auth linear
+
+# Ad-hoc config file
+kimi --mcp-config-file /path/to/mcp.json
+```
+
+MCP config file format:
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "headers": { "CONTEXT7_API_KEY": "YOUR_API_KEY" }
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    }
+  }
+}
+```
+
+---
+
+## Dev Commands (Extended)
+
+```bash
+uv run kimi              # run Kimi Code CLI directly
+make test-kimi-cli       # Kimi Code CLI tests only
+make test-kosong         # kosong tests only
+make test-pykaos         # pykaos tests only
+make build-web           # build web UI and sync into package (requires Node.js/npm)
+make help                # show all make targets
+```
+
+Note: `make build` and `make build-bin` automatically run `make build-web` to embed the web UI.
+
+---
+
 ## Common Issues
 
 | Problem | Fix |
