@@ -33,3 +33,14 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - 🤝 Contributing
 - 📖 Resources
 - 📄 Legal
+
+### gemini-md.md
+
+- GEMINI.md — Gemini CLI Project Context
+- Project Overview
+- Building and Running
+- Testing and Quality
+  - Test Commands
+- Development Conventions
+- Testing Conventions
+- Documentation
