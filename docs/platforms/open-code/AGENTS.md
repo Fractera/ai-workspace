@@ -6,6 +6,44 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `rules.md`
+
+- Rules
+- Initialize
+- Example
+- Types
+  - Project
+  - Global
+- Claude Code Compatibility
+- Precedence
+- Custom Instructions
+- Referencing External Files
+  - Using opencode.json
+  - Manual Instructions in AGENTS.md
+
+### `tools.md`
+
+- Tools
+- Configure
+- Built-in
+  - bash
+  - edit
+  - write
+  - read
+  - grep
+  - glob
+  - lsp (experimental)
+  - apply_patch
+  - skill
+  - todowrite
+  - webfetch
+  - websearch
+  - question
+- Custom tools
+- MCP servers
+- Internals
+  - Ignore patterns
+
 ### `cli.md`
 
 - CLI
