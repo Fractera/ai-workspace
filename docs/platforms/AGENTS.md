@@ -35,6 +35,16 @@ See [qwen-code/AGENTS.md](qwen-code/AGENTS.md) for the full file index with all 
 
 ---
 
+## claude-code/
+
+See [claude-code/AGENTS.md](claude-code/AGENTS.md) for the full file index with all headings.
+
+### Files
+
+`overview.md` · `quickstart.md` · `remote-control.md` · `code-review.md` · `github-actions.md` · `slack.md`
+
+---
+
 ## gemini-cli/
 
 See [gemini-cli/AGENTS.md](gemini-cli/AGENTS.md) for the full file index with all headings.
