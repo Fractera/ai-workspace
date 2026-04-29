@@ -488,3 +488,167 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Enable notifications
 - Types of notifications
 - Next steps
+
+### subagents.md
+
+- Subagents
+- What are subagents?
+- How to use subagents
+  - Automatic delegation
+  - Forcing a subagent (@ syntax)
+- Built-in subagents
+  - Codebase Investigator
+  - CLI Help Agent
+  - Generalist Agent
+  - Browser Agent (experimental)
+    - Prerequisites
+    - Enabling the browser agent
+    - Session modes
+    - First-run consent
+    - Configuration reference
+    - Automation overlay and input blocking
+    - Security
+    - Visual agent
+    - Sandbox support
+      - macOS seatbelt (`sandbox-exec`)
+      - Container sandboxes (Docker / Podman)
+- Creating custom subagents
+  - Agent definition files
+  - File format
+  - Configuration schema
+  - Tool wildcards
+  - Isolation and recursion protection
+- Subagent tool isolation
+  - Configuring isolated tools and servers
+  - Subagent-specific policies
+- Managing subagents
+  - Interactive management (/agents)
+  - Persistent configuration (settings.json)
+    - `agents.overrides`
+    - `modelConfigs.overrides`
+    - Safety policies (TOML)
+  - Optimizing your subagent
+- Remote subagents (Agent2Agent)
+- Extension subagents
+- Disabling subagents
+
+### remote-agents.md
+
+- Remote Subagents
+- Proxy support
+- Defining remote subagents
+  - Configuration schema
+  - Single-subagent example
+  - Multi-subagent example
+  - Inline Agent Card JSON
+- Authentication
+  - Supported auth types
+  - Dynamic values
+  - API key (`apiKey`)
+  - HTTP authentication (`http`)
+    - Bearer token
+    - Basic authentication
+    - Raw scheme
+  - Google Application Default Credentials (`google-credentials`)
+    - How token selection works
+    - Setup
+    - Allowed hosts
+    - Examples
+  - OAuth 2.0 (`oauth`)
+  - Auth validation
+  - Auth retry behavior
+  - Agent card fetching and auth
+- Managing Subagents
+- Disabling remote agents
+
+### rewind.md
+
+- Rewind
+- Usage
+- Interface
+- Key considerations
+
+### sandboxing.md
+
+- Sandboxing in Gemini CLI
+- Prerequisites
+- Overview of sandboxing
+- Quickstart
+  - Using the command flag
+  - Using an environment variable
+  - Configuring via settings.json
+- Configuration
+- Sandboxing methods
+  - 1. macOS Seatbelt (macOS only)
+  - 2. Container-based (Docker/Podman)
+  - 3. Windows Native Sandbox (Windows only)
+  - 4. gVisor / runsc (Linux only)
+  - 5. LXC/LXD (Linux only, experimental)
+- Tool sandboxing
+  - How to turn off tool sandboxing
+- Sandbox expansion
+  - How sandbox expansion works
+  - Including files outside the workspace
+- Running inside a Docker container
+- Advanced settings
+  - Custom sandbox flags
+  - Linux UID/GID handling
+- Troubleshooting
+  - Common issues
+  - Debug mode
+  - Inspect sandbox
+- Security notes
+- Related documentation
+
+### settings.md
+
+- Gemini CLI settings (`/settings` command)
+- Settings reference
+  - General
+  - Output
+  - UI
+  - IDE
+  - Billing
+  - Model
+  - Agents
+  - Context
+  - Tools
+  - Security
+  - Advanced
+  - Experimental
+  - Skills
+  - HooksConfig
+
+### observability.md
+
+- Observability with OpenTelemetry
+- OpenTelemetry integration
+- Configuration
+- Google Cloud telemetry
+  - Prerequisites
+  - Direct export
+  - View Google Cloud telemetry
+    - Monitoring dashboards
+- Local telemetry
+- Client identification
+  - Automatic identification
+  - Custom identification
+- Logs, metrics, and traces
+  - Logs
+    - Sessions
+    - Approval mode
+    - Tools
+    - Files
+    - API
+    - Model routing
+    - Chat and streaming
+    - Resilience
+    - Extensions
+    - Agent runs
+    - IDE
+    - UI
+    - Miscellaneous
+  - Metrics
+    - Custom metrics
+    - GenAI semantic convention
+  - Traces
