@@ -35,6 +35,16 @@ See [qwen-code/AGENTS.md](qwen-code/AGENTS.md) for the full file index with all 
 
 ---
 
+## gemini-cli/
+
+See [gemini-cli/AGENTS.md](gemini-cli/AGENTS.md) for the full file index with all headings.
+
+### Files
+
+`overview.md`
+
+---
+
 ## open-code/
 
 See [open-code/AGENTS.md](open-code/AGENTS.md) for the full file index with all headings.
