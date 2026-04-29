@@ -51,7 +51,7 @@ See [codex/AGENTS.md](codex/AGENTS.md) for the full file index with all headings
 
 ### Files
 
-`quick-start.md`
+`quick-start.md` · `cli.md` · `cli-features.md` · `cli-reference.md` · `github.md` · `slack.md` · `linear.md`
 
 ---
 
