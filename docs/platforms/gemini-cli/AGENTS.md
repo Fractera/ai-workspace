@@ -237,3 +237,12 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Build your own custom AI tools
   - Scenario: Create a "Smart Commit" alias
 - Next steps
+
+### extensions.md
+
+- Gemini CLI extensions
+- Choose your path
+  - I want to use extensions
+  - I want to build extensions
+- Manage extensions
+- Installation
