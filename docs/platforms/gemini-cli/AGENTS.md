@@ -156,3 +156,19 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - Confirmation prompts
   - Sandboxing
 - Next steps
+
+### sessions.md
+
+- Manage sessions and history
+- Prerequisites
+- How to resume where you left off
+  - Scenario: Resume the last session
+  - Scenario: Browse past sessions
+- How to manage your workspace
+  - Scenario: Deleting sessions
+- How to rewind time (Undo mistakes)
+  - Scenario: Triggering rewind
+  - Scenario: Choosing a restore point
+  - Scenario: Choosing what to revert
+- How to fork conversations
+- Next steps
