@@ -112,3 +112,14 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Verify the result
 - Advanced: Controlling what Gemini sees
 - Next steps
+
+### skills.md
+
+- Get started with Agent Skills
+- How to create a skill
+  - Create the directory structure
+  - Create the definition
+  - Add the tool logic
+- How to verify discovery
+- How to use the skill
+- Next steps
