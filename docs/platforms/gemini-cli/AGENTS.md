@@ -312,3 +312,13 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Using the `/restore` command
   - List available checkpoints
   - Restore a specific checkpoint
+
+### headless-reference.md
+
+- Headless mode reference
+- Technical reference
+  - Output formats
+    - JSON output
+    - Streaming JSON output
+- Exit codes
+- Next steps
