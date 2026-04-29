@@ -52,3 +52,21 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Install Gemini CLI
 - Run Gemini CLI
 - Releases
+
+### auth.md
+
+- Gemini CLI authentication setup
+- Choose your authentication method
+  - What is my Google account type?
+- (Recommended) Sign in with Google
+  - Do I need to set my Google Cloud project?
+- Use Gemini API key
+- Use Vertex AI
+  - A. Vertex AI — application default credentials (ADC) using `gcloud`
+  - B. Vertex AI — service account JSON key
+  - C. Vertex AI — Google Cloud API key
+- Set your Google Cloud project
+- Persisting environment variables
+- Running in Google Cloud environments
+- Running in headless mode
+- What's next?
