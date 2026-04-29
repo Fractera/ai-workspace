@@ -123,3 +123,20 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - How to verify discovery
 - How to use the skill
 - Next steps
+
+### memory.md
+
+- Manage context and memory
+- Prerequisites
+- Why manage context?
+- How to define project-wide rules (GEMINI.md)
+  - Scenario: Create a project context file
+  - Scenario: Using the hierarchy
+- How to teach the agent facts (Memory)
+  - Scenario: Saving a memory
+  - Scenario: Using memory in conversation
+- How to manage and inspect context
+  - Scenario: View active context
+  - Scenario: Refresh context
+- Best practices
+- Next steps
