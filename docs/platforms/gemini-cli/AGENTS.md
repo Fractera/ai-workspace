@@ -376,3 +376,54 @@ Documentation for Gemini CLI (Google), sourced from official docs.
     - Streaming JSON output
 - Exit codes
 - Next steps
+
+### mcp.md
+
+- MCP servers with Gemini CLI
+- What is an MCP server?
+- Core integration architecture
+  - Discovery Layer (`mcp-client.ts`)
+  - Execution layer (`mcp-tool.ts`)
+  - Transport mechanisms
+- Working with MCP resources
+  - Discovery and listing
+  - Referencing resources in a conversation
+- How to set up your MCP server
+  - Configure the MCP server in settings.json
+    - Global MCP settings (`mcp`)
+    - Server-specific configuration (`mcpServers`)
+  - Configuration structure
+  - Configuration properties
+  - Environment variable expansion
+  - Security and environment sanitization
+  - OAuth support for remote MCP servers
+  - Example configurations
+- Discovery process deep dive
+- Tool execution flow
+- How to interact with your MCP server
+- Status monitoring and troubleshooting
+  - Overriding extension configurations
+  - Server status
+  - Discovery state
+  - Common issues
+  - Debugging tips
+- Important notes
+- Returning rich content from tools
+  - Supported content block types
+  - Example: Returning text and an image
+- MCP prompts as slash commands
+  - Defining prompts on the server
+  - Invoking prompts
+- Managing MCP servers with `gemini mcp`
+  - Adding a server (`gemini mcp add`)
+  - Listing servers (`gemini mcp list`)
+  - Removing a server (`gemini mcp remove`)
+  - Enabling/disabling a server
+- Troubleshooting and Diagnostics
+- Instructions
+
+### mcp-resources.md
+
+- MCP resource tools
+- 1. `list_mcp_resources` (ListMcpResources)
+- 2. `read_mcp_resource` (ReadMcpResource)
