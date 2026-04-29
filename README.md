@@ -143,37 +143,48 @@ Fractera is an architecture that manages the AI coding process and enforces corr
 
 <h2 align="center">Getting Started</h2>
 
-<p align="center">You need a terminal. On Mac — it is called Terminal, find it with Spotlight (Cmd+Space, type "Terminal"). On Windows — press Win+R, type <code>cmd</code>, press Enter. On Linux — you already know.</p>
+<p align="center">You need a terminal. On Mac — it is called Terminal, find it with Spotlight (Cmd+Space, type "Terminal"). On Windows — press Win+R, type <code>powershell</code>, press Enter. On Linux — you already know.</p>
 
 <p align="center"><strong>Step 1. Install Claude Code.</strong><br/>
 Copy this line, paste it into the terminal, press Enter:</p>
 
 ```bash
-# Mac / Linux
+# Mac / Linux / WSL
 curl -fsSL https://claude.ai/install.sh | bash
+```
 
+```powershell
 # Windows (PowerShell)
 irm https://claude.ai/install.ps1 | iex
 ```
 
 <p align="center">Already have Claude Code? Skip this step.</p>
 
-<p align="center"><strong>Step 2. Sign in to Claude.</strong><br/>
-Run this command and follow the instructions on screen:</p>
+<p align="center"><strong>Step 2. Navigate to the project folder.</strong><br/>
+After cloning this repository, open your terminal and run:</p>
 
 ```bash
-claude auth
+# Mac / Linux
+cd ~/ai-workspace
 ```
 
-<p align="center"><strong>Step 3. Install and launch Fractera.</strong><br/>
-Copy this line, paste it into the terminal, press Enter:</p>
+```powershell
+# Windows (PowerShell)
+cd $env:USERPROFILE\ai-workspace
+```
+
+<p align="center">If you cloned the repo to a different location, use that path instead.<br/>
+Not sure where it is? Run <code>find ~ -maxdepth 3 -name "ai-workspace" -type d 2>/dev/null</code> on Mac/Linux, or search in File Explorer on Windows.</p>
+
+<p align="center"><strong>Step 3. Launch Claude Code.</strong></p>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Fractera/ai-workspace/main/install.sh | bash
+claude
 ```
 
-<p align="center">That is everything. The script will check your system, download Fractera, install all dependencies, and open it in your browser automatically.<br/><br/>
-The first account you register becomes the Administrator. You will see a coding workspace with all AI platforms ready to use.</p>
+<p align="center">Claude Code will read the project instructions automatically and propose to install everything — Fractera, all dependencies, and all AI coding platforms. Just confirm, and it handles the rest.<br/><br/>
+The first account you register becomes the Administrator.<br/>
+Company Brain and Open Claw are coming in v1.3 and v1.4 — Claude Code will note them as pending.</p>
 
 ---
 
