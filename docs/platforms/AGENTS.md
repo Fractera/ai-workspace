@@ -45,6 +45,16 @@ See [gemini-cli/AGENTS.md](gemini-cli/AGENTS.md) for the full file index with al
 
 ---
 
+## codex/
+
+See [codex/AGENTS.md](codex/AGENTS.md) for the full file index with all headings.
+
+### Files
+
+`quick-start.md`
+
+---
+
 ## open-code/
 
 See [open-code/AGENTS.md](open-code/AGENTS.md) for the full file index with all headings.
