@@ -95,3 +95,20 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - Administrator instructions
   - User instructions
 - Next steps
+
+### file-management.md
+
+- File management with Gemini CLI
+- Prerequisites
+- Providing context by reading files
+  - Direct file inclusion (`@`)
+  - Working with multiple files
+  - Including entire directories
+- How to find files (Exploration)
+  - Scenario: Find a component definition
+- How to modify code
+  - Creating new files
+- Review and confirm changes
+- Verify the result
+- Advanced: Controlling what Gemini sees
+- Next steps
