@@ -70,3 +70,16 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Running in Google Cloud environments
 - Running in headless mode
 - What's next?
+
+### cli-reference.md
+
+- Gemini CLI cheatsheet
+- CLI commands
+  - Positional arguments
+- Interactive commands
+- CLI Options
+- Model selection
+  - Model aliases
+- Extensions management
+- MCP server management
+- Skills management
