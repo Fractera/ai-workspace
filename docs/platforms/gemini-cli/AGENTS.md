@@ -434,3 +434,27 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - How it works
 - Local Model Routing (Experimental)
 - Model selection precedence
+
+### model-selection.md
+
+- Gemini CLI model selection (`/model` command)
+- How to use the `/model` command
+- Best practices for model selection
+
+### model-steering.md
+
+- Model steering (experimental)
+- Enabling model steering
+- Using model steering
+  - Common use cases
+- How it works
+- Next steps
+
+### notifications.md
+
+- Notifications (experimental)
+- Requirements
+  - Terminal support
+- Enable notifications
+- Types of notifications
+- Next steps
