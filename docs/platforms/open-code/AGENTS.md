@@ -6,6 +6,31 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `skills.md`
+
+- Agent Skills
+- Place files
+- Understand discovery
+- Write frontmatter
+- Validate names
+- Follow length rules
+- Use an example
+- Recognize tool description
+- Configure permissions
+- Override per agent
+- Disable the skill tool
+- Troubleshoot loading
+
+### `acp.md`
+
+- ACP Support
+- Configure
+  - Zed
+  - JetBrains IDEs
+  - Avante.nvim
+  - CodeCompanion.nvim
+- Support
+
 ### `mcp.md`
 
 - MCP servers
