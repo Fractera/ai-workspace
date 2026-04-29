@@ -4,6 +4,33 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ## Files
 
+### config-advanced.md — Advanced Configuration
+
+- Profiles
+- One-off overrides from the CLI
+- Config and state locations
+- Project config files (`.codex/config.toml`)
+- Hooks (experimental)
+- Agent roles (`[agents]` in `config.toml`)
+- Project root detection
+- Custom model providers
+- OSS mode (local providers)
+- Azure provider and per-provider tuning
+- ChatGPT customers using data residency
+- Model reasoning, verbosity, and limits
+- Approval policies and sandbox modes
+- Shell environment policy
+- MCP servers
+- Observability and telemetry
+- Metrics
+- Feedback controls
+- Hide or surface reasoning events
+- Notifications
+- History persistence
+- Clickable citations
+- Project instructions discovery
+- TUI options
+
 ### config-basics.md — Config basics
 
 - Codex configuration file
