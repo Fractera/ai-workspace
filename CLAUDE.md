@@ -109,17 +109,30 @@ For each platform in the table below, follow this procedure:
 
 ---
 
-## Documentation rule (CRITICAL)
+## Documentation rule (CRITICAL — NO EXCEPTIONS)
 
-If any command fails:
+**The documentation in this repository is the single source of truth. Your training data is outdated. Always read the doc file first — before running any command, before guessing, before retrying.**
 
-1. **STOP** — do not retry the same command blindly
-2. **READ** the doc file for that platform (path in the table above)
-3. **Identify** the root cause from the documentation
-4. **Apply** the documented fix
-5. **Retry**
+### Before installing any platform:
 
-Repeat until verified. The docs contain install troubleshooting, OS-specific notes, and alternative install methods. Use them. Do not guess.
+1. **READ** the doc file for that platform (path in the platform table above)
+2. **EXTRACT** the exact install command from the documentation
+3. **USE** that command — not what you remember, not what you think is correct
+
+### If a command fails:
+
+1. **STOP** — do not retry the same command
+2. **RE-READ** the doc file — look for troubleshooting sections, OS-specific notes, alternative methods
+3. **EXTRACT** the fix from the documentation
+4. **APPLY** the fix and retry
+
+### If the project fails to start after install:
+
+1. **READ** `app/CLAUDE.md` — it contains the full project structure and known issues
+2. **EXTRACT** the correct startup sequence from that file
+3. **Do not use** startup commands from memory — versions and scripts change
+
+Repeat the read → extract → apply cycle until verified. Never substitute documentation with training memory. The docs are always more recent than you are.
 
 ---
 
