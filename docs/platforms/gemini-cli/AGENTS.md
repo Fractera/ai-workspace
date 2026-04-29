@@ -340,6 +340,33 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Security and risks
 - Managing hooks
 
+### hooks-reference.md
+
+- Hooks reference
+- Global hook mechanics
+- Configuration schema
+  - Hook definition
+  - Hook configuration
+- Base input schema
+- Common output fields
+- Tool hooks
+  - Matchers and tool names
+  - `BeforeTool`
+  - `AfterTool`
+- Agent hooks
+  - `BeforeAgent`
+  - `AfterAgent`
+- Model hooks
+  - `BeforeModel`
+  - `BeforeToolSelection`
+  - `AfterModel`
+- Lifecycle & system hooks
+  - `SessionStart`
+  - `SessionEnd`
+  - `Notification`
+  - `PreCompress`
+- Stable Model API
+
 ### headless-reference.md
 
 - Headless mode reference
