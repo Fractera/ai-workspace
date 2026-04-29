@@ -3,6 +3,18 @@
 import { useEffect, useRef } from 'react';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
+import { toast } from 'sonner';
+
+const IDLE_MS = 30_000;
+
+const PLATFORM_LABELS: Record<string, string> = {
+  'claude-code': 'Claude Code',
+  'codex':       'Codex',
+  'gemini-cli':  'Gemini CLI',
+  'qwen-code':   'Qwen Code',
+  'kimi-code':   'Kimi Code',
+  'open-code':   'Open Code',
+};
 
 type Props = {
   wsUrl: string;
@@ -15,6 +27,31 @@ export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose }: Prop
 
   useEffect(() => {
     if (!containerRef.current) return;
+
+    const label = PLATFORM_LABELS[platform] ?? platform;
+    const toastId = `idle-${platform}`;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    function scheduleIdleToast() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        toast.warning(
+          `${label}: terminal is idle`,
+          {
+            id: toastId,
+            description: 'To save server resources, close terminals you are not using.',
+            duration: IDLE_MS,
+            onDismiss: () => { scheduleIdleToast(); },
+          }
+        );
+        timer = null;
+      }, IDLE_MS);
+    }
+
+    function resetIdle() {
+      toast.dismiss(toastId);
+      scheduleIdleToast();
+    }
 
     const term = new Terminal({
       theme: {
@@ -46,10 +83,12 @@ export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose }: Prop
         fitAddon.fit();
         ws.send(JSON.stringify({ type: 'init', platform }));
         ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+        scheduleIdleToast();
       });
     };
 
     ws.onmessage = (e) => {
+      resetIdle();
       if (typeof e.data === 'string') {
         term.write(e.data);
       } else {
@@ -66,6 +105,7 @@ export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose }: Prop
     };
 
     term.onData((data) => {
+      resetIdle();
       if (ws.readyState === ws.OPEN) {
         ws.send(JSON.stringify({ type: 'stdin', data }));
       }
@@ -80,6 +120,8 @@ export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose }: Prop
     ro.observe(containerRef.current);
 
     return () => {
+      if (timer) clearTimeout(timer);
+      toast.dismiss(toastId);
       ro.disconnect();
       try { ws.close(); } catch {}
       term.dispose();

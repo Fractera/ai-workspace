@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
 import { PLATFORMS, COMING_SOON, type Platform, type TerminalStatus } from "./platforms";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { OpenCodeKeyDialog } from "./opencode-key-dialog.client";
 import { EnvEditorPanel } from "./env-editor-panel.client";
 import { MediaLibraryPanel } from "./media-library-panel.client";
 import { DbBrowserPanel } from "./db-browser-panel.client";
@@ -22,13 +21,37 @@ const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process ru
 
 const PTY_URL      = process.env.NEXT_PUBLIC_PTY_URL      ?? "ws://localhost:3201";
 const BRIDGE_URL   = process.env.NEXT_PUBLIC_BRIDGE_URL   ?? "ws://localhost:3200";
-const OPENCODE_URL = process.env.NEXT_PUBLIC_OPENCODE_URL ?? "ws://localhost:3206";
-
 function TerminalDot({ status }: { status: TerminalStatus }) {
   if (status === "unavailable") return <span className="size-1.5 rounded-full bg-muted-foreground/40 shrink-0" />;
   if (status === "connecting")  return <span className="size-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />;
   if (status === "connected")   return <span className="size-1.5 rounded-full bg-green-500 shrink-0" />;
   return null;
+}
+
+function InstallPromptTooltip({ label, prompt }: { label: string; prompt: string }) {
+  const [copied, setCopied] = useState(false);
+  function handleCopy() {
+    navigator.clipboard.writeText(prompt);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+  return (
+    <div className="px-3 py-2.5 flex flex-col gap-2.5">
+      <div className="flex flex-col gap-1">
+        <span className="font-semibold text-white text-[12px]">{label} — not installed</span>
+        <span className="text-white/70 text-[11px] leading-relaxed">
+          Ask Claude Code to install it automatically using the project docs.
+        </span>
+      </div>
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="flex items-center gap-1.5 h-7 px-3 rounded bg-white/10 hover:bg-white/20 text-[11px] text-white transition-colors w-full justify-center"
+      >
+        {copied ? <><Check size={11} className="text-green-400" />Copied!</> : <><Copy size={11} />Copy prompt for Claude Code</>}
+      </button>
+    </div>
+  );
 }
 
 type Props = {
@@ -47,8 +70,6 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     "open-code": "unavailable", "qwen-code": "unavailable", "kimi-code": "unavailable",
   });
   const [bridgeStatus, setBridgeStatus]     = useState<"unknown" | "online" | "offline">("unknown");
-  const [openCodeReady, setOpenCodeReady]   = useState<boolean | null>(null);
-  const [openCodeDialog, setOpenCodeDialog] = useState(false);
   const [carouselIdx, setCarouselIdx]       = useState(0);
   const [confirmingPlatform, setConfirmingPlatform] = useState<Platform | null>(null);
   const [dataMenuOpen, setDataMenuOpen]             = useState(false);
@@ -95,20 +116,6 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     setImporting(false);
     e.target.value = "";
   }
-
-  useEffect(() => {
-    const ws = new WebSocket(OPENCODE_URL);
-    const timer = setTimeout(() => { ws.close(); setOpenCodeReady(false); }, 3000);
-    ws.onopen = () => ws.send(JSON.stringify({ type: "get_models" }));
-    ws.onmessage = (e) => {
-      try {
-        const msg = JSON.parse(e.data);
-        if (msg.type === "models") { setOpenCodeReady(msg.keyConfigured === true); clearTimeout(timer); ws.close(); }
-      } catch { setOpenCodeReady(false); clearTimeout(timer); ws.close(); }
-    };
-    ws.onerror = () => { clearTimeout(timer); setOpenCodeReady(false); };
-    return () => { clearTimeout(timer); try { ws.close(); } catch {} };
-  }, []);
 
   useEffect(() => {
     const ws = new WebSocket(BRIDGE_URL);
@@ -286,9 +293,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
               const isRunning      = terminalSessions.has(p.id);
               const isCurrent      = terminalPlatform === p.id && isRunning;
               const isConfirming   = confirmingPlatform === p.id;
-              const isOpenCode     = p.id === "open-code";
-              const needsKey       = isOpenCode && openCodeReady === false;
-              const isDisabled     = !p.active && !isOpenCode;
+              const notInstalled   = !p.active && p.agentPrompt !== '';
               const bridgeOffline  = bridgeStatus === "offline" && !isRunning;
 
               const btn = (
@@ -296,15 +301,13 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                   type="button"
                   style={{ width: CARD_W, flexShrink: 0, position: "relative" }}
                   onClick={() => {
-                    if (bridgeOffline) return;
-                    if (needsKey) { setOpenCodeDialog(true); return; }
+                    if (bridgeOffline || notInstalled) return;
                     handleCardClick(p.id);
                   }}
-                  disabled={isDisabled}
+                  disabled={notInstalled}
                   className={`flex items-center justify-center gap-1.5 rounded-md border h-9 text-[11px] transition-all px-2 ${
                     bridgeOffline   ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
-                    : needsKey      ? "border-destructive/50 bg-destructive/5 text-destructive/70 hover:bg-destructive/10 cursor-pointer"
-                    : isDisabled    ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
+                    : notInstalled  ? "border-dashed border-border text-muted-foreground/40 cursor-not-allowed opacity-60"
                     : isConfirming  ? "border-orange-400 bg-orange-400/10 text-orange-400 font-medium"
                     : isCurrent     ? "border-primary bg-primary/10 text-primary font-medium"
                     : isRunning     ? "border-green-500/50 bg-green-500/5 text-green-600 dark:text-green-400"
@@ -317,8 +320,8 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                       <span>End session</span>
                       <span key={confirmingPlatform} style={{ position: "absolute", bottom: 4, left: 4, right: 4, height: 2, borderRadius: 1, transformOrigin: "left", animation: "countdown-shrink 2s linear forwards, countdown-color 2s linear forwards" }} />
                     </>
-                  ) : needsKey ? (
-                    <><span className="size-1.5 rounded-full bg-destructive shrink-0" /><span>{p.label}</span></>
+                  ) : notInstalled ? (
+                    <><Download size={10} className="shrink-0 opacity-50" /><span>{p.label}</span></>
                   ) : (
                     <><TerminalDot status={isRunning ? "connected" : terminalStatuses[p.id]} /><span>{p.label}</span></>
                   )}
@@ -327,13 +330,19 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
               return (
                 <React.Fragment key={p.id}>
-                  {bridgeOffline ? (
+                  {(bridgeOffline || notInstalled) ? (
                     <TooltipProvider delayDuration={0}>
                       <Tooltip>
                         <TooltipTrigger asChild>{btn}</TooltipTrigger>
-                        <TooltipContent side="bottom" className="max-w-[200px] text-[11px] leading-relaxed" style={{ zIndex: 99999 }}>
-                          Bridge is offline. Start the bridge server to use terminals:<br />
-                          <span className="font-mono">node bridges/platforms/server.js</span>
+                        <TooltipContent side="bottom" className="bg-zinc-800 text-white text-[11px] leading-relaxed p-0 [&>svg]:fill-zinc-800 [&>svg]:bg-zinc-800" style={{ zIndex: 99999, maxWidth: 260 }}>
+                          {bridgeOffline ? (
+                            <div className="px-3 py-2.5">
+                              Bridge is offline. Start the bridge server:<br />
+                              <span className="font-mono text-white/80">node bridges/platforms/server.js</span>
+                            </div>
+                          ) : (
+                            <InstallPromptTooltip label={p.label} prompt={p.agentPrompt} />
+                          )}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -489,16 +498,6 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           </button>
         )}
       </div>
-
-      {openCodeDialog && (
-        <OpenCodeKeyDialog
-          onClose={() => setOpenCodeDialog(false)}
-          onActivated={() => {
-            setOpenCodeDialog(false);
-            setTimeout(() => { setOpenCodeReady(true); onPlatformClick("open-code"); }, 3000);
-          }}
-        />
-      )}
 
       {/* ── Update log panel ── */}
       {showUpdateLog && updateLog.length > 0 && (

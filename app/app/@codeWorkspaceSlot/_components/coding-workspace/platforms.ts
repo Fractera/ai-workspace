@@ -8,13 +8,13 @@ export type Platform =
 
 export type TerminalStatus = 'unavailable' | 'connecting' | 'connected' | 'disconnected';
 
-export const PLATFORMS: { id: Platform; label: string; active: boolean }[] = [
-  { id: 'claude-code', label: 'Claude Code', active: true  },
-  { id: 'codex',       label: 'Codex',       active: true  },
-  { id: 'gemini-cli',  label: 'Gemini CLI',  active: true  },
-  { id: 'qwen-code',   label: 'Qwen Code',   active: true  },
-  { id: 'kimi-code',   label: 'Kimi Code',   active: true  },
-  { id: 'open-code',   label: 'Open Code',   active: true  },
+export const PLATFORMS: { id: Platform; label: string; active: boolean; agentPrompt: string }[] = [
+  { id: 'claude-code', label: 'Claude Code', active: true,  agentPrompt: '' },
+  { id: 'codex',       label: 'Codex',       active: false, agentPrompt: 'Install Codex CLI. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Codex. Verify with codex --version.' },
+  { id: 'gemini-cli',  label: 'Gemini CLI',  active: false, agentPrompt: 'Install Gemini CLI. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Gemini CLI. Verify with gemini --version.' },
+  { id: 'qwen-code',   label: 'Qwen Code',   active: false, agentPrompt: 'Install Qwen Code. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Qwen Code. Verify with qwen --version.' },
+  { id: 'kimi-code',   label: 'Kimi Code',   active: false, agentPrompt: 'Install Kimi Code. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Kimi Code. Verify with kimi --version.' },
+  { id: 'open-code',   label: 'Open Code',   active: false, agentPrompt: 'Install OpenCode. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for OpenCode. Verify with opencode --version.' },
 ];
 
 export const COMING_SOON: { id: string; label: string; version: string; tooltip: string }[] = [
