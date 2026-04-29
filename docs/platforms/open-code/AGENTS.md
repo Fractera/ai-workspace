@@ -6,6 +6,16 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `custom-tools.md`
+
+- Custom Tools
+- Place files
+- Basic example
+- Using context
+- Calling external scripts
+- Schema types
+- Permissions
+
 ### `skills.md`
 
 - Agent Skills
