@@ -86,6 +86,84 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### skills.md
+- What are Agent Skills?
+  - How Skills are invoked
+  - Benefits
+- Create a Skill
+  - Personal Skills
+  - Project Skills
+- Write SKILL.md
+  - Field requirements
+- Add supporting files
+- View available Skills
+  - Extension Skills
+- Test a Skill
+- Debug a Skill
+  - Make the description specific
+  - Verify file path
+  - Check YAML syntax
+  - View errors
+- Share Skills with your team
+- Update a Skill
+- Remove a Skill
+- Best practices
+  - Keep Skills focused
+  - Write clear descriptions
+  - Test with your team
+
+### agent-arena.md
+- When to use Agent Arena
+- Start an arena session
+  - What happens when you start
+- Interact with agents
+  - Display modes
+  - Navigate between agents
+  - Interact with individual agents
+- Compare results and select a winner
+  - What happens when you select a winner
+- Configuration
+- Best practices
+  - Choose models that complement each other
+  - Keep tasks self-contained
+  - Limit the number of agents
+  - Use Arena for high-impact decisions
+- Troubleshooting
+  - Agents failing to start
+  - Worktree creation fails
+  - Agent takes too long
+  - Applying winner fails
+- Limitations
+- Comparison with other multi-agent modes
+- Next steps
+
+### subagents.md
+- What are Subagents?
+- Key Benefits
+- How Subagents Work
+- Getting Started
+  - Quick Start
+  - Example Usage
+- Management
+  - CLI Commands
+  - Storage Locations
+  - Extension Subagents
+- File Format
+  - Basic Structure
+  - Model Selection
+  - Example Usage
+- Using Subagents Effectively
+  - Automatic Delegation
+  - Explicit Invocation
+- Examples
+  - Development Workflow Agents
+  - Technology-Specific Agents
+- Best Practices
+  - Design Principles
+  - Configuration Best Practices
+  - Security Considerations
+- Limits
+
 ### followup-suggestions.md
 - How It Works
 - Accepting Suggestions
