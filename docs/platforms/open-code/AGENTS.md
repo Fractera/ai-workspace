@@ -6,6 +6,34 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `keybinds.md`
+
+- Keybinds
+- Leader key
+- Disable keybind
+- Desktop prompt shortcuts
+- Shift+Enter
+  - Windows Terminal
+
+### `commands.md`
+
+- Commands
+- Create command files
+- Configure
+  - JSON
+  - Markdown
+- Prompt config
+  - Arguments
+  - Shell output
+  - File references
+- Options
+  - Template
+  - Description
+  - Agent
+  - Subtask
+  - Model
+- Built-in
+
 ### `themes.md`
 
 - Themes
