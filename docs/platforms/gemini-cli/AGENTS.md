@@ -246,3 +246,69 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - I want to build extensions
 - Manage extensions
 - Installation
+
+### extensions-build.md
+
+- Build Gemini CLI extensions
+- Prerequisites
+- Extension features
+- Step 1: Create a new extension
+- Step 2: Understand the extension files
+  - `gemini-extension.json`
+  - `example.js`
+  - `package.json`
+- Step 3: Add extension settings
+- Step 4: Link your extension
+- Step 5: Add a custom command
+- Step 6: Add a custom `GEMINI.md`
+- (Optional) Step 7: Add an Agent Skill
+- Step 8: Release your extension
+- Next steps
+
+### extensions-release.md
+
+- Release extensions
+- List your extension in the gallery
+- Release through a Git repository
+  - Manage release channels
+- Release through GitHub Releases
+  - Custom pre-built archives
+    - Platform-specific archives
+    - Archive structure
+    - Example GitHub Actions workflow
+- Migrating an Extension Repository
+
+### agent-skills.md
+
+- Agent Skills
+- Overview
+- Key Benefits
+- Skill Discovery Tiers
+- Managing Skills
+  - In an Interactive Session
+  - From the Terminal
+- How it Works
+  - Skill activation
+- Creating your own skills
+
+### auto-memory.md
+
+- Auto Memory
+- Overview
+- Prerequisites
+- How to enable Auto Memory
+- How Auto Memory works
+- How to review extracted skills
+- How to disable Auto Memory
+- Data and privacy
+- Limitations
+- Next steps
+
+### checkpointing.md
+
+- Checkpointing
+- How it works
+- Enabling the feature
+- Using the `/restore` command
+  - List available checkpoints
+  - Restore a specific checkpoint
