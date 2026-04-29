@@ -44,3 +44,11 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Development Conventions
 - Testing Conventions
 - Documentation
+
+### install.md
+
+- Gemini CLI installation, execution, and releases
+- Recommended system specifications
+- Install Gemini CLI
+- Run Gemini CLI
+- Releases
