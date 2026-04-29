@@ -86,6 +86,26 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### mcp.md
+- What you can do with MCP
+- Quick start
+  - Add your first server
+- Where configuration is stored (scopes)
+- Configure servers
+  - Choose a transport
+  - Configure via settings.json vs qwen mcp add
+  - Stdio server (local process)
+  - HTTP server (remote streamable HTTP)
+  - SSE server (remote Server-Sent Events)
+- Safety and control
+  - Trust (skip confirmations)
+  - Tool filtering (allow/deny tools per server)
+  - Global allow/deny lists
+- Troubleshooting
+- Reference
+  - settings.json structure
+  - Manage MCP servers with qwen mcp
+
 ### approval-mode.md
 - Permission Modes Comparison
 - Quick Reference Guide
