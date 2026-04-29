@@ -86,6 +86,93 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### channels.md
+- How It Works
+- Quick Start
+- Configuration
+  - Options
+  - Sender Policy
+  - Session Scope
+  - Token Security
+- DM Pairing
+  - Pairing CLI Commands
+  - Pairing Rules
+- Group Chats
+  - Group Policy
+  - Mention Gating
+  - How group messages are evaluated
+  - Telegram Setup for Groups
+  - Finding a Group Chat ID
+- Media Support
+  - Images
+  - Files
+  - Platform differences
+- Dispatch Modes
+- Block Streaming
+  - How it works
+- Slash Commands
+- Running
+- Multi-Channel Mode
+- Service Management
+- Crash Recovery
+
+### channels-telegram.md
+- Prerequisites
+- Creating a Bot
+- Finding Your User ID
+- Configuration
+- Running
+- Group Chats
+- Images and Files
+- Tips
+- Message Formatting
+- Troubleshooting
+  - Bot doesn't respond
+  - Bot doesn't respond in groups
+  - "Sorry, something went wrong processing your message"
+  - Bot takes a long time to respond
+
+### channels-wechat.md
+- Prerequisites
+- Setup
+  - 1. Log in via QR code
+  - 2. Configure the channel
+  - 3. Start the channel
+- Images and Files
+- Configuration Options
+- Key Differences from Telegram
+- Tips
+- Troubleshooting
+  - "WeChat account not configured"
+  - "Session expired (errcode -14)"
+  - Bot doesn't respond
+  - Images not working
+
+### channels-dingtalk.md
+- Prerequisites
+- Creating a Bot
+- Stream Mode
+- Configuration
+- Running
+- Group Chats
+  - Finding a Group's Conversation ID
+- Images and Files
+- Key Differences from Telegram
+- Tips
+- Troubleshooting
+  - Bot doesn't connect
+  - Bot doesn't respond in groups
+  - "No sessionWebhook in message"
+  - "Sorry, something went wrong processing your message"
+
+### channels-plugins.md
+- How It Works
+- Installing a Custom Channel
+- Configuring a Custom Channel
+- Starting the Channel
+- What You Get for Free
+- Building Your Own Channel Plugin
+
 ### i18n.md
 - Overview
 - UI Language
