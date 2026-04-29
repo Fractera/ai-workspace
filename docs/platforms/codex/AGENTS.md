@@ -4,6 +4,24 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ## Files
 
+### config-basics.md — Config basics
+
+- Codex configuration file
+- Configuration precedence
+- Common configuration options
+  - Default model
+  - Approval prompts
+  - Sandbox level
+  - Windows sandbox mode
+  - Web search mode
+  - Reasoning effort
+  - Communication style
+  - Command environment
+  - Log directory
+- Feature flags
+  - Supported features
+  - Enabling features
+
 ### security-faq.md — FAQ
 
 - Getting started
