@@ -31,4 +31,4 @@ See [qwen-code/AGENTS.md](qwen-code/AGENTS.md) for the full file index with all 
 
 ### Files
 
-`overview.md` · `quick-start.md` · `workflows.md` · `commands.md` · `code-review.md` · `followup-suggestions.md` · `channels.md` · `channels-telegram.md` · `channels-wechat.md` · `channels-dingtalk.md` · `channels-plugins.md` · `i18n.md` · `token-caching.md` · `sandboxing.md` · `lsp.md` · `mcp.md` · `approval-mode.md` · `headless-mode.md` · `skills.md` · `agent-arena.md` · `subagents.md` · `agents-md.md`
+`overview.md` · `quick-start.md` · `workflows.md` · `commands.md` · `code-review.md` · `followup-suggestions.md` · `hooks.md` · `channels.md` · `channels-telegram.md` · `channels-wechat.md` · `channels-dingtalk.md` · `channels-plugins.md` · `i18n.md` · `token-caching.md` · `sandboxing.md` · `lsp.md` · `mcp.md` · `approval-mode.md` · `headless-mode.md` · `skills.md` · `agent-arena.md` · `subagents.md` · `agents-md.md`

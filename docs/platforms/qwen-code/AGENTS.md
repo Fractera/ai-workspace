@@ -165,6 +165,37 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
   - "No sessionWebhook in message"
   - "Sorry, something went wrong processing your message"
 
+### hooks.md
+- Overview
+- What are Hooks?
+- Hook Architecture
+- Hook Events
+- Input/Output Rules
+  - Hook Input Structure
+- Individual Hook Event Details
+  - PreToolUse
+  - PostToolUse
+  - PostToolUseFailure
+  - UserPromptSubmit
+  - SessionStart
+  - SessionEnd
+  - Stop
+  - SubagentStart
+  - SubagentStop
+  - PreCompact
+  - Notification
+  - PermissionRequest
+- Hook Configuration
+- Matcher Patterns
+- Hook Execution
+  - Parallel vs Sequential Execution
+  - Security Model
+  - Exit Codes
+- Best Practices
+  - Example 1: Security Validation Hook
+  - Example 2: User Prompt Validation Hook
+- Troubleshooting
+
 ### channels-plugins.md
 - How It Works
 - Installing a Custom Channel
