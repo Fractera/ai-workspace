@@ -322,6 +322,24 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Resuming work in a Git worktree
 - Managing Git worktrees manually
 
+### hooks.md
+
+- Gemini CLI hooks
+- What are hooks?
+  - Getting started
+- Core concepts
+  - Hook events
+  - Global mechanics
+    - Strict JSON requirements (The "Golden Rule")
+    - Exit codes
+    - Matchers
+- Configuration
+  - Configuration schema
+    - Hook configuration fields
+  - Environment variables
+- Security and risks
+- Managing hooks
+
 ### headless-reference.md
 
 - Headless mode reference
