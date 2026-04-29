@@ -4,6 +4,21 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ## Files
 
+### security-setup.md — Codex Security setup
+
+- 1. Access and environment
+- 2. New security scan
+- 3. Initial scans can take a while
+- 4. Review scans and improve the threat model
+- 5. Review findings and patch
+- Related docs
+
+### security.md — Codex Security
+
+- How it works
+- Access and prerequisites
+- Related docs
+
 ### github.md — Use Codex in GitHub
 
 - Set up code review
