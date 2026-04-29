@@ -427,3 +427,10 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - MCP resource tools
 - 1. `list_mcp_resources` (ListMcpResources)
 - 2. `read_mcp_resource` (ReadMcpResource)
+
+### model-routing.md
+
+- Model routing
+- How it works
+- Local Model Routing (Experimental)
+- Model selection precedence
