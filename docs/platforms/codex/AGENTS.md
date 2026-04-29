@@ -4,6 +4,29 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ## Files
 
+### config-sample.md — Sample Configuration
+
+- Core Model Selection
+- Reasoning & Verbosity
+- Instruction Overrides
+- Notifications
+- Approval & Sandbox
+- Authentication & Login
+- Project Documentation Controls
+- History & File Opener
+- UI, Notifications, and Misc
+- Web Search
+- Agents
+- Skills
+- Sandbox settings
+- Shell Environment Policy
+- History
+- TUI options
+- Feature Flags
+- Model Providers
+- Profiles
+- Windows
+
 ### config-advanced.md — Advanced Configuration
 
 - Profiles
