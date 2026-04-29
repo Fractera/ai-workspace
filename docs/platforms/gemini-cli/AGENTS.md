@@ -196,3 +196,44 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Step 4: Approve and implement
 - Tips for effective steering
 - Next steps
+
+### web-search.md
+
+- Web search and fetch
+- Prerequisites
+- How to research new technologies
+  - Scenario: Find documentation
+- How to fetch deep context
+  - Scenario: Reading a blog post
+  - Scenario: Comparing sources
+- How to apply knowledge to code
+- How to troubleshoot errors
+- Next steps
+
+### mcp-setup.md
+
+- Set up an MCP server
+- Prerequisites
+- How to prepare your credentials
+- How to configure Gemini CLI
+- How to verify the connection
+- How to use the new tools
+  - Scenario: Listing pull requests
+  - Scenario: Creating an issue
+- Troubleshooting
+- Next steps
+
+### headless.md
+
+- Automate tasks with headless mode
+- Prerequisites
+- Why headless mode?
+- How to use headless mode
+- How to pipe input to Gemini CLI
+- Use Gemini CLI output in scripts
+  - Scenario: Bulk documentation generator
+- Extract structured JSON data
+  - Scenario: Extract and return structured data
+- Build your own custom AI tools
+  - Scenario: Create a "Smart Commit" alias
+- Next steps
