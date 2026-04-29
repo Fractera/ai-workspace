@@ -140,3 +140,19 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - Scenario: Refresh context
 - Best practices
 - Next steps
+
+### shell-commands.md
+
+- Execute shell commands
+- Prerequisites
+- How to run commands directly (`!`)
+  - Scenario: Entering Shell mode
+- How to automate complex tasks
+  - Scenario: Run tests and fix failures
+- How to manage background processes
+  - Scenario: Viewing active shells
+- How to handle interactive commands
+- Safety features
+  - Confirmation prompts
+  - Sandboxing
+- Next steps
