@@ -184,3 +184,15 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - How to monitor progress (`Ctrl+T`)
 - How to handle unexpected changes
 - Next steps
+
+### plan-mode.md
+
+- Use Plan Mode with model steering for complex tasks
+- Prerequisites
+- Why combine Plan Mode and model steering?
+- Step 1: Start a complex task
+- Step 2: Steer the research phase
+- Step 3: Refine the design mid-turn
+- Step 4: Approve and implement
+- Tips for effective steering
+- Next steps
