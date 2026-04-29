@@ -6,6 +6,53 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `config.md`
+
+- Config
+- Format
+- Locations
+  - Precedence order
+  - Remote
+  - Global
+  - Per project
+  - Custom path
+  - Custom directory
+- Managed settings
+  - File-based
+  - macOS managed preferences
+    - Creating a `.mobileconfig`
+    - Deploying via MDM
+    - Verifying on a device
+- Schema
+- TUI
+- Server
+- Shell
+- Tools
+- Models
+  - Provider-Specific Options
+    - Amazon Bedrock
+- Themes
+- Agents
+  - Default agent
+- Sharing
+- Commands
+- Keybinds
+- Snapshot
+- Autoupdate
+- Formatters
+- Permissions
+- Compaction
+- Watcher
+- MCP servers
+- Plugins
+- Instructions
+- Disabled providers
+- Enabled providers
+- Experimental
+- Variables
+  - Env vars
+  - Files
+
 ### `quick-start.md`
 
 - Get Started with OpenCode

@@ -43,4 +43,4 @@ See [open-code/AGENTS.md](open-code/AGENTS.md) for the full file index with all 
 
 ### Files
 
-`quick-start.md` · `overview.md`
+`config.md` · `quick-start.md` · `overview.md`
