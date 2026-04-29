@@ -31,4 +31,4 @@ See [qwen-code/AGENTS.md](qwen-code/AGENTS.md) for the full file index with all 
 
 ### Files
 
-`overview.md` · `quick-start.md` · `workflows.md` · `commands.md` · `code-review.md` · `followup-suggestions.md` · `headless-mode.md` · `skills.md` · `agent-arena.md` · `subagents.md` · `agents-md.md`
+`overview.md` · `quick-start.md` · `workflows.md` · `commands.md` · `code-review.md` · `followup-suggestions.md` · `approval-mode.md` · `headless-mode.md` · `skills.md` · `agent-arena.md` · `subagents.md` · `agents-md.md`

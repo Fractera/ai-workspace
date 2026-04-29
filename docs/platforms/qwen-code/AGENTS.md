@@ -86,6 +86,27 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### approval-mode.md
+- Permission Modes Comparison
+- Quick Reference Guide
+- 1. Use Plan Mode for safe code analysis
+  - When to use Plan Mode
+  - How to use Plan Mode
+- 2. Use Default Mode for Controlled Interaction
+  - When to use Default Mode
+  - How to use Default Mode
+- 3. Auto Edits Mode
+  - When to use Auto-Accept Edits Mode
+  - How to switch to this mode
+  - Workflow Example
+- 4. YOLO Mode — Full Automation
+  - When to use YOLO Mode
+  - How to enable YOLO Mode
+- Mode Switching & Configuration
+  - Keyboard Shortcut Switching
+  - Persistent Configuration
+  - Mode Usage Recommendations
+
 ### headless-mode.md
 - Overview
 - Basic Usage
