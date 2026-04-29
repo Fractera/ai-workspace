@@ -43,4 +43,4 @@ See [open-code/AGENTS.md](open-code/AGENTS.md) for the full file index with all 
 
 ### Files
 
-`lsp.md` · `permissions.md` · `formatters.md` · `keybinds.md` · `commands.md` · `themes.md` · `models.md` · `agents-guide.md` · `rules.md` · `tools.md` · `cli.md` · `tui.md` · `go.md` · `providers.md` · `config.md` · `quick-start.md` · `overview.md`
+`mcp.md` · `lsp.md` · `permissions.md` · `formatters.md` · `keybinds.md` · `commands.md` · `themes.md` · `models.md` · `agents-guide.md` · `rules.md` · `tools.md` · `cli.md` · `tui.md` · `go.md` · `providers.md` · `config.md` · `quick-start.md` · `overview.md`

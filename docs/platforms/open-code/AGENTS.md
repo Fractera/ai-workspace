@@ -6,6 +6,32 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `mcp.md`
+
+- MCP servers
+- Caveats
+- Enable
+  - Overriding remote defaults
+- Local
+  - Options
+- Remote
+  - Options
+- OAuth
+  - Automatic
+  - Pre-registered
+  - Authenticating
+  - Disabling OAuth
+  - OAuth Options
+  - Debugging
+- Manage
+  - Global
+  - Per agent
+  - Glob patterns
+- Examples
+  - Sentry
+  - Context7
+  - Grep by Vercel
+
 ### `lsp.md`
 
 - LSP Servers
