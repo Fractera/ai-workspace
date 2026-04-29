@@ -6,6 +6,28 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `quick-start.md`
+
+- Get Started with OpenCode
+- Prerequisites
+- Install
+  - Using Node.js
+  - Using Homebrew on macOS and Linux
+  - Installing on Arch Linux
+  - Windows
+- Configure
+- Initialize
+- Usage
+  - Ask Questions
+  - Add Features
+    - Create a Plan
+    - Iterate on the Plan
+    - Build the Feature
+  - Make Changes
+  - Undo Changes
+  - Share
+- Customize
+
 ### `overview.md`
 
 - OpenCode
