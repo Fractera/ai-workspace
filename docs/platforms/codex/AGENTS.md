@@ -4,6 +4,34 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ## Files
 
+### security-faq.md — FAQ
+
+- Getting started
+  - What is Codex Security?
+  - Why does it matter?
+  - What business problem does Codex Security solve?
+  - How does Codex Security work?
+  - Does it replace SAST?
+- Features
+  - What is the analysis pipeline?
+  - What languages are supported?
+  - What outputs do I get after the scan completes?
+  - How is customer code isolated?
+  - Does Codex Security auto-apply patches?
+  - Does the project need to be built for scanning?
+  - How does Codex Security reduce false positives and avoid broken patches?
+  - How long do initial scans take, and what happens after that?
+  - What is a threat model?
+  - How is a threat model generated?
+  - Does it replace manual security review?
+  - Can I edit the threat model?
+  - Do I need to configure a scan before using threat modeling?
+  - What does the proposed patch contain?
+  - Does the patch directly modify my PR branch?
+- Validation
+  - What is auto-validation?
+  - What happens if validation fails?
+
 ### security-threat-model.md — Improving the threat model
 
 - What a threat model is
