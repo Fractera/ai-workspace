@@ -86,6 +86,33 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### headless-mode.md
+- Overview
+- Basic Usage
+  - Direct Prompts
+  - Stdin Input
+  - Combining with File Input
+  - Resume Previous Sessions (Headless)
+- Customize the Main Session Prompt
+  - Override the Built-in System Prompt
+  - Append Extra Instructions
+- Output Formats
+  - Text Output (Default)
+  - JSON Output
+  - Stream-JSON Output
+- Input Format
+- File Redirection
+- Configuration Options
+- Examples
+  - Code review
+  - Generate commit messages
+  - API documentation
+  - Batch code analysis
+  - PR code review
+  - Log analysis
+  - Release notes generation
+  - Model and tool usage tracking
+
 ### skills.md
 - What are Agent Skills?
   - How Skills are invoked
