@@ -165,6 +165,19 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
   - "No sessionWebhook in message"
   - "Sorry, something went wrong processing your message"
 
+### config.md
+- Configuration layers
+- Settings files
+- The .qwen directory in your project
+- Configuration migration
+  - Consolidation policy for disableAutoUpdate and disableUpdateNag
+- Available settings in settings.json
+  - general
+  - output
+  - ui
+  - ide
+  - privacy
+
 ### scheduled-tasks.md
 - Schedule a recurring prompt with /loop
 - Interval syntax
