@@ -313,6 +313,15 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - List available checkpoints
   - Restore a specific checkpoint
 
+### worktrees.md
+
+- Git Worktrees (experimental)
+- How to enable Git worktrees
+- How to use Git worktrees
+- How to exit a Git worktree session
+- Resuming work in a Git worktree
+- Managing Git worktrees manually
+
 ### headless-reference.md
 
 - Headless mode reference

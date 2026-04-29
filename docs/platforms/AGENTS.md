@@ -41,7 +41,7 @@ See [gemini-cli/AGENTS.md](gemini-cli/AGENTS.md) for the full file index with al
 
 ### Files
 
-`overview.md` · `gemini-md.md` · `install.md` · `auth.md` · `cli-reference.md` · `models.md` · `file-management.md` · `skills.md` · `memory.md` · `shell-commands.md` · `sessions.md` · `task-planning.md` · `plan-mode.md` · `web-search.md` · `mcp-setup.md` · `headless.md` · `extensions.md` · `extensions-build.md` · `extensions-release.md` · `agent-skills.md` · `auto-memory.md` · `checkpointing.md` · `headless-reference.md`
+`overview.md` · `gemini-md.md` · `install.md` · `auth.md` · `cli-reference.md` · `models.md` · `file-management.md` · `skills.md` · `memory.md` · `shell-commands.md` · `sessions.md` · `task-planning.md` · `plan-mode.md` · `web-search.md` · `mcp-setup.md` · `headless.md` · `extensions.md` · `extensions-build.md` · `extensions-release.md` · `agent-skills.md` · `auto-memory.md` · `checkpointing.md` · `headless-reference.md` · `worktrees.md`
 
 ---
 
