@@ -86,6 +86,35 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### followup-suggestions.md
+- How It Works
+- Accepting Suggestions
+- When Suggestions Appear
+- Fast Model
+- Configuration
+- Monitoring
+- Suggestion Quality
+
+### code-review.md
+- Quick Start
+- How It Works
+- Review Agents
+- Deterministic Analysis
+- Severity Levels
+- Autofix
+- Worktree Isolation
+- Cross-repo PR Review
+- PR Inline Comments
+- Follow-up Actions
+- Project Review Rules
+- Incremental Review
+- Cross-model Review
+- Review Reports
+- Cross-file Impact Analysis
+- Token Efficiency
+- What's NOT Flagged
+- Design Philosophy
+
 ### agents-md.md
 - Common Commands
   - Building
