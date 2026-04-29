@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { CodingWindow } from "./coding-window.client";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import type { Platform } from "./coding-window/platforms";
+import type { Platform } from "./coding-workspace/platforms";
 
 export function WorkspaceController() {
   const { data: session, status } = useSession();

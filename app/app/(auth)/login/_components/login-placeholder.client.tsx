@@ -28,6 +28,7 @@ function LoginForm({ onClose }: Props) {
     const result = await signIn("credentials", { email, password, redirect: false });
     setLoading(false);
     if (result?.error) { setError("Invalid email or password"); return; }
+    router.refresh();
     if (onClose) onClose();
     else router.push(callbackUrl);
   };

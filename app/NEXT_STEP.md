@@ -45,6 +45,15 @@
 
 ---
 
+### Task 5: Employees page at /employees
+- [x] Table already existed (id, first_name, last_name, position, avatar_url)
+- [x] Page at /employees — list employees with avatar, name, position, delete icon (hover reveal)
+- [x] Delete confirmation dialog
+- [x] Create employee modal — inline cropper (square), first_name, last_name, position; submit locked until all 3 fields + photo filled
+- [x] Link from main page (/) to /employees
+
+---
+
 ## 📖 History
 
 *(Previous sessions appear here — max 2 summaries of ≤30 words)*

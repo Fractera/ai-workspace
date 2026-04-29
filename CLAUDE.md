@@ -1,3 +1,4 @@
+<!-- SETUP COMPLETE: 2026-04-29T21:20:00Z — see CLAUDE.setup-complete.md -->
 # Fractera AI Workspace — Setup Agent
 
 ## Hello, Claude Code

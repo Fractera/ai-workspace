@@ -30,6 +30,7 @@ function RegisterForm({ onClose }: Props) {
     if (!result.success) { setError(result.error); return; }
     const res = await signIn("credentials", { email, password, redirect: false });
     if (res?.error) { setError("Sign in failed after registration"); return; }
+    router.refresh();
     router.push("/");
   };
 

@@ -10,11 +10,11 @@ export type TerminalStatus = 'unavailable' | 'connecting' | 'connected' | 'disco
 
 export const PLATFORMS: { id: Platform; label: string; active: boolean; agentPrompt: string }[] = [
   { id: 'claude-code', label: 'Claude Code', active: true,  agentPrompt: '' },
-  { id: 'codex',       label: 'Codex',       active: false, agentPrompt: 'Install Codex CLI. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Codex. Verify with codex --version.' },
-  { id: 'gemini-cli',  label: 'Gemini CLI',  active: false, agentPrompt: 'Install Gemini CLI. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Gemini CLI. Verify with gemini --version.' },
-  { id: 'qwen-code',   label: 'Qwen Code',   active: false, agentPrompt: 'Install Qwen Code. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Qwen Code. Verify with qwen --version.' },
-  { id: 'kimi-code',   label: 'Kimi Code',   active: false, agentPrompt: 'Install Kimi Code. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for Kimi Code. Verify with kimi --version.' },
-  { id: 'open-code',   label: 'Open Code',   active: false, agentPrompt: 'Install OpenCode. Read CLAUDE.md in the project root, find the Phase 2 platform table, and follow the install procedure for OpenCode. Verify with opencode --version.' },
+  { id: 'codex',       label: 'Codex',       active: true,  agentPrompt: '' },
+  { id: 'gemini-cli',  label: 'Gemini CLI',  active: true,  agentPrompt: '' },
+  { id: 'qwen-code',   label: 'Qwen Code',   active: true,  agentPrompt: '' },
+  { id: 'kimi-code',   label: 'Kimi Code',   active: true,  agentPrompt: '' },
+  { id: 'open-code',   label: 'Open Code',   active: true,  agentPrompt: '' },
 ];
 
 export const COMING_SOON: { id: string; label: string; version: string; tooltip: string }[] = [

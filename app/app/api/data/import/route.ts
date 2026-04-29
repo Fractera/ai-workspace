@@ -18,7 +18,7 @@ function autoBackup() {
   copyFileSync(DB_PATH, join(BACKUP_DIR, `pre-import-${stamp}.db`));
 }
 
-function mergeDatabase(importedDbBuffer: Buffer): Record<string, number> {
+function mergeDatabase(importedDbBuffer: Buffer): { users: number; sessions: number; accounts: number; tokens: number } {
   const tmpPath = join(DATA_DIR, "_import_tmp.db");
   mkdirSync(DATA_DIR, { recursive: true });
 

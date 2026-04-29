@@ -260,13 +260,20 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ### hooks.md — Hooks
 
-- Create a rules file
-- Understand rule fields
-- Shell wrappers and compound commands
-  - When Codex can safely split the script
-  - When Codex does not split the script
-- Test a rule file
-- Understand the rules language
+- Where Codex looks for hooks
+- Config shape
+- Managed hooks from `requirements.toml`
+- Matcher patterns
+- Common input fields
+- Common output fields
+- Hooks
+  - SessionStart
+  - PreToolUse
+  - PermissionRequest
+  - PostToolUse
+  - UserPromptSubmit
+  - Stop
+- Schemas
 
 ### agents-md.md — Custom instructions with AGENTS.md
 
@@ -292,3 +299,78 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
     - Other configuration options
     - config.toml examples
 - Examples of useful MCP servers
+
+### plugins.md — Plugins
+
+- Overview
+- Use and install plugins
+  - Plugin Directory in the Codex app
+  - Plugin directory in the CLI
+  - Install and use a plugin
+  - How permissions and data sharing work
+  - Remove or turn off a plugin
+- Build your own plugin
+
+### build-plugins.md — Build plugins
+
+- Create a plugin with `$plugin-creator`
+  - Build your own curated plugin list
+  - Add a marketplace from the CLI
+  - Create a plugin manually
+  - Install a local plugin manually
+  - Marketplace metadata
+  - How Codex uses marketplaces
+- Package and distribute plugins
+  - Plugin structure
+  - Manifest fields
+  - Path rules
+  - Publish official public plugins
+
+### agent-skills.md — Agent Skills
+
+- How Codex uses skills
+- Create a skill
+- Where to save skills
+- Distribute skills with plugins
+- Install curated skills for local use
+- Enable or disable skills
+- Optional metadata
+- Best practices
+
+### subagents.md — Subagents
+
+- Availability
+- Typical workflow
+- Managing subagents
+- Approvals and sandbox controls
+- Custom agents
+  - Global settings
+  - Custom agent file schema
+  - Display nicknames
+  - Example custom agents
+    - Example 1: PR review
+    - Example 2: Frontend integration debugging
+- Process CSV batches with subagents (experimental)
+
+### remote-connections.md — Remote connections
+
+- Codex app
+- Authentication and network exposure
+- See also
+
+### authentication.md — Authentication
+
+- OpenAI authentication
+  - Sign in with ChatGPT
+  - Sign in with an API key
+- Secure your Codex cloud account
+- Login caching
+- Credential storage
+- Enforce a login method or workspace
+- Login diagnostics
+- Custom CA bundles
+- Login on headless devices
+  - Preferred: Device code authentication (beta)
+  - Fallback: Authenticate locally and copy your auth cache
+  - Fallback: Forward the localhost callback over SSH
+- Alternative model providers
