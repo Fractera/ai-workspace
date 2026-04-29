@@ -6,6 +6,74 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `themes.md`
+
+- Themes
+- Terminal requirements
+- Built-in themes
+- System theme
+- Using a theme
+- Custom themes
+  - Hierarchy
+  - Creating a theme
+  - JSON format
+  - Color definitions
+  - Terminal defaults
+  - Example
+
+### `models.md`
+
+- Models
+- Providers
+- Select a model
+- Recommended models
+- Set a default
+- Configure models
+- Variants
+  - Built-in variants
+  - Custom variants
+  - Cycle variants
+- Loading models
+
+### `agents-guide.md`
+
+- Agents
+- Types
+  - Primary agents
+  - Subagents
+- Built-in
+  - build
+  - plan
+  - general
+  - explore
+  - compaction
+  - title
+  - summary
+- Usage
+- Configure
+  - JSON
+  - Markdown
+- Options
+  - Description
+  - Temperature
+  - Max steps
+  - Disable
+  - Prompt
+  - Model
+  - Tools (deprecated)
+  - Permissions
+  - Mode
+  - Hidden
+  - Task permissions
+  - Color
+  - Top P
+  - Additional
+- Create agents
+- Use cases
+- Examples
+  - Documentation agent
+  - Security auditor
+
 ### `rules.md`
 
 - Rules
