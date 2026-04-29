@@ -165,6 +165,32 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
   - "No sessionWebhook in message"
   - "Sorry, something went wrong processing your message"
 
+### scheduled-tasks.md
+- Schedule a recurring prompt with /loop
+- Interval syntax
+- Loop over another command
+- Manage loops
+- Set a one-time reminder
+- Manage scheduled tasks
+- How scheduled tasks run
+- Jitter
+- Three-day expiry
+- Cron expression reference
+- Limitations
+
+### status-line.md
+- Prerequisites
+- Quick setup
+- Manual configuration
+- JSON input
+- Examples
+  - Model and token usage
+  - Git branch + directory
+  - File change stats
+  - Script file for complex commands
+- Behavior
+- Troubleshooting
+
 ### hooks.md
 - Overview
 - What are Hooks?
