@@ -41,7 +41,7 @@ See [gemini-cli/AGENTS.md](gemini-cli/AGENTS.md) for the full file index with al
 
 ### Files
 
-`overview.md` · `gemini-md.md` · `install.md` · `auth.md` · `cli-reference.md` · `models.md` · `file-management.md` · `skills.md` · `memory.md` · `shell-commands.md` · `sessions.md` · `task-planning.md` · `plan-mode.md` · `plan-mode-reference.md` · `web-search.md` · `mcp-setup.md` · `headless.md` · `extensions.md` · `extensions-build.md` · `extensions-release.md` · `agent-skills.md` · `auto-memory.md` · `checkpointing.md` · `headless-reference.md` · `worktrees.md` · `hooks.md` · `hooks-reference.md` · `mcp.md` · `mcp-resources.md` · `model-routing.md` · `model-selection.md` · `model-steering.md` · `notifications.md` · `subagents.md` · `remote-agents.md` · `rewind.md` · `sandboxing.md` · `settings.md` · `observability.md`
+`overview.md` · `gemini-md.md` · `install.md` · `auth.md` · `cli-reference.md` · `models.md` · `file-management.md` · `skills.md` · `memory.md` · `shell-commands.md` · `sessions.md` · `task-planning.md` · `plan-mode.md` · `plan-mode-reference.md` · `web-search.md` · `mcp-setup.md` · `headless.md` · `extensions.md` · `extensions-build.md` · `extensions-release.md` · `agent-skills.md` · `auto-memory.md` · `checkpointing.md` · `headless-reference.md` · `worktrees.md` · `hooks.md` · `hooks-reference.md` · `mcp.md` · `mcp-resources.md` · `model-routing.md` · `model-selection.md` · `model-steering.md` · `notifications.md` · `subagents.md` · `remote-agents.md` · `rewind.md` · `sandboxing.md` · `settings.md` · `observability.md` · `custom-commands.md` · `model-config.md` · `gemini-md-context.md`
 
 ---
 

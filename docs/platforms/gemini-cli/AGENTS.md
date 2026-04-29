@@ -619,6 +619,51 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - Skills
   - HooksConfig
 
+### gemini-md-context.md
+
+- Provide context with GEMINI.md files
+- Understand the context hierarchy
+  - Example `GEMINI.md` file
+- Manage context with the `/memory` command
+- Modularize context with imports
+- Customize the context file name
+- Next steps
+
+### custom-commands.md
+
+- Custom commands
+- File locations and precedence
+- Naming and namespacing
+- TOML file format (v1)
+  - Required fields
+  - Optional fields
+- Handling arguments
+  - 1. Context-aware injection with `{{args}}`
+    - A. Raw injection (outside shell commands)
+    - B. Using arguments in shell commands (inside `!{...}` blocks)
+  - 2. Default argument handling
+  - 3. Executing shell commands with `!{...}`
+  - 4. Injecting file content with `@{...}`
+- Example: A "Pure Function" refactoring command
+
+### model-config.md
+
+- Advanced Model Configuration
+- 1. System Overview
+- 2. Configuration Primitives
+  - Aliases (`customAliases`)
+  - Overrides (`overrides`)
+- 3. Resolution Strategy
+  - Step 1: Alias Resolution
+  - Step 2: Override Application
+- 4. Configuration Reference
+  - `ModelConfig` Object
+  - `GenerateContentConfig` (Common Parameters)
+- 5. Practical Examples
+  - Defining a Deterministic Baseline
+  - Agent-Specific Parameter Injection
+  - Experimental Model Evaluation
+
 ### observability.md
 
 - Observability with OpenTelemetry
