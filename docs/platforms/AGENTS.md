@@ -51,7 +51,7 @@ See [codex/AGENTS.md](codex/AGENTS.md) for the full file index with all headings
 
 ### Files
 
-`quick-start.md` · `cli.md` · `cli-features.md` · `cli-reference.md` · `github.md` · `slack.md` · `linear.md` · `security.md` · `security-setup.md` · `security-threat-model.md` · `security-faq.md` · `config-basics.md` · `config-advanced.md` · `config-sample.md` · `speed.md` · `rules.md` · `hooks.md` · `agents-md.md` · `mcp.md` · `plugins.md` · `build-plugins.md` · `agent-skills.md`
+`quick-start.md` · `cli.md` · `cli-features.md` · `cli-reference.md` · `github.md` · `slack.md` · `linear.md` · `security.md` · `security-setup.md` · `security-threat-model.md` · `security-faq.md` · `config-basics.md` · `config-advanced.md` · `config-sample.md` · `speed.md` · `rules.md` · `hooks.md` · `agents-md.md` · `mcp.md` · `plugins.md` · `build-plugins.md` · `agent-skills.md` · `subagents.md` · `remote-connections.md` · `authentication.md`
 
 ---
 
