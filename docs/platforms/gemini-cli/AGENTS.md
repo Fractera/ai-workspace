@@ -172,3 +172,15 @@ Documentation for Gemini CLI (Google), sourced from official docs.
   - Scenario: Choosing what to revert
 - How to fork conversations
 - Next steps
+
+### task-planning.md
+
+- Plan tasks with todos
+- Prerequisites
+- Why use task planning?
+- How to ask for a plan
+- How to review and iterate
+- How to execute the plan
+- How to monitor progress (`Ctrl+T`)
+- How to handle unexpected changes
+- Next steps
