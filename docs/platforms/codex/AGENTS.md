@@ -242,3 +242,53 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
     - 2. Set up an environment
     - 3. Launch a task and monitor progress
     - 4. Review changes and create a pull request
+
+### speed.md — Speed
+
+- Fast mode
+- Codex-Spark
+
+### rules.md — Rules
+
+- Create a rules file
+- Understand rule fields
+- Shell wrappers and compound commands
+  - When Codex can safely split the script
+  - When Codex does not split the script
+- Test a rule file
+- Understand the rules language
+
+### hooks.md — Hooks
+
+- Create a rules file
+- Understand rule fields
+- Shell wrappers and compound commands
+  - When Codex can safely split the script
+  - When Codex does not split the script
+- Test a rule file
+- Understand the rules language
+
+### agents-md.md — Custom instructions with AGENTS.md
+
+- How Codex discovers guidance
+- Create global guidance
+- Layer project instructions
+- Customize fallback filenames
+- Verify your setup
+- Troubleshoot discovery issues
+- Next steps
+
+### mcp.md — Model Context Protocol
+
+- Supported MCP features
+- Connect Codex to an MCP server
+  - Configure with the CLI
+    - Add an MCP server
+    - Other CLI commands
+    - Terminal UI (TUI)
+  - Configure with config.toml
+    - STDIO servers
+    - Streamable HTTP servers
+    - Other configuration options
+    - config.toml examples
+- Examples of useful MCP servers
