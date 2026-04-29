@@ -4,6 +4,55 @@
 
 You are reading this file because you were launched in the Fractera AI Workspace project folder. Your role is to set up this workspace completely — install Fractera itself and all AI coding platforms.
 
+### Step 0 — Verify you are in the right folder
+
+Before anything else, confirm you are inside the Fractera project. The correct folder contains ALL of the following:
+
+```
+app/           ← Next.js application
+bridges/       ← WebSocket bridge server
+services/      ← Media and other services
+CLAUDE.md      ← this file
+package.json   ← root package with "name": "fractera-light"
+```
+
+Run this check:
+
+```bash
+ls app bridges services package.json 2>/dev/null && echo "OK" || echo "MISSING"
+```
+
+**If the check passes** — you are in the right place. Continue to the greeting below.
+
+**If the check fails** — you are in the wrong folder. Tell the user:
+
+> "I don't see the Fractera project files here. Let me search for them on your computer."
+
+Then search:
+
+```bash
+# Mac / Linux
+find ~ -maxdepth 4 -name "package.json" -exec grep -l '"name": "fractera-light"' {} \; 2>/dev/null | head -5
+```
+
+```powershell
+# Windows PowerShell
+Get-ChildItem -Path $env:USERPROFILE -Recurse -Depth 4 -Filter "package.json" -ErrorAction SilentlyContinue | Select-String '"name": "fractera-light"' | Select-Object -ExpandProperty Path | Select-Object -First 5
+```
+
+If found — tell the user the exact path and ask them to run:
+```bash
+cd <found-path>
+claude
+```
+
+If not found — ask the user:
+> "I couldn't find the Fractera project automatically. Could you tell me where you saved it? For example, did you download a zip and extract it somewhere, or clone it with git? You can drag the folder into this terminal window to get the path."
+
+Do not proceed until you are in the correct folder.
+
+---
+
 **On first read, introduce yourself and propose the setup:**
 
 Say something like:
@@ -91,9 +140,31 @@ This flag tells Claude Code on future startups that setup is done — skip Phase
 
 **3. Print the summary table** in the terminal.
 
-**4. Tell the user:**
-- Open http://localhost:3000 and register the first account (it becomes the Administrator)
-- Each platform needs authentication — see the Auth column above. Do this now or later from the Bridges tab inside the workspace
+**4. Tell the user — read this aloud carefully:**
+
+---
+
+> **Fractera is ready. Here is what to do next — follow these steps in order.**
+>
+> **Step 1 — Register your account**
+> Open http://localhost:3000 in your browser. You will see a registration form.
+> Register now. The **first account registered becomes the Architect** — this is the admin role with full access to the coding workspace.
+>
+> ⚠️ **Save your email address somewhere safe.** The Architect email is stored only in the local database. If you forget it, recovery without AI assistance is not possible.
+>
+> **Step 2 — Open the coding workspace**
+> After registering, you will see the main page. In the top-right corner, click the **"Start Coding"** button. A coding workspace panel will open.
+>
+> **Step 3 — Configure your first AI platform**
+> Inside the coding workspace, click the **Settings** button (gear icon, top-left of the panel). A settings menu will appear. Select **"Configure"** to open the environment variable editor.
+>
+> Here you can add API keys for any AI platform. For Claude Code, you are already authenticated. For other platforms, add their keys now — or do it later from the same Settings → Configure menu.
+>
+> **Step 4 — Authenticate each platform**
+> Each platform needs a one-time login after installation. See the Auth column in the platform table above. You can do this now from your terminal, or launch each platform from the carousel inside the workspace and authenticate on first run.
+
+---
+
 - The full installation log has been saved to `CLAUDE.setup-complete.md`
 
 ---
