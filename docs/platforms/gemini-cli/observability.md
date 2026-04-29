@@ -112,7 +112,7 @@ You must complete several setup steps before enabling Google Cloud telemetry.
         ```powershell
         $env:GOOGLE_APPLICATION_CREDENTIALS="C:\path\to\your\service-account.json"
         ```
-    - **Method B: CLI Auth** (Direct export only): Simplest method for local
+    * **Method B: CLI Auth** (Direct export only): Simplest method for local
       users. Gemini CLI uses the same OAuth credentials you used for login. To
       enable this, set `useCliAuth: true` in your `.gemini/settings.json`:
 
@@ -126,6 +126,7 @@ You must complete several setup steps before enabling Google Cloud telemetry.
       }
       ```
 
+<!-- prettier-ignore -->
 > [!NOTE]
 > This setting requires **Direct export** (in-process exporters)
 > and cannot be used when `useCollector` is `true`. If both are enabled,
@@ -188,6 +189,12 @@ visualize your telemetry.
 
 Find this dashboard under **Google Cloud Monitoring Dashboard Templates** as
 "**Gemini CLI Monitoring**".
+
+![Gemini CLI Monitoring Dashboard Overview](/docs/assets/monitoring-dashboard-overview.png)
+
+![Gemini CLI Monitoring Dashboard Metrics](/docs/assets/monitoring-dashboard-metrics.png)
+
+![Gemini CLI Monitoring Dashboard Logs](/docs/assets/monitoring-dashboard-logs.png)
 
 To learn more, see
 [Instant insights: Gemini CLI's pre-configured monitoring dashboards](https://cloud.google.com/blog/topics/developers-practitioners/instant-insights-gemini-clis-new-pre-configured-monitoring-dashboards/).
@@ -934,6 +941,7 @@ Tracks onboarding flow from authentication to the user.
 
 - `gemini_cli.onboarding.start` (Counter, Int): Incremented when the
   authentication flow begins.
+
 - `gemini_cli.onboarding.success` (Counter, Int): Incremented when the user
   onboarding flow completes successfully.
 
@@ -1231,6 +1239,7 @@ These metrics follow standard [OpenTelemetry GenAI semantic conventions].
 Traces provide an "under-the-hood" view of agent and backend operations. Use
 traces to debug tool interactions and optimize performance.
 
+<!-- prettier-ignore -->
 > [!NOTE]
 > Detailed trace attributes (like full prompts and tool outputs) are disabled by default
 > to minimize overhead. You must explicitly set `telemetry.traces` to `true` (or set
