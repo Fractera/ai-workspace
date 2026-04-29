@@ -165,6 +165,85 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
   - "No sessionWebhook in message"
   - "Sorry, something went wrong processing your message"
 
+### model-providers.md
+- Overview
+- Supported Auth Types
+- SDKs Used for API Requests
+- Configuration Examples by Auth Type
+  - OpenAI-compatible providers (openai)
+  - Anthropic (anthropic)
+  - Google Gemini (gemini)
+  - Local Self-Hosted Models (via OpenAI-compatible API)
+- Alibaba Cloud Coding Plan
+  - Overview
+  - Setup
+  - Regions
+  - API Key Storage
+  - Automatic Updates
+  - Manual Configuration (Advanced)
+- Resolution Layers and Atomicity
+- Generation Config Layering: The Impermeable Provider Layer
+  - How it works
+  - Per-field precedence for generationConfig
+  - Atomic field treatment
+  - Example
+- Provider Models vs Runtime Models
+  - Provider Model
+  - Runtime Model
+- Selection Persistence and Recommendations
+
+### extensions.md
+- Extension management
+  - Runtime Extension Management (Slash Commands)
+  - CLI Extension Management
+- Installing an extension
+  - From Claude Code Marketplace
+  - From Gemini CLI Extensions
+  - From npm Registry
+  - From Git Repository
+  - From Local Path
+- Uninstalling an extension
+- Disabling an extension
+- Enabling an extension
+- Updating an extension
+- How it works
+  - qwen-extension.json
+- Managing Extension Settings
+- Custom commands
+- Custom skills
+- Custom subagents
+- Conflict resolution
+- Variables
+
+### keyboard-shortcuts.md
+- General
+- Input Prompt
+- Suggestions
+- Radio Button Select
+- IDE Integration
+
+### troubleshooting.md
+- Authentication or login errors
+- Frequently asked questions (FAQs)
+- Common error messages and solutions
+- Exit Codes
+- Debugging Tips
+- Existing GitHub Issues or creating new Issues
+
+### tos.md
+- How to determine your authentication method
+- 1. If you are using Qwen OAuth Authentication
+- 2. If you are using Alibaba Cloud Coding Plan
+- 3. If you are using your own API Key
+- Usage Statistics and Telemetry
+  - What Data is Collected
+  - Data Collection by Authentication Method
+- Frequently Asked Questions (FAQ)
+
+### uninstall.md
+- Method 1: Using npx
+- Method 2: Using npm (Global Install)
+
 ### auth.md
 - Option 1: Qwen OAuth (Free)
 - Option 2: Alibaba Cloud Coding Plan
