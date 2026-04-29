@@ -83,3 +83,15 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - Extensions management
 - MCP server management
 - Skills management
+
+### models.md
+
+- Gemini 3 Pro and Gemini 3 Flash on Gemini CLI
+- How to get started with Gemini 3 on Gemini CLI
+  - Usage limits and fallback
+  - Capacity errors
+  - Model selection and routing types
+- How to enable Gemini 3 with Gemini CLI on Gemini Code Assist
+  - Administrator instructions
+  - User instructions
+- Next steps

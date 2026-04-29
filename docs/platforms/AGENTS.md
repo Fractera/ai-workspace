@@ -41,7 +41,7 @@ See [gemini-cli/AGENTS.md](gemini-cli/AGENTS.md) for the full file index with al
 
 ### Files
 
-`overview.md` · `gemini-md.md` · `install.md` · `auth.md` · `cli-reference.md`
+`overview.md` · `gemini-md.md` · `install.md` · `auth.md` · `cli-reference.md` · `models.md`
 
 ---
 
