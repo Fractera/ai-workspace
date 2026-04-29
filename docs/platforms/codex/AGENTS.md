@@ -4,6 +4,13 @@ Documentation for Codex CLI (OpenAI), sourced from official docs.
 
 ## Files
 
+### security-threat-model.md — Improving the threat model
+
+- What a threat model is
+- Improving and revisiting the threat model
+  - Where to edit
+- Related docs
+
 ### security-setup.md — Codex Security setup
 
 - 1. Access and environment
