@@ -6,6 +6,19 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `lsp.md`
+
+- LSP Servers
+- Built-in
+- How It Works
+- Configure
+  - Environment variables
+  - Initialization options
+  - Disabling LSP servers
+  - Custom LSP servers
+- Additional Information
+  - PHP Intelephense
+
 ### `permissions.md`
 
 - Permissions
