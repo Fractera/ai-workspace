@@ -450,6 +450,36 @@ Documentation for Gemini CLI (Google), sourced from official docs.
 - How it works
 - Next steps
 
+### plan-mode-reference.md
+
+- Plan Mode
+- How to enter Plan Mode
+  - Launch in Plan Mode
+  - Enter Plan Mode manually
+- How to use Plan Mode
+  - Collaborative plan editing
+- How to exit Plan Mode
+- Tool Restrictions
+- Customization and best practices
+  - Custom planning with skills
+  - Custom policies
+    - Global vs. mode-specific rules
+    - Example: Automatically approve read-only MCP tools
+    - Example: Allow git commands in Plan Mode
+    - Example: Enable custom subagents in Plan Mode
+  - Custom plan directory and policies
+  - Using hooks with Plan Mode
+    - Example: Archive approved plans to GCS (`AfterTool`)
+- Commands
+- Planning workflows
+  - Built-in planning workflow
+  - Custom planning workflows
+    - Conductor
+    - Build your own
+- Automatic Model Routing
+- Cleanup
+- Non-interactive execution
+
 ### notifications.md
 
 - Notifications (experimental)
