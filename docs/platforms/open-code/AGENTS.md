@@ -6,6 +6,85 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `cli.md`
+
+- CLI
+- tui
+  - Flags
+- Commands
+  - agent
+    - attach
+    - create
+    - list
+  - auth
+    - login
+    - list
+    - logout
+  - github
+    - install
+    - run
+  - mcp
+    - add
+    - list
+    - auth
+    - logout
+    - debug
+  - models
+  - run
+  - serve
+  - session
+    - list
+  - stats
+  - export
+  - import
+  - web
+  - acp
+  - uninstall
+  - upgrade
+- Global Flags
+- Environment variables
+- Experimental
+
+### `tui.md`
+
+- TUI
+- File references
+- Bash commands
+- Commands
+  - connect
+  - compact
+  - details
+  - editor
+  - exit
+  - export
+  - help
+  - init
+  - models
+  - new
+  - redo
+  - sessions
+  - share
+  - themes
+  - thinking
+  - undo
+  - unshare
+- Editor setup
+- Configure
+  - Options
+- Customization
+
+### `go.md`
+
+- Go
+- Background
+- How it works
+- Usage limits
+- Usage beyond limits
+- Endpoints
+- Models
+- Privacy
+- Goals
+
 ### `providers.md`
 
 - Providers
