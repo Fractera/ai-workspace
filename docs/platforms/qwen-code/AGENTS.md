@@ -165,6 +165,44 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
   - "No sessionWebhook in message"
   - "Sorry, something went wrong processing your message"
 
+### auth.md
+- Option 1: Qwen OAuth (Free)
+- Option 2: Alibaba Cloud Coding Plan
+  - Interactive setup
+  - Alternative: configure via settings.json
+- Option 3: API Key (flexible)
+  - Recommended: One-file setup via settings.json
+  - Supported protocols
+  - Step 1: Configure models and providers in ~/.qwen/settings.json
+  - Step 2: Set environment variables
+  - Step 3: Switch models with /model
+- qwen auth CLI command
+  - Interactive mode
+  - Subcommands
+- Security notes
+
+### qwenignore.md
+- How it works
+- How to use .qwenignore
+- .qwenignore examples
+
+### trusted-folders.md
+- Enabling the Feature
+- How It Works: The Trust Dialog
+- Why Trust Matters: The Impact of an Untrusted Workspace
+- Managing Your Trust Settings
+- The Trust Check Process (Advanced)
+
+### themes.md
+- Available Themes
+- Changing Themes
+- Theme Persistence
+- Custom Color Themes
+  - How to Define a Custom Theme
+- Loading Themes from a File
+- Using Your Custom Theme
+- Themes Preview
+
 ### config.md
 - Configuration layers
 - Settings files
@@ -177,6 +215,25 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
   - ui
   - ide
   - privacy
+  - model
+  - fastModel
+  - context
+  - tools
+  - permissions
+  - mcp
+  - lsp
+  - security
+  - advanced
+  - mcpServers
+  - telemetry
+- Example settings.json
+- Shell History
+- Environment Variables & .env Files
+  - Environment Variables Table
+- Command-Line Arguments
+- Context Files (Hierarchical Instructional Context)
+- Sandbox
+- Usage Statistics
 
 ### scheduled-tasks.md
 - Schedule a recurring prompt with /loop
