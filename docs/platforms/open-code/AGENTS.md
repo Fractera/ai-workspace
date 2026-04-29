@@ -6,6 +6,29 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `permissions.md`
+
+- Permissions
+- Actions
+- Configuration
+- Granular Rules (Object Syntax)
+- Wildcards
+- Home Directory Expansion
+- External Directories
+- Available Permissions
+- Defaults
+- What "Ask" Does
+- Agents
+
+### `formatters.md`
+
+- Formatters
+- Built-in
+- How it works
+- Configure
+  - Disabling formatters
+  - Custom formatters
+
 ### `keybinds.md`
 
 - Keybinds
