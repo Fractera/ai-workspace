@@ -86,6 +86,78 @@ Documentation for Qwen Code (Alibaba), sourced from official docs.
 - Essential commands
 - Pro tips for beginners
 
+### i18n.md
+- Overview
+- UI Language
+  - Setting the UI Language
+  - Auto-detection
+- LLM Output Language
+  - How It Works
+  - Auto-detection
+  - Manual Setting
+  - File Location
+- Configuration
+  - Via Settings Dialog
+  - Via Environment Variable
+- Custom Language Packs
+  - Language Pack Format
+- Related Commands
+
+### token-caching.md
+- How It Benefits You
+- Monitoring Your Savings
+- Example Stats Display
+
+### sandboxing.md
+- Prerequisites
+- Overview of sandboxing
+- Sandboxing methods
+  - 1. macOS Seatbelt (macOS only)
+  - 2. Container-based (Docker/Podman)
+  - Choosing a method
+- Quickstart
+- Configuration
+  - Enable sandboxing (in order of precedence)
+  - Configure the sandbox image (Docker/Podman)
+  - macOS Seatbelt profiles
+  - Custom Seatbelt profiles (macOS)
+  - Custom Sandbox Flags
+  - Network proxying (all sandbox methods)
+  - Linux UID/GID handling
+- Troubleshooting
+  - Common issues
+- Security notes
+- Related documentation
+
+### lsp.md
+- Overview
+- Quick Start
+- Prerequisites
+- Configuration
+  - .lsp.json File
+  - C/C++ (clangd) configuration
+  - Java (jdtls) configuration
+  - Configuration Options
+  - TCP/Socket Transport
+- Available LSP Operations
+  - Code Navigation
+  - Symbol Information
+  - Call Hierarchy
+  - Diagnostics
+  - Code Actions
+- Security
+  - Trust Controls
+  - Per-Server Trust Override
+- Troubleshooting
+  - Server Not Starting
+  - Slow Performance
+  - No Results
+  - Debugging
+- Claude Code Compatibility
+  - Configuration Format
+- Best Practices
+- FAQ
+
 ### mcp.md
 - What you can do with MCP
 - Quick start
