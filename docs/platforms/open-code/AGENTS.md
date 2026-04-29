@@ -6,6 +6,81 @@ Documentation for Open Code, sourced from official docs.
 
 ## Files
 
+### `providers.md`
+
+- Providers
+- Credentials
+- Config
+  - Base URL
+- OpenCode Zen
+- OpenCode Go
+- Directory
+  - 302.AI
+  - Amazon Bedrock
+    - Environment Variables (Quick Start)
+    - Configuration File (Recommended)
+    - Advanced: VPC Endpoints
+    - Authentication Methods
+    - Authentication Precedence
+  - Anthropic
+  - Azure OpenAI
+  - Azure Cognitive Services
+  - Baseten
+  - Cerebras
+  - Cloudflare AI Gateway
+  - Cloudflare Workers AI
+  - Cortecs
+  - DeepSeek
+  - Deep Infra
+  - Firmware
+  - Fireworks AI
+  - GitLab Duo
+    - Using OAuth (Recommended)
+    - Using Personal Access Token
+    - Self-Hosted GitLab
+    - OAuth for Self-Hosted instances
+    - Configuration
+    - GitLab Duo Agent Platform (DAP) Workflow Models
+    - GitLab API Tools (Optional, but highly recommended)
+  - GitHub Copilot
+  - Google Vertex AI
+  - Groq
+  - Hugging Face
+  - Helicone
+    - Optional Configs
+    - Custom Headers
+    - Session tracking
+    - Common Helicone headers
+  - llama.cpp
+  - IO.NET
+  - LM Studio
+  - Moonshot AI
+  - MiniMax
+  - NVIDIA
+    - On-Prem / NIM
+    - Environment Variable
+  - Nebius Token Factory
+  - Ollama
+  - Ollama Cloud
+  - OpenAI
+    - Using API keys
+  - OpenCode Zen (via `/connect`)
+  - OpenRouter
+  - LLM Gateway
+  - SAP AI Core
+  - STACKIT
+  - OVHcloud AI Endpoints
+  - Scaleway
+  - Together AI
+  - Venice AI
+  - Vercel AI Gateway
+  - xAI
+  - Z.AI
+  - ZenMux
+- Custom provider
+  - Example
+- Troubleshooting
+
 ### `config.md`
 
 - Config
