@@ -17,7 +17,7 @@ export default async function CenterPage() {
         </div>
 
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Claude Code, Codex, Gemini, Qwen Code, Kimi Code, Open Code and LightRAG
+          Claude Code, Codex, Gemini, Qwen Code, Kimi Code, Open Code and Company Brain (LightRAG)
           are waiting inside — ready to build your apps in minutes,
           with no dependency on cloud providers.
           <br /><br />
