@@ -32,3 +32,15 @@ See [qwen-code/AGENTS.md](qwen-code/AGENTS.md) for the full file index with all 
 ### Files
 
 `overview.md` · `quick-start.md` · `workflows.md` · `commands.md` · `code-review.md` · `followup-suggestions.md` · `config.md` · `auth.md` · `model-providers.md` · `qwenignore.md` · `trusted-folders.md` · `themes.md` · `extensions.md` · `keyboard-shortcuts.md` · `troubleshooting.md` · `tos.md` · `uninstall.md` · `scheduled-tasks.md` · `status-line.md` · `hooks.md` · `channels.md` · `channels-telegram.md` · `channels-wechat.md` · `channels-dingtalk.md` · `channels-plugins.md` · `i18n.md` · `token-caching.md` · `sandboxing.md` · `lsp.md` · `mcp.md` · `approval-mode.md` · `headless-mode.md` · `skills.md` · `agent-arena.md` · `subagents.md` · `agents-md.md`
+
+---
+
+## open-code/
+
+See [open-code/AGENTS.md](open-code/AGENTS.md) for the full file index with all headings.
+
+> **Note:** Project archived. Continued as [Crush](https://github.com/charmbracelet/crush) by the original author and the Charm team.
+
+### Files
+
+`overview.md`
