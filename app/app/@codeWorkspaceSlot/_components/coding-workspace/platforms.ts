@@ -10,11 +10,11 @@ export type TerminalStatus = 'unavailable' | 'connecting' | 'connected' | 'disco
 
 export const PLATFORMS: { id: Platform; label: string; active: boolean; agentPrompt: string }[] = [
   { id: 'claude-code', label: 'Claude Code', active: true,  agentPrompt: '' },
-  { id: 'codex',       label: 'Codex',       active: true,  agentPrompt: '' },
-  { id: 'gemini-cli',  label: 'Gemini CLI',  active: true,  agentPrompt: '' },
-  { id: 'qwen-code',   label: 'Qwen Code',   active: true,  agentPrompt: '' },
-  { id: 'kimi-code',   label: 'Kimi Code',   active: true,  agentPrompt: '' },
-  { id: 'open-code',   label: 'Open Code',   active: true,  agentPrompt: '' },
+  { id: 'codex',       label: 'Codex',       active: false, agentPrompt: '' },
+  { id: 'gemini-cli',  label: 'Gemini CLI',  active: false, agentPrompt: '' },
+  { id: 'qwen-code',   label: 'Qwen Code',   active: false, agentPrompt: '' },
+  { id: 'kimi-code',   label: 'Kimi Code',   active: false, agentPrompt: '' },
+  { id: 'open-code',   label: 'Open Code',   active: false, agentPrompt: '' },
 ];
 
 export const COMING_SOON: { id: string; label: string; version: string; tooltip: string }[] = [

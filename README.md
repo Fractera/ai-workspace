@@ -143,48 +143,135 @@ Fractera is an architecture that manages the AI coding process and enforces corr
 
 <h2 align="center">Getting Started</h2>
 
-<p align="center">You need a terminal. On Mac — it is called Terminal, find it with Spotlight (Cmd+Space, type "Terminal"). On Windows — press Win+R, type <code>powershell</code>, press Enter. On Linux — you already know.</p>
+> **You need no coding experience to do this. Follow the steps exactly as written — Claude Code handles the rest.**
 
-<p align="center"><strong>Step 1. Install Claude Code.</strong><br/>
-Copy this line, paste it into the terminal, press Enter:</p>
+---
+
+### Step 1 — Fork this repository into your account
+
+> **Why fork?** Forking creates your own personal copy of Fractera on GitHub. All your project changes, settings, and future updates will be saved there — not in the original repository, which you cannot write to.
+
+**How to fork:**
+
+1. Make sure you are logged into your GitHub account. If you don't have one — [create a free account at github.com](https://github.com/join).
+2. Scroll back to the top of this page.
+3. In the top-right corner, find the **Fork** button (it looks like a branching arrow with a number next to it).
+4. Click it. GitHub will ask: *"Where do you want to fork this repository?"* — select your own account.
+5. After a few seconds, you will be redirected to **your own copy** of the repository. The URL will change from `github.com/Fractera/ai-workspace` to `github.com/YOUR-USERNAME/ai-workspace`.
+
+**You are now working in your own repository. All steps below use your fork, not the original.**
+
+---
+
+### Step 2 — Open a terminal on your computer
+
+- **Mac:** Press `Cmd + Space`, type `Terminal`, press Enter.
+- **Windows:** Press `Win + R`, type `powershell`, press Enter.
+- **Linux:** You already know.
+
+---
+
+### Step 3 — Check if Git is installed
+
+Git is the tool that downloads your repository to your computer. Paste this into the terminal and press Enter:
 
 ```bash
-# Mac / Linux / WSL
-curl -fsSL https://claude.ai/install.sh | bash
+git --version
 ```
 
-```powershell
-# Windows (PowerShell)
-irm https://claude.ai/install.ps1 | iex
-```
+- If you see something like `git version 2.x.x` — Git is installed. Skip to Step 4.
+- If you see an error — install Git:
+  - **Mac:** Run `xcode-select --install` and follow the popup.
+  - **Windows:** Download from [git-scm.com/download/win](https://git-scm.com/download/win), install with default settings, then restart PowerShell.
 
-<p align="center">Already have Claude Code? Skip this step.</p>
+---
 
-<p align="center"><strong>Step 2. Navigate to the project folder.</strong><br/>
-After cloning this repository, open your terminal and run:</p>
+### Step 4 — Install Claude Code
+
+Claude Code is the AI that will set up your workspace automatically. Paste the command for your system and press Enter:
 
 ```bash
 # Mac / Linux
-cd ~/ai-workspace
+npm install -g @anthropic-ai/claude-code
 ```
 
 ```powershell
 # Windows (PowerShell)
-cd $env:USERPROFILE\ai-workspace
+npm install -g @anthropic-ai/claude-code
 ```
 
-<p align="center">If you cloned the repo to a different location, use that path instead.<br/>
-Not sure where it is? Run <code>find ~ -maxdepth 3 -name "ai-workspace" -type d 2>/dev/null</code> on Mac/Linux, or search in File Explorer on Windows.</p>
+Already have Claude Code? Run `claude --version` to confirm — if it prints a version number, skip this step.
 
-<p align="center"><strong>Step 3. Launch Claude Code.</strong></p>
+> **If `npm` is not found:** you need Node.js first. Download it from [nodejs.org](https://nodejs.org) (choose the LTS version), install it, then restart your terminal and try again.
+
+---
+
+### Step 5 — Clone your fork to your computer
+
+Go back to your fork on GitHub (the page at `github.com/YOUR-USERNAME/ai-workspace`). Click the green **Code** button, then copy the URL shown under **HTTPS** — it should look like:
+
+```
+https://github.com/YOUR-USERNAME/ai-workspace.git
+```
+
+Now paste this into your terminal (replace `YOUR-USERNAME` with your actual GitHub username):
 
 ```bash
+git clone https://github.com/YOUR-USERNAME/ai-workspace.git
+```
+
+This will create a folder called `ai-workspace` on your computer, in whichever location your terminal is currently in (usually your home folder).
+
+---
+
+### Step 6 — Go into the folder and launch Claude Code
+
+Run these two commands one after the other:
+
+```bash
+cd ai-workspace
 claude
 ```
 
-<p align="center">Claude Code will read the project instructions automatically and propose to install everything — Fractera, all dependencies, and all AI coding platforms. Just confirm, and it handles the rest.<br/><br/>
-The first account you register becomes the Administrator.<br/>
-Company Brain and Open Claw are coming in v1.3 and v1.4 — Claude Code will note them as pending.</p>
+```powershell
+# Windows (PowerShell) — same commands
+cd ai-workspace
+claude
+```
+
+Claude Code will start, read the project instructions, and say something like:
+
+> *"Hello! I can see this is a fresh Fractera AI Workspace. I'll set up everything for you. This will take about 5 minutes. Shall I begin?"*
+
+Type `yes` and press Enter. Claude handles everything from here — installing dependencies, starting the app, and installing all AI coding platforms.
+
+---
+
+<blockquote>
+<h3>When Claude says it's done — do this immediately</h3>
+
+<p>Open your browser (Chrome, Safari, Firefox — any) and go to:</p>
+
+<h2><a href="http://localhost:3000">http://localhost:3000</a></h2>
+
+<p>This is your Fractera workspace running on your computer. You will see a registration form. <strong>Register now</strong> — the first account registered becomes the Architect (administrator) with full access to everything.</p>
+
+<p><strong>Keep this address bookmarked.</strong> Every time you start working, you will open the terminal, run <code>npm run dev</code> inside the <code>ai-workspace</code> folder, then go to <code>http://localhost:3000</code>. The workspace lives on your computer — it is not hosted anywhere until you deploy it.</p>
+</blockquote>
+
+---
+
+<p align="center"><strong>Stuck at any step?</strong> Come back to your terminal where Claude Code is running. Tell it exactly what you see — what the screen shows, what error appeared. Claude will walk you through it.</p>
+
+<p align="center">
+  <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/Fractera/ai-workspace/fork">
+    <img src="https://img.shields.io/badge/Fork_this_repository-1a1a2e?style=for-the-badge&logoColor=white" alt="Fork on GitHub"/>
+  </a>
+</p>
 
 ---
 
