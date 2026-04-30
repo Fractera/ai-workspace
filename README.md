@@ -178,14 +178,16 @@ Make sure you have at least one AI platform installed:
 
 | Platform | Install |
 |---|---|
-| **Claude Code** — Anthropic | [claude.ai/code](https://code.claude.com/docs/en/quickstart) |
-| **Codex CLI** — OpenAI | [developers.openai.com/codex/cli](https://developers.openai.com/codex/cli) |
-| **Gemini CLI** — Google | [geminicli.com/docs](https://geminicli.com/docs/get-started/installation/) |
-| **Qwen Code** — Alibaba | [qwen.ai/qwencode](https://qwen.ai/qwencode) |
-| **Kimi Code** — Moonshot | Install from inside Fractera — requires AI assistance |
-| **OpenCode** — OpenRouter | Install from inside Fractera — requires AI assistance |
+| **Claude Code** — Anthropic | [Quick Start](https://code.claude.com/docs/en/quickstart) |
+| **Codex CLI** — OpenAI | [Quick Start](https://developers.openai.com/codex/cli) |
+| **Gemini CLI** — Google | [Quick Start](https://geminicli.com/docs/get-started/installation/) |
+| **Qwen Code** — Alibaba | [Quick Start](https://qwen.ai/qwencode) |
+| **Kimi Code** — Moonshot | [Quick Start](https://moonshotai.github.io/kimi-cli/en/guides/getting-started.html) |
+| **OpenCode** — OpenRouter | [Quick Start](https://opencode.ai/docs/en) |
+| **LightRAG** — Company Brain | Install from inside Fractera — available in v1.3 |
+| **Open Claw** — Orchestration | Install from inside Fractera — available in v1.4 |
 
-> **Kimi Code** and **OpenCode** have non-standard installation flows. Launch Fractera first, then install them from the workspace using Claude Code — it handles the setup automatically.
+> **LightRAG** and **Open Claw** are not yet available as standalone installs. They will be activated automatically from inside the Fractera workspace when released.
 
 After installing a platform, set it to `active: true` in:
 `app/app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts`
