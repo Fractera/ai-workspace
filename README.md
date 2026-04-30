@@ -145,67 +145,25 @@ Fractera is an architecture that manages the AI coding process and enforces corr
 
 ---
 
-<h3 align="center">Not a developer? Start here.</h3>
+<h3 align="center">Not a developer?</h3>
 
-<blockquote>
-<p><strong>Before you begin — three things to check:</strong></p>
-<ul>
-<li>You need a paid <strong>Claude Pro subscription (~$20/month)</strong> at <a href="https://claude.ai">claude.ai</a>. Without it, Claude Code cannot complete the setup automatically.</li>
-<li>When logging in, <strong>close all browsers except the one where claude.ai is open</strong>. If multiple Google accounts or browser profiles are active, the login may go to the wrong account.</li>
-<li>When you launch Claude Code, you will see a <strong>blank black screen with a blinking cursor</strong>. This is normal. Type <code>START</code> and press Enter — Claude will take it from there.</li>
-</ul>
-</blockquote>
+<p align="center">
+  <img src="https://img.shields.io/badge/🚀_Fractera_Easy_Starter-coming_soon-6e40c9?style=for-the-badge" alt="Fractera Easy Starter — Coming Soon"/>
+</p>
 
-**Step 1 — Fork this repository**
+<p align="center"><strong>One click. Your own server. No terminal needed.</strong></p>
 
-Forking creates your own personal copy of Fractera on GitHub. Your project changes, settings, and future saves go there — not into the original.
-
-1. Make sure you're logged into your GitHub account. No account? [Create a free one at github.com](https://github.com/join).
-2. Look at the top-right corner of this page — find the **Fork** button (branching arrow icon with a number).
-3. Click it and select your own account as the destination.
-4. In a few seconds you'll be redirected to your own copy: `github.com/YOUR-USERNAME/ai-workspace`.
-
-**Step 2 — Install Claude Code**
-
-Open a terminal on your computer:
-- **Mac:** `Cmd + Space` → type `Terminal` → Enter
-- **Windows:** `Win + R` → type `powershell` → Enter
-
-Paste this and press Enter:
-
-```bash
-# Mac / Linux
-npm install -g @anthropic-ai/claude-code
-```
-
-```powershell
-# Windows (PowerShell)
-npm install -g @anthropic-ai/claude-code
-```
-
-> **`npm` not found?** You need Node.js first. Download from [nodejs.org](https://nodejs.org) (LTS version), install it, restart your terminal, then try again.
-
-Already have Claude Code? Run `claude --version` — if it prints a version, skip this step.
-
-**Step 3 — Launch Claude Code and type START**
-
-In the same terminal, type:
-
-```bash
-claude
-```
-
-You will see a blank screen with a blinking cursor. Type `START` and press Enter.
-
-Claude will ask what language you prefer, then ask for the link to your fork, and handle everything else automatically — downloading the project, installing all components, and setting up the AI platforms. This takes about 5 minutes.
-
-When Claude finishes, it will tell you to open **http://localhost:3000** in your browser. That's your Fractera workspace. Register there — the first account becomes the Administrator.
-
-<p align="center"><strong>Stuck?</strong> Just tell Claude what you see on screen. It will walk you through it.</p>
+<p align="center">
+Fractera Easy Starter is an MCP-powered installer that sets up your server automatically —<br/>
+no coding, no configuration, no deployment pipeline.<br/><br/>
+You pick a hosting provider, pay them directly, bring us the access key.<br/>
+We handle everything else: install, configure, launch, and assign you a working domain.<br/><br/>
+<em>Coming soon. Leave a ⭐ to get notified when it ships.</em>
+</p>
 
 ---
 
-<h3 align="center">Developer? Use this instead.</h3>
+<h3 align="center">Developer? Start here.</h3>
 
 ```bash
 # 1. Fork this repo on GitHub, then clone your fork:
@@ -216,18 +174,18 @@ cd ai-workspace
 npm install && npm run dev
 ```
 
-Make sure you have at least one AI platform installed. Install what you need:
+Make sure you have at least one AI platform installed:
 
 | Platform | Install |
 |---|---|
-| **Claude Code** (Anthropic) | [claude.ai/code](#) |
-| **Codex CLI** (OpenAI) | [platform link — coming soon](#) |
-| **Gemini CLI** (Google) | [platform link — coming soon](#) |
-| **Qwen Code** (Alibaba) | [platform link — coming soon](#) |
-| **Kimi Code** (Moonshot) | [platform link — coming soon](#) |
-| **OpenCode** (OpenRouter) | [platform link — coming soon](#) |
+| **Claude Code** — Anthropic | [claude.ai/code](https://code.claude.com/docs/en/quickstart) |
+| **Codex CLI** — OpenAI | [developers.openai.com/codex/cli](https://developers.openai.com/codex/cli) |
+| **Gemini CLI** — Google | [geminicli.com/docs](https://geminicli.com/docs/get-started/installation/) |
+| **Qwen Code** — Alibaba | [qwen.ai/qwencode](https://qwen.ai/qwencode) |
+| **Kimi Code** — Moonshot | Install from inside Fractera — requires AI assistance |
+| **OpenCode** — OpenRouter | Install from inside Fractera — requires AI assistance |
 
-> Platform links will be updated in the next release. For now, see each platform's official documentation.
+> **Kimi Code** and **OpenCode** have non-standard installation flows. Launch Fractera first, then install them from the workspace using Claude Code — it handles the setup automatically.
 
 After installing a platform, set it to `active: true` in:
 `app/app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts`
