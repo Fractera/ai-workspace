@@ -189,9 +189,6 @@ Make sure you have at least one AI platform installed:
 
 > **LightRAG** and **Open Claw** are not yet available as standalone installs. They will be activated automatically from inside the Fractera workspace when released.
 
-After installing a platform, set it to `active: true` in:
-`app/app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts`
-
 <p align="center">
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/Star_this_repository-black?style=for-the-badge&logoColor=white" alt="Star on GitHub"/>
