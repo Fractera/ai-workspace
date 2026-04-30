@@ -28,7 +28,7 @@ function TerminalDot({ status }: { status: TerminalStatus }) {
   return null;
 }
 
-function InstallPromptTooltip({ label, prompt }: { label: string; prompt: string }) {
+function InstallPromptTooltip({ label, prompt, docsUrl }: { label: string; prompt: string; docsUrl: string }) {
   const [copied, setCopied] = useState(false);
   function handleCopy() {
     navigator.clipboard.writeText(prompt);
@@ -40,7 +40,7 @@ function InstallPromptTooltip({ label, prompt }: { label: string; prompt: string
       <div className="flex flex-col gap-1">
         <span className="font-semibold text-white text-[12px]">{label} — not installed</span>
         <span className="text-white/70 text-[11px] leading-relaxed">
-          Ask Claude Code to install it automatically using the project docs.
+          Copy the prompt below and paste it into Claude Code — it will install the platform automatically using the project docs.
         </span>
       </div>
       <button
@@ -48,8 +48,16 @@ function InstallPromptTooltip({ label, prompt }: { label: string; prompt: string
         onClick={handleCopy}
         className="flex items-center gap-1.5 h-7 px-3 rounded bg-white/10 hover:bg-white/20 text-[11px] text-white transition-colors w-full justify-center"
       >
-        {copied ? <><Check size={11} className="text-green-400" />Copied!</> : <><Copy size={11} />Copy prompt for Claude Code</>}
+        {copied ? <><Check size={11} className="text-green-400" />Copied!</> : <><Copy size={11} />Copy install prompt</>}
       </button>
+      <a
+        href={docsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1.5 h-7 px-3 rounded bg-white/5 hover:bg-white/10 text-[11px] text-white/60 hover:text-white/90 transition-colors w-full justify-center"
+      >
+        Official docs ↗
+      </a>
     </div>
   );
 }
@@ -341,7 +349,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                               <span className="font-mono text-white/80">node bridges/platforms/server.js</span>
                             </div>
                           ) : (
-                            <InstallPromptTooltip label={p.label} prompt={p.agentPrompt} />
+                            <InstallPromptTooltip label={p.label} prompt={p.agentPrompt} docsUrl={p.docsUrl} />
                           )}
                         </TooltipContent>
                       </Tooltip>
