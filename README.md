@@ -143,52 +143,35 @@ Fractera is an architecture that manages the AI coding process and enforces corr
 
 <h2 align="center">Getting Started</h2>
 
-> **You need no coding experience to do this. Follow the steps exactly as written — Claude Code handles the rest.**
-
 ---
 
-### Step 1 — Fork this repository into your account
+<h3 align="center">Not a developer? Start here.</h3>
 
-> **Why fork?** Forking creates your own personal copy of Fractera on GitHub. All your project changes, settings, and future updates will be saved there — not in the original repository, which you cannot write to.
+<blockquote>
+<p><strong>Before you begin — three things to check:</strong></p>
+<ul>
+<li>You need a paid <strong>Claude Pro subscription (~$20/month)</strong> at <a href="https://claude.ai">claude.ai</a>. Without it, Claude Code cannot complete the setup automatically.</li>
+<li>When logging in, <strong>close all browsers except the one where claude.ai is open</strong>. If multiple Google accounts or browser profiles are active, the login may go to the wrong account.</li>
+<li>When you launch Claude Code, you will see a <strong>blank black screen with a blinking cursor</strong>. This is normal. Type <code>START</code> and press Enter — Claude will take it from there.</li>
+</ul>
+</blockquote>
 
-**How to fork:**
+**Step 1 — Fork this repository**
 
-1. Make sure you are logged into your GitHub account. If you don't have one — [create a free account at github.com](https://github.com/join).
-2. Scroll back to the top of this page.
-3. In the top-right corner, find the **Fork** button (it looks like a branching arrow with a number next to it).
-4. Click it. GitHub will ask: *"Where do you want to fork this repository?"* — select your own account.
-5. After a few seconds, you will be redirected to **your own copy** of the repository. The URL will change from `github.com/Fractera/ai-workspace` to `github.com/YOUR-USERNAME/ai-workspace`.
+Forking creates your own personal copy of Fractera on GitHub. Your project changes, settings, and future saves go there — not into the original.
 
-**You are now working in your own repository. All steps below use your fork, not the original.**
+1. Make sure you're logged into your GitHub account. No account? [Create a free one at github.com](https://github.com/join).
+2. Look at the top-right corner of this page — find the **Fork** button (branching arrow icon with a number).
+3. Click it and select your own account as the destination.
+4. In a few seconds you'll be redirected to your own copy: `github.com/YOUR-USERNAME/ai-workspace`.
 
----
+**Step 2 — Install Claude Code**
 
-### Step 2 — Open a terminal on your computer
+Open a terminal on your computer:
+- **Mac:** `Cmd + Space` → type `Terminal` → Enter
+- **Windows:** `Win + R` → type `powershell` → Enter
 
-- **Mac:** Press `Cmd + Space`, type `Terminal`, press Enter.
-- **Windows:** Press `Win + R`, type `powershell`, press Enter.
-- **Linux:** You already know.
-
----
-
-### Step 3 — Check if Git is installed
-
-Git is the tool that downloads your repository to your computer. Paste this into the terminal and press Enter:
-
-```bash
-git --version
-```
-
-- If you see something like `git version 2.x.x` — Git is installed. Skip to Step 4.
-- If you see an error — install Git:
-  - **Mac:** Run `xcode-select --install` and follow the popup.
-  - **Windows:** Download from [git-scm.com/download/win](https://git-scm.com/download/win), install with default settings, then restart PowerShell.
-
----
-
-### Step 4 — Install Claude Code
-
-Claude Code is the AI that will set up your workspace automatically. Paste the command for your system and press Enter:
+Paste this and press Enter:
 
 ```bash
 # Mac / Linux
@@ -200,68 +183,54 @@ npm install -g @anthropic-ai/claude-code
 npm install -g @anthropic-ai/claude-code
 ```
 
-Already have Claude Code? Run `claude --version` to confirm — if it prints a version number, skip this step.
+> **`npm` not found?** You need Node.js first. Download from [nodejs.org](https://nodejs.org) (LTS version), install it, restart your terminal, then try again.
 
-> **If `npm` is not found:** you need Node.js first. Download it from [nodejs.org](https://nodejs.org) (choose the LTS version), install it, then restart your terminal and try again.
+Already have Claude Code? Run `claude --version` — if it prints a version, skip this step.
+
+**Step 3 — Launch Claude Code and type START**
+
+In the same terminal, type:
+
+```bash
+claude
+```
+
+You will see a blank screen with a blinking cursor. Type `START` and press Enter.
+
+Claude will ask what language you prefer, then ask for the link to your fork, and handle everything else automatically — downloading the project, installing all components, and setting up the AI platforms. This takes about 5 minutes.
+
+When Claude finishes, it will tell you to open **http://localhost:3000** in your browser. That's your Fractera workspace. Register there — the first account becomes the Administrator.
+
+<p align="center"><strong>Stuck?</strong> Just tell Claude what you see on screen. It will walk you through it.</p>
 
 ---
 
-### Step 5 — Clone your fork to your computer
-
-Go back to your fork on GitHub (the page at `github.com/YOUR-USERNAME/ai-workspace`). Click the green **Code** button, then copy the URL shown under **HTTPS** — it should look like:
-
-```
-https://github.com/YOUR-USERNAME/ai-workspace.git
-```
-
-Now paste this into your terminal (replace `YOUR-USERNAME` with your actual GitHub username):
+<h3 align="center">Developer? Use this instead.</h3>
 
 ```bash
+# 1. Fork this repo on GitHub, then clone your fork:
 git clone https://github.com/YOUR-USERNAME/ai-workspace.git
-```
-
-This will create a folder called `ai-workspace` on your computer, in whichever location your terminal is currently in (usually your home folder).
-
----
-
-### Step 6 — Go into the folder and launch Claude Code
-
-Run these two commands one after the other:
-
-```bash
 cd ai-workspace
-claude
+
+# 2. Install all dependencies and start:
+npm install && npm run dev
 ```
 
-```powershell
-# Windows (PowerShell) — same commands
-cd ai-workspace
-claude
-```
+Make sure you have at least one AI platform installed. Install what you need:
 
-Claude Code will start, read the project instructions, and say something like:
+| Platform | Install |
+|---|---|
+| **Claude Code** (Anthropic) | [claude.ai/code](#) |
+| **Codex CLI** (OpenAI) | [platform link — coming soon](#) |
+| **Gemini CLI** (Google) | [platform link — coming soon](#) |
+| **Qwen Code** (Alibaba) | [platform link — coming soon](#) |
+| **Kimi Code** (Moonshot) | [platform link — coming soon](#) |
+| **OpenCode** (OpenRouter) | [platform link — coming soon](#) |
 
-> *"Hello! I can see this is a fresh Fractera AI Workspace. I'll set up everything for you. This will take about 5 minutes. Shall I begin?"*
+> Platform links will be updated in the next release. For now, see each platform's official documentation.
 
-Type `yes` and press Enter. Claude handles everything from here — installing dependencies, starting the app, and installing all AI coding platforms.
-
----
-
-<blockquote>
-<h3>When Claude says it's done — do this immediately</h3>
-
-<p>Open your browser (Chrome, Safari, Firefox — any) and go to:</p>
-
-<h2><a href="http://localhost:3000">http://localhost:3000</a></h2>
-
-<p>This is your Fractera workspace running on your computer. You will see a registration form. <strong>Register now</strong> — the first account registered becomes the Architect (administrator) with full access to everything.</p>
-
-<p><strong>Keep this address bookmarked.</strong> Every time you start working, you will open the terminal, run <code>npm run dev</code> inside the <code>ai-workspace</code> folder, then go to <code>http://localhost:3000</code>. The workspace lives on your computer — it is not hosted anywhere until you deploy it.</p>
-</blockquote>
-
----
-
-<p align="center"><strong>Stuck at any step?</strong> Come back to your terminal where Claude Code is running. Tell it exactly what you see — what the screen shows, what error appeared. Claude will walk you through it.</p>
+After installing a platform, set it to `active: true` in:
+`app/app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts`
 
 <p align="center">
   <a href="https://github.com/Fractera/ai-workspace/stargazers" target="_blank" rel="noopener noreferrer">
