@@ -1,65 +1,33 @@
-# Fractera AI Workspace — Install Reference
+# Fractera AI Workspace
 
-> This file is a reference document for the setup agent.
-> The setup logic lives in `~/.claude/CLAUDE.md` — the global agent.
-> Do not run setup from this file directly.
+## Project structure
 
----
-
-## Phase 1 — Dependency install order
-
-Run from the project root (`~/ai-workspace/`), in this exact order:
-
-```bash
-# 1. Fix npm cache permissions (macOS/Linux — run silently)
-sudo chown -R $(whoami) ~/.npm 2>/dev/null || true
-
-# 2. Root dependencies (installs concurrently — required for npm run dev)
-npm install
-
-# 3. Next.js application
-npm install --prefix app
-
-# 4. Bridge server (postinstall auto-fixes node-pty permissions on macOS)
-npm install --prefix bridges/platforms
-
-# 5. Media service
-npm install --prefix services/media
-
-# 6. Start all services together
-npm run dev
+```
+fractera-light/
+  app/          ← Next.js application (port 3000) — work here only
+  bridges/      ← WebSocket bridge server (ports 3200–3206)
+  services/     ← Media service (port 3300)
+  docs/         ← Documentation: platforms, hosting, lightrag, openclaw
+  package.json  ← Root: runs all three services via concurrently
 ```
 
-Verify after start: `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000` → `200` or `307`
+## Working directory rule
 
-If any step fails — read `app/CLAUDE.md` before retrying. Never guess.
+**Always run Claude Code from `app/` — never from the project root.**
 
----
+The root is for infrastructure only (starting services, installing dependencies).
+All development work — code, components, database, API routes — lives in `app/`.
 
-## Phase 2 — AI platform install table
+If you are currently in the project root: `cd app` then restart Claude Code.
 
-For each platform: **read the doc file first**, then run the install command.
+## Documentation
 
-| Platform | Install — Mac/Linux | Install — Windows | Doc path | Verify | Auth |
-|---|---|---|---|---|---|
-| **Claude Code** | Already running | — | `docs/platforms/claude-code/` | `claude --version` | Already authenticated |
-| **Codex CLI** | `npm install -g @openai/codex` | `npm install -g @openai/codex` | `docs/platforms/codex/` | `codex --version` | `codex login` |
-| **Gemini CLI** | `npm install -g @google/gemini-cli` | `npm install -g @google/gemini-cli` | `docs/platforms/gemini-cli/` | `gemini --version` | `gemini` (browser) |
-| **Qwen Code** | `curl -fsSL https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.sh \| bash` | `curl -fsSL -o %TEMP%\install-qwen.bat ... && %TEMP%\install-qwen.bat` | `docs/platforms/qwen-code/` | `qwen --version` | `qwen auth` |
-| **Kimi Code** | `curl -LsSf https://code.kimi.com/install.sh \| bash` | `Invoke-RestMethod https://code.kimi.com/install.ps1 \| Invoke-Expression` | `docs/platforms/kimi-code/` | `kimi --version` | `kimi` → `/login` |
-| **OpenCode** | `curl -fsSL https://opencode.ai/install \| bash` | `npm install -g opencode-ai` | `docs/platforms/open-code/` | `opencode --version` | `opencode` → `/connect` |
+All reference documentation is in `docs/`:
 
-After each successful install → set `active: true` in:
-`app/app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts`
+- `docs/platforms/` — install and usage guides for each AI platform
+- `docs/hosting/` — deployment guides for VPS providers (Hetzner, Oracle, DigitalOcean, etc.)
+- `docs/lightrag/` — LightRAG (Company Brain) — coming in v1.3
+- `docs/openclaw/` — Open Claw orchestration — coming in v1.4
 
-**Roadmap (skip — not available yet):**
-- Company Brain (LightRAG) — v1.3
-- Open Claw — v1.4
-
----
-
-## Documentation rule
-
-**Never use training memory as the source for install commands.**
-Always read the doc file for the platform first.
-If a command fails — re-read the doc. Never retry the same failed command without reading.
+When installing a platform or deploying — read the relevant doc folder first.
+Never rely on training memory for install commands — docs are always more current.
