@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content \"C:\\\\Users\\\\Usuario\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Usuario-Documents-code-ai-workspace\\\\e0d74711-f140-48f4-8d33-7cbdd146ca86\\\\tasks\\\\bgmrdv2l0.output\" -Wait)",
+      "Bash(Select-String -Pattern \"added|error|npm warn|up to date|vulnerabilities\" --SimpleMatch)"
+    ]
+  }
+}

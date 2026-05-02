@@ -20,10 +20,13 @@ type Props = {
   wsUrl: string;
   platform?: string;
   onClose?: () => void;
+  onData?: (chunk: string) => void;
 };
 
-export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose }: Props) {
+export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose, onData }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const onDataRef = useRef<typeof onData>(onData);
+  onDataRef.current = onData;
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -87,12 +90,21 @@ export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose }: Prop
       });
     };
 
+    const decoder = new TextDecoder('utf-8', { fatal: false });
+
     ws.onmessage = (e) => {
       resetIdle();
       if (typeof e.data === 'string') {
         term.write(e.data);
+        onDataRef.current?.(e.data);
       } else {
-        e.data.arrayBuffer().then((buf: ArrayBuffer) => term.write(new Uint8Array(buf)));
+        e.data.arrayBuffer().then((buf: ArrayBuffer) => {
+          const u8 = new Uint8Array(buf);
+          term.write(u8);
+          if (onDataRef.current) {
+            onDataRef.current(decoder.decode(u8, { stream: true }));
+          }
+        });
       }
     };
 

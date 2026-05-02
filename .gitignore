@@ -28,6 +28,7 @@ app/tsconfig.tsbuildinfo
 
 # Bridge and media service sources — not for public repo
 bridges/platforms/server.src.js
+bridges/platforms/original.server.js
 services/media/server.src.js
 
 # Media service — data and uploads stay on server

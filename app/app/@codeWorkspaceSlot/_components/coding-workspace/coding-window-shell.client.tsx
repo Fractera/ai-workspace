@@ -10,11 +10,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { EnvEditorPanel } from "./env-editor-panel.client";
 import { MediaLibraryPanel } from "./media-library-panel.client";
 import { DbBrowserPanel } from "./db-browser-panel.client";
+import { TerminalOutputPane, type TerminalOutputPaneHandle } from "./terminal-output-pane.client";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
 const CARD_W     = 112;
 const GAP        = 8;
+const OUTPUT_PANE_W = 280;
+const MOBILE_TAB_H  = 28;
 
 const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process runs all platforms:\nClaude Code :3200 · PTY :3201\nCodex :3202 · Gemini :3203\nQwen :3204 · Kimi :3205 · OpenCode :3206\n\n🟢 Online — all platforms available\n🔴 Offline — bridge server not running\n\nTo start: cd bridges/platforms && node server.js";
 
@@ -92,7 +95,9 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
   const [showMediaLibrary, setShowMediaLibrary]     = useState(false);
   const [showDbBrowser, setShowDbBrowser]           = useState(false);
+  const [mobileView, setMobileView]                 = useState<"terminal" | "output">("terminal");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const paneRefs = useRef<Partial<Record<Platform, TerminalOutputPaneHandle | null>>>({});
 
   const GITHUB_URL  = process.env.NEXT_PUBLIC_GITHUB_URL  ?? "";
   const PRO_URL     = process.env.NEXT_PUBLIC_PRO_URL     ?? "";
@@ -441,12 +446,92 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         </div>
       </div>
 
-      {/* ── Terminal panels ── */}
-      {[...terminalSessions].map((platform) => (
-        <div key={platform} style={{ position: "absolute", top: CAROUSEL_H, left: 0, right: 0, height: termH, display: platform === terminalPlatform ? "block" : "none" }} className="bg-zinc-950">
-          <XtermTerminal wsUrl={PTY_URL} platform={platform} />
+      {/* ── Mobile view tabs (Terminal / Output) ── */}
+      {isMobile && terminalSessions.size > 0 && (
+        <div
+          style={{ position: "absolute", top: CAROUSEL_H, left: 0, right: 0, height: MOBILE_TAB_H, zIndex: 5 }}
+          className="border-b border-border bg-background flex items-stretch text-[11px] select-none"
+        >
+          <button
+            type="button"
+            onClick={() => setMobileView("terminal")}
+            className={`flex-1 flex items-center justify-center gap-1.5 transition-colors ${
+              mobileView === "terminal"
+                ? "text-foreground border-b-2 border-primary -mb-px font-medium"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Terminal
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileView("output")}
+            className={`flex-1 flex items-center justify-center gap-1.5 transition-colors ${
+              mobileView === "output"
+                ? "text-foreground border-b-2 border-primary -mb-px font-medium"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Output
+          </button>
         </div>
-      ))}
+      )}
+
+      {/* ── Terminal panels (xterm) ── */}
+      {[...terminalSessions].map((platform) => {
+        const isCurrent = platform === terminalPlatform;
+        const top = CAROUSEL_H + (isMobile ? MOBILE_TAB_H : 0);
+        const height = termH - (isMobile ? MOBILE_TAB_H : 0);
+        const xtermVisible = isCurrent && (!isMobile || mobileView === "terminal");
+        return (
+          <div
+            key={`xterm-${platform}`}
+            style={{
+              position: "absolute",
+              top,
+              left: 0,
+              right: isMobile ? 0 : OUTPUT_PANE_W,
+              height,
+              display: xtermVisible ? "block" : "none",
+            }}
+            className="bg-zinc-950"
+          >
+            <XtermTerminal
+              wsUrl={PTY_URL}
+              platform={platform}
+              onData={(chunk) => paneRefs.current[platform]?.append(chunk)}
+            />
+          </div>
+        );
+      })}
+
+      {/* ── Output panes (selectable read-only mirror of stdout) ── */}
+      {[...terminalSessions].map((platform) => {
+        const isCurrent = platform === terminalPlatform;
+        const top = CAROUSEL_H + (isMobile ? MOBILE_TAB_H : 0);
+        const height = termH - (isMobile ? MOBILE_TAB_H : 0);
+        const paneVisible = isCurrent && (!isMobile || mobileView === "output");
+        return (
+          <div
+            key={`pane-${platform}`}
+            style={{
+              position: "absolute",
+              top,
+              right: 0,
+              width: isMobile ? "100%" : OUTPUT_PANE_W,
+              height,
+              display: paneVisible ? "flex" : "none",
+              borderLeft: isMobile ? undefined : "1px solid var(--border, #27272a)",
+            }}
+          >
+            <TerminalOutputPane
+              ref={(h) => { paneRefs.current[platform] = h; }}
+              maxLines={200}
+              style={{ flex: 1 }}
+            />
+          </div>
+        );
+      })}
 
       {/* ── Footer ── */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: FOOTER_H }} className="border-t border-border bg-background flex items-center gap-2 px-3">
