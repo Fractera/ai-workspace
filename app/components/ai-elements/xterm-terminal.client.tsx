@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { toast } from 'sonner';
@@ -23,122 +23,138 @@ type Props = {
   onData?: (chunk: string) => void;
 };
 
-export function XtermTerminal({ wsUrl, platform = 'claude-code', onClose, onData }: Props) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const onDataRef = useRef<typeof onData>(onData);
-  onDataRef.current = onData;
+export type XtermTerminalHandle = {
+  sendStdin: (data: string) => void;
+};
 
-  useEffect(() => {
-    if (!containerRef.current) return;
+export const XtermTerminal = forwardRef<XtermTerminalHandle, Props>(
+  function XtermTerminal({ wsUrl, platform = 'claude-code', onClose, onData }, ref) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const onDataRef    = useRef<typeof onData>(onData);
+    const wsRef        = useRef<WebSocket | null>(null);
+    onDataRef.current  = onData;
 
-    const label = PLATFORM_LABELS[platform] ?? platform;
-    const toastId = `idle-${platform}`;
-    let timer: ReturnType<typeof setTimeout> | null = null;
-
-    function scheduleIdleToast() {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        toast.warning(
-          `${label}: terminal is idle`,
-          {
-            id: toastId,
-            description: 'To save server resources, close terminals you are not using.',
-            duration: IDLE_MS,
-            onDismiss: () => { scheduleIdleToast(); },
-          }
-        );
-        timer = null;
-      }, IDLE_MS);
-    }
-
-    function resetIdle() {
-      toast.dismiss(toastId);
-      scheduleIdleToast();
-    }
-
-    const term = new Terminal({
-      theme: {
-        background: '#09090b',
-        foreground: '#e4e4e7',
-        cursor: '#a1a1aa',
-        selectionBackground: '#3f3f46',
+    useImperativeHandle(ref, () => ({
+      sendStdin: (data: string) => {
+        const ws = wsRef.current;
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ type: 'stdin', data }));
+        }
       },
-      fontSize: 13,
-      fontFamily: 'ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace',
-      cursorBlink: true,
-      convertEol: true,
-      scrollback: 5000,
-    });
+    }), []);
 
-    const fitAddon = new FitAddon();
-    term.loadAddon(fitAddon);
-    term.open(containerRef.current);
+    useEffect(() => {
+      if (!containerRef.current) return;
 
-    // Delay fit to allow DOM to render container with proper dimensions
-    requestAnimationFrame(() => {
-      fitAddon.fit();
-    });
+      const label   = PLATFORM_LABELS[platform] ?? platform;
+      const toastId = `idle-${platform}`;
+      let timer: ReturnType<typeof setTimeout> | null = null;
 
-    const ws = new WebSocket(wsUrl);
+      function scheduleIdleToast() {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          toast.warning(
+            `${label}: terminal is idle`,
+            {
+              id: toastId,
+              description: 'To save server resources, close terminals you are not using.',
+              duration: IDLE_MS,
+              onDismiss: () => { scheduleIdleToast(); },
+            }
+          );
+          timer = null;
+        }, IDLE_MS);
+      }
 
-    ws.onopen = () => {
-      requestAnimationFrame(() => {
-        fitAddon.fit();
-        ws.send(JSON.stringify({ type: 'init', platform }));
-        ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+      function resetIdle() {
+        toast.dismiss(toastId);
         scheduleIdleToast();
+      }
+
+      const term = new Terminal({
+        theme: {
+          background: '#09090b',
+          foreground: '#e4e4e7',
+          cursor: '#a1a1aa',
+          selectionBackground: '#3f3f46',
+        },
+        fontSize: 13,
+        fontFamily: 'ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, monospace',
+        cursorBlink: true,
+        convertEol: true,
+        scrollback: 5000,
       });
-    };
 
-    const decoder = new TextDecoder('utf-8', { fatal: false });
+      const fitAddon = new FitAddon();
+      term.loadAddon(fitAddon);
+      term.open(containerRef.current);
 
-    ws.onmessage = (e) => {
-      resetIdle();
-      if (typeof e.data === 'string') {
-        term.write(e.data);
-        onDataRef.current?.(e.data);
-      } else {
-        e.data.arrayBuffer().then((buf: ArrayBuffer) => {
-          const u8 = new Uint8Array(buf);
-          term.write(u8);
-          if (onDataRef.current) {
-            onDataRef.current(decoder.decode(u8, { stream: true }));
-          }
+      requestAnimationFrame(() => { fitAddon.fit(); });
+
+      const ws = new WebSocket(wsUrl);
+      wsRef.current = ws;
+
+      ws.onopen = () => {
+        requestAnimationFrame(() => {
+          fitAddon.fit();
+          ws.send(JSON.stringify({ type: 'init', platform }));
+          ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+          scheduleIdleToast();
         });
-      }
-    };
+      };
 
-    ws.onclose = () => {
-      term.write('\r\n\x1b[90m[disconnected]\x1b[0m\r\n');
-    };
+      const decoder = new TextDecoder('utf-8', { fatal: false });
 
-    ws.onerror = () => {
-      term.write('\r\n\x1b[31m[connection error — is bridge running on :3201?]\x1b[0m\r\n');
-    };
+      ws.onmessage = (e) => {
+        resetIdle();
+        if (typeof e.data === 'string') {
+          term.write(e.data);
+          onDataRef.current?.(e.data);
+        } else {
+          e.data.arrayBuffer().then((buf: ArrayBuffer) => {
+            const u8 = new Uint8Array(buf);
+            term.write(u8);
+            if (onDataRef.current) {
+              onDataRef.current(decoder.decode(u8, { stream: true }));
+            }
+          });
+        }
+      };
 
-    term.onData((data) => {
-      resetIdle();
-      if (ws.readyState === ws.OPEN) {
-        ws.send(JSON.stringify({ type: 'stdin', data }));
-      }
-    });
+      ws.onclose = () => {
+        wsRef.current = null;
+        term.write('\r\n\x1b[90m[disconnected]\x1b[0m\r\n');
+      };
 
-    const ro = new ResizeObserver(() => {
-      fitAddon.fit();
-      if (ws.readyState === ws.OPEN) {
-        ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
-      }
-    });
-    ro.observe(containerRef.current);
+      ws.onerror = () => {
+        term.write('\r\n\x1b[31m[connection error — is bridge running on :3201?]\x1b[0m\r\n');
+      };
 
-    return () => {
-      if (timer) clearTimeout(timer);
-      toast.dismiss(toastId);
-      ro.disconnect();
-      try { ws.close(); } catch {}
-      term.dispose();
-    };
-  }, [wsUrl]);
+      term.onData((data) => {
+        resetIdle();
+        if (ws.readyState === ws.OPEN) {
+          ws.send(JSON.stringify({ type: 'stdin', data }));
+        }
+      });
 
-  return <div ref={containerRef} className="h-full w-full overflow-hidden" />;
-}
+      const ro = new ResizeObserver(() => {
+        fitAddon.fit();
+        if (ws.readyState === ws.OPEN) {
+          ws.send(JSON.stringify({ type: 'resize', cols: term.cols, rows: term.rows }));
+        }
+      });
+      ro.observe(containerRef.current);
+
+      return () => {
+        if (timer) clearTimeout(timer);
+        toast.dismiss(toastId);
+        ro.disconnect();
+        wsRef.current = null;
+        try { ws.close(); } catch {}
+        term.dispose();
+      };
+    }, [wsUrl]);
+
+    return <div ref={containerRef} className="h-full w-full overflow-hidden" />;
+  }
+);

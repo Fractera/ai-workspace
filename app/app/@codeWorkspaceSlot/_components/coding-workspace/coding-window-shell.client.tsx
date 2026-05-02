@@ -1,29 +1,44 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, ExternalLink, KeyRound } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import { XtermTerminal } from "@/components/ai-elements/xterm-terminal.client";
+import { XtermTerminal, type XtermTerminalHandle } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
 import { PLATFORMS, COMING_SOON, type Platform, type TerminalStatus } from "./platforms";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { EnvEditorPanel } from "./env-editor-panel.client";
 import { MediaLibraryPanel } from "./media-library-panel.client";
 import { DbBrowserPanel } from "./db-browser-panel.client";
-import { TerminalOutputPane, type TerminalOutputPaneHandle } from "./terminal-output-pane.client";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
 const CARD_W     = 112;
 const GAP        = 8;
-const OUTPUT_PANE_W = 280;
-const MOBILE_TAB_H  = 28;
+
+const ANSI_CSI_RE   = /\x1b\[[0-?]*[ -/]*[@-~]/g;
+const ANSI_OSC_RE   = /\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g;
+const ANSI_OTHER_RE = /\x1b[=>NOPVWXYZ\\\]^_]/g;
+const AUTH_URL_RE   = /https:\/\/claude\.com\/cai\/oauth\/authoriz\S+/;
+
+function stripAnsi(s: string): string {
+  return s.replace(ANSI_OSC_RE, "").replace(ANSI_CSI_RE, "").replace(ANSI_OTHER_RE, "");
+}
 
 const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process runs all platforms:\nClaude Code :3200 · PTY :3201\nCodex :3202 · Gemini :3203\nQwen :3204 · Kimi :3205 · OpenCode :3206\n\n🟢 Online — all platforms available\n🔴 Offline — bridge server not running\n\nTo start: cd bridges/platforms && node server.js";
 
 
 const PTY_URL      = process.env.NEXT_PUBLIC_PTY_URL      ?? "ws://localhost:3201";
 const BRIDGE_URL   = process.env.NEXT_PUBLIC_BRIDGE_URL   ?? "ws://localhost:3200";
+
 function TerminalDot({ status }: { status: TerminalStatus }) {
   if (status === "unavailable") return <span className="size-1.5 rounded-full bg-muted-foreground/40 shrink-0" />;
   if (status === "connecting")  return <span className="size-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />;
@@ -95,15 +110,26 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
   const [showMediaLibrary, setShowMediaLibrary]     = useState(false);
   const [showDbBrowser, setShowDbBrowser]           = useState(false);
-  const [mobileView, setMobileView]                 = useState<"terminal" | "output">("terminal");
+  const [authUrl, setAuthUrl]                       = useState<string | null>(null);
+  const [urlCopied, setUrlCopied]                   = useState(false);
+  const [authCode, setAuthCode]                     = useState("");
+  const [codeSent, setCodeSent]                     = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const paneRefs = useRef<Partial<Record<Platform, TerminalOutputPaneHandle | null>>>({});
+  const rawBufRef    = useRef<string>("");
+  const xtermRefs    = useRef<Partial<Record<Platform, XtermTerminalHandle | null>>>({});
 
   const GITHUB_URL  = process.env.NEXT_PUBLIC_GITHUB_URL  ?? "";
   const PRO_URL     = process.env.NEXT_PUBLIC_PRO_URL     ?? "";
   const SKILLS_URL  = process.env.NEXT_PUBLIC_SKILLS_URL  ?? "";
   const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
   const countdownRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleTerminalData(chunk: string) {
+    const clean = stripAnsi(chunk).replace(/\r\n|\r|\n/g, "");
+    rawBufRef.current = (rawBufRef.current + clean).slice(-4000);
+    const match = rawBufRef.current.match(AUTH_URL_RE);
+    if (match && match[0] !== authUrl) setAuthUrl(match[0]);
+  }
 
   async function handleExport() {
     setDataMenuOpen(false);
@@ -142,12 +168,10 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     const isRunning = terminalSessions.has(platformId);
     if (isRunning && terminalPlatform === platformId) {
       if (confirmingPlatform === platformId) {
-        // Second click — cancel the countdown
         if (countdownRef.current) clearTimeout(countdownRef.current);
         countdownRef.current = null;
         setConfirmingPlatform(null);
       } else {
-        // First click — start countdown, auto-close after 3s
         if (countdownRef.current) clearTimeout(countdownRef.current);
         setConfirmingPlatform(platformId);
         countdownRef.current = setTimeout(() => {
@@ -167,7 +191,6 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     }
   }
 
-  // Check for updates on mount (non-blocking)
   useEffect(() => {
     fetch("/api/update/status")
       .then((r) => r.json())
@@ -204,6 +227,23 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     }
   }
 
+  async function handleCopyAuthUrl() {
+    if (!authUrl) return;
+    try {
+      await navigator.clipboard.writeText(authUrl);
+      setUrlCopied(true);
+      setTimeout(() => setUrlCopied(false), 2000);
+    } catch {}
+  }
+
+  function handleSendAuthCode() {
+    const code = authCode.trim();
+    if (!code) return;
+    xtermRefs.current[terminalPlatform]?.sendStdin(code + "\n");
+    setCodeSent(true);
+    setTimeout(() => { setAuthUrl(null); setUrlCopied(false); setAuthCode(""); setCodeSent(false); rawBufRef.current = ""; }, 1200);
+  }
+
   useEffect(() => () => { if (countdownRef.current) clearTimeout(countdownRef.current); }, []);
   useEffect(() => {
     if (!dataMenuOpen) return;
@@ -227,7 +267,87 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
       <style>{`
         @keyframes countdown-shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
         @keyframes countdown-color { 0% { background-color: rgb(34 197 94); } 60% { background-color: rgb(251 146 60); } 100% { background-color: rgb(239 68 68); } }
+        [data-slot="dialog-overlay"] { z-index: 999998 !important; }
+        [data-slot="dialog-content"] { z-index: 999999 !important; }
       `}</style>
+
+      {/* ── Auth Flow Modal ── */}
+      <Dialog open={!!authUrl} onOpenChange={(open) => { if (!open) { setAuthUrl(null); setUrlCopied(false); setAuthCode(""); setCodeSent(false); rawBufRef.current = ""; } }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-1">
+              <span className="flex items-center justify-center size-10 rounded-full bg-primary/10 shrink-0">
+                <KeyRound size={18} className="text-primary" />
+              </span>
+              <div className="flex flex-col gap-0.5">
+                <DialogTitle className="text-left">Claude Code — Authorization</DialogTitle>
+                <DialogDescription className="text-[12px] text-left">
+                  Open the link in your browser and sign in to your Claude account
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div
+            className="rounded-md border border-border bg-muted/50 px-3 py-3 cursor-text select-text"
+            style={{ wordBreak: "break-all" }}
+          >
+            <span
+              className="text-[12px] font-mono text-foreground leading-relaxed"
+              style={{ userSelect: "text", WebkitUserSelect: "text" }}
+            >
+              {authUrl}
+            </span>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-2">
+            <button
+              type="button"
+              onClick={handleCopyAuthUrl}
+              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-md border border-border bg-background text-sm font-medium text-foreground hover:bg-muted transition-colors"
+            >
+              {urlCopied ? (
+                <><Check size={14} className="text-green-500" />Copied</>
+              ) : (
+                <><Copy size={14} />Copy URL</>
+              )}
+            </button>
+            <a
+              href={authUrl ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              <ExternalLink size={14} />
+              Open
+            </a>
+          </DialogFooter>
+
+          <div className="flex flex-col gap-2 pt-2 border-t border-border">
+            <span className="text-[12px] text-muted-foreground">
+              After authorization, paste the code below:
+            </span>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={authCode}
+                onChange={(e) => setAuthCode(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") handleSendAuthCode(); }}
+                placeholder="Paste code here…"
+                className="flex-1 h-9 rounded-md border border-border bg-background px-3 text-sm font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+              <button
+                type="button"
+                onClick={handleSendAuthCode}
+                disabled={!authCode.trim() || codeSent}
+                className="flex items-center gap-1.5 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40 disabled:pointer-events-none"
+              >
+                {codeSent ? <><Check size={14} />Sent</> : "Send"}
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* ── Carousel ── */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: CAROUSEL_H }} className="border-b border-border bg-background flex items-center gap-2 px-2">
@@ -446,88 +566,27 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         </div>
       </div>
 
-      {/* ── Mobile view tabs (Terminal / Output) ── */}
-      {isMobile && terminalSessions.size > 0 && (
-        <div
-          style={{ position: "absolute", top: CAROUSEL_H, left: 0, right: 0, height: MOBILE_TAB_H, zIndex: 5 }}
-          className="border-b border-border bg-background flex items-stretch text-[11px] select-none"
-        >
-          <button
-            type="button"
-            onClick={() => setMobileView("terminal")}
-            className={`flex-1 flex items-center justify-center gap-1.5 transition-colors ${
-              mobileView === "terminal"
-                ? "text-foreground border-b-2 border-primary -mb-px font-medium"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Terminal
-          </button>
-          <button
-            type="button"
-            onClick={() => setMobileView("output")}
-            className={`flex-1 flex items-center justify-center gap-1.5 transition-colors ${
-              mobileView === "output"
-                ? "text-foreground border-b-2 border-primary -mb-px font-medium"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Output
-          </button>
-        </div>
-      )}
-
       {/* ── Terminal panels (xterm) ── */}
       {[...terminalSessions].map((platform) => {
         const isCurrent = platform === terminalPlatform;
-        const top = CAROUSEL_H + (isMobile ? MOBILE_TAB_H : 0);
-        const height = termH - (isMobile ? MOBILE_TAB_H : 0);
-        const xtermVisible = isCurrent && (!isMobile || mobileView === "terminal");
         return (
           <div
             key={`xterm-${platform}`}
             style={{
               position: "absolute",
-              top,
+              top: CAROUSEL_H,
               left: 0,
-              right: isMobile ? 0 : OUTPUT_PANE_W,
-              height,
-              display: xtermVisible ? "block" : "none",
+              right: 0,
+              height: termH,
+              display: isCurrent ? "block" : "none",
             }}
             className="bg-zinc-950"
           >
             <XtermTerminal
+              ref={(h) => { xtermRefs.current[platform] = h; }}
               wsUrl={PTY_URL}
               platform={platform}
-              onData={(chunk) => paneRefs.current[platform]?.append(chunk)}
-            />
-          </div>
-        );
-      })}
-
-      {/* ── Output panes (selectable read-only mirror of stdout) ── */}
-      {[...terminalSessions].map((platform) => {
-        const isCurrent = platform === terminalPlatform;
-        const top = CAROUSEL_H + (isMobile ? MOBILE_TAB_H : 0);
-        const height = termH - (isMobile ? MOBILE_TAB_H : 0);
-        const paneVisible = isCurrent && (!isMobile || mobileView === "output");
-        return (
-          <div
-            key={`pane-${platform}`}
-            style={{
-              position: "absolute",
-              top,
-              right: 0,
-              width: isMobile ? "100%" : OUTPUT_PANE_W,
-              height,
-              display: paneVisible ? "flex" : "none",
-              borderLeft: isMobile ? undefined : "1px solid var(--border, #27272a)",
-            }}
-          >
-            <TerminalOutputPane
-              ref={(h) => { paneRefs.current[platform] = h; }}
-              maxLines={200}
-              style={{ flex: 1 }}
+              onData={handleTerminalData}
             />
           </div>
         );
