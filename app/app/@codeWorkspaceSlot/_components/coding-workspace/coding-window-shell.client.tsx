@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, ExternalLink, KeyRound, CornerDownLeft } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, KeyRound, CornerDownLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal, type XtermTerminalHandle } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -10,14 +10,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { EnvEditorPanel } from "./env-editor-panel.client";
 import { MediaLibraryPanel } from "./media-library-panel.client";
 import { DbBrowserPanel } from "./db-browser-panel.client";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { AUTH_FLOW_DESCRIPTORS, type AuthFlowDescriptor } from "./auth-flow-descriptors";
+import { AuthFlowModal } from "./auth-flow-modal.client";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
@@ -27,7 +21,6 @@ const GAP        = 8;
 const ANSI_CSI_RE   = /\x1b\[[0-?]*[ -/]*[@-~]/g;
 const ANSI_OSC_RE   = /\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g;
 const ANSI_OTHER_RE = /\x1b[=>NOPVWXYZ\\\]^_]/g;
-const AUTH_URL_RE   = /https:\/\/claude\.com\/cai\/oauth\/authoriz\S+/;
 
 function stripAnsi(s: string): string {
   return s.replace(ANSI_OSC_RE, "").replace(ANSI_CSI_RE, "").replace(ANSI_OTHER_RE, "");
@@ -110,10 +103,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
   const [showMediaLibrary, setShowMediaLibrary]     = useState(false);
   const [showDbBrowser, setShowDbBrowser]           = useState(false);
-  const [authUrl, setAuthUrl]                       = useState<string | null>(null);
-  const [urlCopied, setUrlCopied]                   = useState(false);
-  const [authCode, setAuthCode]                     = useState("");
-  const [codeSent, setCodeSent]                     = useState(false);
+  const [activeAuth, setActiveAuth]                 = useState<{ descriptor: AuthFlowDescriptor; url: string; code?: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const rawBufRef    = useRef<string>("");
   const xtermRefs    = useRef<Partial<Record<Platform, XtermTerminalHandle | null>>>({});
@@ -122,13 +112,41 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const PRO_URL     = process.env.NEXT_PUBLIC_PRO_URL     ?? "";
   const SKILLS_URL  = process.env.NEXT_PUBLIC_SKILLS_URL  ?? "";
   const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
-  const countdownRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const countdownRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const urlDetectTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const activeAuthRef   = useRef<typeof activeAuth>(null);
 
   function handleTerminalData(chunk: string) {
-    const clean = stripAnsi(chunk).replace(/\r\n|\r|\n/g, "");
+    const clean = stripAnsi(chunk).replace(/\r\n|\r|\n/g, " ");
     rawBufRef.current = (rawBufRef.current + clean).slice(-4000);
-    const match = rawBufRef.current.match(AUTH_URL_RE);
-    if (match && match[0] !== authUrl) setAuthUrl(match[0]);
+    if (activeAuthRef.current) return;
+    if (urlDetectTimer.current) clearTimeout(urlDetectTimer.current);
+    urlDetectTimer.current = setTimeout(() => {
+      if (activeAuthRef.current) return;
+      const bufForSearch = rawBufRef.current.replace(/ /g, "");
+      for (const descriptor of AUTH_FLOW_DESCRIPTORS) {
+        const match = bufForSearch.match(descriptor.detectUrl);
+        if (match) {
+          // PTY reprints the URL line via \r — after whitespace removal the two copies
+          // concatenate into one string, causing duplicate_parameter in OAuth.
+          // Truncate at any second https:// occurrence.
+          let extractedUrl = match[0];
+          const dupeIdx = extractedUrl.indexOf("https://", 8);
+          if (dupeIdx !== -1) extractedUrl = extractedUrl.slice(0, dupeIdx);
+          // For device-code flow, extract the one-time code from the raw buffer (spaces
+          // preserved so the match stops at whitespace and doesn't bleed into the next word)
+          let extractedCode: string | undefined;
+          if (descriptor.detectCode) {
+            const codeMatch = rawBufRef.current.match(descriptor.detectCode);
+            if (codeMatch) extractedCode = codeMatch[0];
+          }
+          const next = { descriptor, url: extractedUrl, code: extractedCode };
+          activeAuthRef.current = next;
+          setActiveAuth(next);
+          break;
+        }
+      }
+    }, 300);
   }
 
   async function handleExport() {
@@ -192,7 +210,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   }
 
   useEffect(() => {
-    fetch("/api/update/status")
+    fetch("/api/bridges/update/status")
       .then((r) => r.json())
       .then((data) => {
         if (data.available) { setUpdateAvailable(true); setUpdateCount(data.count); }
@@ -205,7 +223,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     setShowUpdateLog(true);
     setUpdateLog(["Starting update…"]);
     try {
-      const res = await fetch("/api/update/run", { method: "POST" });
+      const res = await fetch("/api/bridges/update/run", { method: "POST" });
       const data = await res.json();
       setUpdateLog(data.log ?? []);
       if (data.ok) { setUpdateAvailable(false); setUpdateCount(0); }
@@ -221,27 +239,20 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     setShowMediaLibrary(false);
     setShowInfo((v) => !v);
     if (!readmeContent) {
-      const res = await fetch("/api/readme");
+      const res = await fetch("/api/bridges/readme");
       const data = await res.json();
       setReadmeContent(data.error ? `\n> ${data.message}` : (data.content ?? ""));
     }
   }
 
-  async function handleCopyAuthUrl() {
-    if (!authUrl) return;
-    try {
-      await navigator.clipboard.writeText(authUrl);
-      setUrlCopied(true);
-      setTimeout(() => setUrlCopied(false), 2000);
-    } catch {}
+  function handleSendAuthCode(code: string) {
+    xtermRefs.current[terminalPlatform]?.sendStdin(code + "\n");
   }
 
-  function handleSendAuthCode() {
-    const code = authCode.trim();
-    if (!code) return;
-    xtermRefs.current[terminalPlatform]?.sendStdin(code + "\n");
-    setCodeSent(true);
-    setTimeout(() => { setAuthUrl(null); setUrlCopied(false); setAuthCode(""); setCodeSent(false); rawBufRef.current = ""; }, 1200);
+  function handleCloseAuthModal() {
+    activeAuthRef.current = null;
+    setActiveAuth(null);
+    rawBufRef.current = "";
   }
 
   useEffect(() => () => { if (countdownRef.current) clearTimeout(countdownRef.current); }, []);
@@ -267,87 +278,18 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
       <style>{`
         @keyframes countdown-shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
         @keyframes countdown-color { 0% { background-color: rgb(34 197 94); } 60% { background-color: rgb(251 146 60); } 100% { background-color: rgb(239 68 68); } }
-        [data-slot="dialog-overlay"] { z-index: 999998 !important; }
-        [data-slot="dialog-content"] { z-index: 999999 !important; }
       `}</style>
 
       {/* ── Auth Flow Modal ── */}
-      <Dialog open={!!authUrl} onOpenChange={(open) => { if (!open) { setAuthUrl(null); setUrlCopied(false); setAuthCode(""); setCodeSent(false); rawBufRef.current = ""; } }}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <div className="flex items-center gap-3 mb-1">
-              <span className="flex items-center justify-center size-10 rounded-full bg-primary/10 shrink-0">
-                <KeyRound size={18} className="text-primary" />
-              </span>
-              <div className="flex flex-col gap-0.5">
-                <DialogTitle className="text-left">Claude Code — Authorization</DialogTitle>
-                <DialogDescription className="text-[12px] text-left">
-                  Open the link in your browser and sign in to your Claude account
-                </DialogDescription>
-              </div>
-            </div>
-          </DialogHeader>
-
-          <div
-            className="rounded-md border border-border bg-muted/50 px-3 py-3 cursor-text select-text"
-            style={{ wordBreak: "break-all" }}
-          >
-            <span
-              className="text-[12px] font-mono text-foreground leading-relaxed"
-              style={{ userSelect: "text", WebkitUserSelect: "text" }}
-            >
-              {authUrl}
-            </span>
-          </div>
-
-          <DialogFooter className="gap-2 sm:gap-2">
-            <button
-              type="button"
-              onClick={handleCopyAuthUrl}
-              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-md border border-border bg-background text-sm font-medium text-foreground hover:bg-muted transition-colors"
-            >
-              {urlCopied ? (
-                <><Check size={14} className="text-green-500" />Copied</>
-              ) : (
-                <><Copy size={14} />Copy URL</>
-              )}
-            </button>
-            <a
-              href={authUrl ?? "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
-            >
-              <ExternalLink size={14} />
-              Open
-            </a>
-          </DialogFooter>
-
-          <div className="flex flex-col gap-2 pt-2 border-t border-border">
-            <span className="text-[12px] text-muted-foreground">
-              After authorization, paste the code below:
-            </span>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={authCode}
-                onChange={(e) => setAuthCode(e.target.value)}
-                onKeyDown={(e) => { if (e.key === "Enter") handleSendAuthCode(); }}
-                placeholder="Paste code here…"
-                className="flex-1 h-9 rounded-md border border-border bg-background px-3 text-sm font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-              <button
-                type="button"
-                onClick={handleSendAuthCode}
-                disabled={!authCode.trim() || codeSent}
-                className="flex items-center gap-1.5 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-40 disabled:pointer-events-none"
-              >
-                {codeSent ? <><Check size={14} />Sent</> : "Send"}
-              </button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {activeAuth && (
+        <AuthFlowModal
+          descriptor={activeAuth.descriptor}
+          url={activeAuth.url}
+          code={activeAuth.code}
+          onClose={handleCloseAuthModal}
+          onSendCode={handleSendAuthCode}
+        />
+      )}
 
       {/* ── Carousel ── */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: CAROUSEL_H }} className="border-b border-border bg-background flex items-center gap-2 px-2">
