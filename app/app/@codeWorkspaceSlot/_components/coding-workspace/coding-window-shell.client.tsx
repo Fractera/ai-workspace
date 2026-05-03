@@ -127,10 +127,15 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
       for (const descriptor of AUTH_FLOW_DESCRIPTORS) {
         const match = bufForSearch.match(descriptor.detectUrl);
         if (match) {
+          // Extract from rawBufRef where newlines became spaces — \S+ stops at the
+          // space that follows the URL instead of bleeding into the next terminal line
+          // (e.g. "Enter the authorization code:" gets concatenated in bufForSearch).
+          // Fall back to bufForSearch match only if rawBufRef has no match yet.
+          const rawMatch = rawBufRef.current.match(descriptor.detectUrl);
+          let extractedUrl = rawMatch ? rawMatch[0] : match[0];
           // PTY reprints the URL line via \r — after whitespace removal the two copies
           // concatenate into one string, causing duplicate_parameter in OAuth.
           // Truncate at any second https:// occurrence.
-          let extractedUrl = match[0];
           const dupeIdx = extractedUrl.indexOf("https://", 8);
           if (dupeIdx !== -1) extractedUrl = extractedUrl.slice(0, dupeIdx);
           // For device-code flow, extract the one-time code from the raw buffer (spaces
