@@ -582,6 +582,15 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
             }}
             className="bg-zinc-950"
           >
+            {platform === "open-code" && (
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-950/90 border-b border-amber-700/30 text-[10px] text-amber-400/90">
+                <KeyRound size={9} className="shrink-0" />
+                <span>
+                  Requires <strong>OPENROUTER_API_KEY</strong> — open the <strong>Data</strong> button, go to the Configuration tab, add the key, then click <strong>Save &amp; Apply</strong>.
+                </span>
+              </div>
+            )}
             <XtermTerminal
               ref={(h) => { xtermRefs.current[platform] = h; }}
               wsUrl={PTY_URL}
