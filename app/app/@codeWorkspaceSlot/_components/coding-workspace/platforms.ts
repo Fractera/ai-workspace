@@ -13,7 +13,7 @@ export const PLATFORMS: { id: Platform; label: string; active: boolean; docsUrl:
   { id: 'codex',       label: 'Codex',       active: true,  docsUrl: 'https://developers.openai.com/codex/cli', agentPrompt: 'Install Codex CLI: read the documentation in ../docs/platforms/codex/ (start with AGENTS.md), then follow the install instructions exactly as written there. After successful install, verify with `codex --version` and set active: true for codex in app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts' },
   { id: 'gemini-cli',  label: 'Gemini CLI',  active: true,  docsUrl: 'https://geminicli.com/docs/get-started/installation/', agentPrompt: '' },
   { id: 'qwen-code',   label: 'Qwen Code',   active: true,  docsUrl: 'https://qwen.ai/qwencode', agentPrompt: '' },
-  { id: 'kimi-code',   label: 'Kimi Code',   active: false, docsUrl: 'https://moonshotai.github.io/kimi-cli/en/guides/getting-started.html', agentPrompt: 'Install Kimi Code: read the documentation in ../docs/platforms/kimi-code/ (start with AGENTS.md), then follow the install instructions exactly as written there. After successful install, verify with `kimi --version` and set active: true for kimi-code in app/@codeWorkspaceSlot/_components/coding-workspace/platforms.ts' },
+  { id: 'kimi-code',   label: 'Kimi Code',   active: true,  docsUrl: 'https://moonshotai.github.io/kimi-cli/en/guides/getting-started.html', agentPrompt: '' },
   { id: 'open-code',   label: 'Open Code',   active: true,  docsUrl: 'https://opencode.ai/docs/en', agentPrompt: '' },
 ];
 
