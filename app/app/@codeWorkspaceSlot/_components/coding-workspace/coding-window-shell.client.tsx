@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, ExternalLink, KeyRound } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, ExternalLink, KeyRound, CornerDownLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal, type XtermTerminalHandle } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -617,6 +617,15 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
             </TooltipProvider>
           )}
         </span>
+
+        {/* Enter button — mobile only */}
+        <button
+          type="button"
+          className="md:hidden inline-flex items-center gap-1 h-5 px-2 rounded border border-primary bg-primary/10 text-primary text-[10px] transition-colors active:bg-primary/20"
+          onClick={() => xtermRefs.current[terminalPlatform]?.sendStdin("\r")}
+        >
+          <CornerDownLeft size={10} />Enter
+        </button>
 
         {/* Info button */}
         <button type="button" onClick={handleInfo}
