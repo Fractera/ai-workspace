@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Loader2, Plus, Trash2, AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 type EnvEntry = { key: string; value: string; isNew: boolean };
 
@@ -9,7 +11,6 @@ type Props = { onClose: () => void };
 
 const WEAK_SECRET_MAX_LEN = 10;
 
-// Keys the user can edit
 const EDITABLE_KEYS: string[] = [
   "AUTH_SECRET",
   "OPENROUTER_API_KEY",
@@ -21,7 +22,6 @@ const EDITABLE_KEYS: string[] = [
 
 const THEME_OPTIONS = ["light", "dark", "system"];
 
-// All other existing keys are shown as disabled
 function isEditable(key: string) {
   return EDITABLE_KEYS.includes(key);
 }
@@ -84,7 +84,6 @@ export function EnvEditorPanel({ onClose }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Save failed");
       setSaved(true);
-      // Mark new entries as saved (no longer deletable as "new")
       setEntries((prev) => prev.map((e) => ({ ...e, isNew: false })));
     } catch (e) {
       setError(String(e));
@@ -103,7 +102,6 @@ export function EnvEditorPanel({ onClose }: Props) {
     <div style={{ position: "absolute", top: 52, left: 0, right: 0, bottom: 36, zIndex: 20 }}
       className="bg-background flex flex-col">
 
-      {/* Header */}
       <div className="flex items-center px-4 py-2.5 border-b border-border shrink-0">
         <span className="text-xs font-semibold text-foreground">Environment Variables</span>
       </div>
@@ -115,7 +113,7 @@ export function EnvEditorPanel({ onClose }: Props) {
       ) : (
         <>
           {weakSecret && (
-            <div className="mx-4 mt-3 flex items-start gap-2 rounded-md bg-destructive/10 border border-destructive/30 px-3 py-2 text-[11px] text-destructive">
+            <div className="mx-4 mt-3 flex items-start gap-2 rounded-lg bg-destructive/10 border border-destructive/30 px-3 py-2 text-[11px] text-destructive">
               <AlertTriangle size={12} className="shrink-0 mt-0.5" />
               <span><strong>AUTH_SECRET</strong> is too short (min {WEAK_SECRET_MAX_LEN} chars). Generate one at{" "}
                 <a href="https://generate-secret.vercel.app/32" target="_blank" rel="noopener noreferrer" className="underline">generate-secret.vercel.app</a>.
@@ -123,14 +121,13 @@ export function EnvEditorPanel({ onClose }: Props) {
             </div>
           )}
 
-          <div className="mx-4 mt-3 flex items-start gap-2 rounded-md bg-muted border border-border px-3 py-2 text-[11px] text-muted-foreground">
+          <div className="mx-4 mt-3 flex items-start gap-2 rounded-lg bg-muted border border-border px-3 py-2 text-[11px] text-muted-foreground">
             <AlertTriangle size={12} className="shrink-0 mt-0.5 text-orange-400" />
             <span>Changes take effect after a server restart. Changing <strong>AUTH_SECRET</strong> invalidates all sessions — users will need to log in again.</span>
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-1">
 
-            {/* Existing entries */}
             {existingEntries.map((entry) => {
               const editable = isEditable(entry.key);
               const isTheme  = entry.key === "NEXT_PUBLIC_DEFAULT_THEME";
@@ -139,96 +136,96 @@ export function EnvEditorPanel({ onClose }: Props) {
 
               return (
                 <div key={entry.key} className="flex items-center gap-2">
-                  {/* Key */}
-                  <span className={`w-52 shrink-0 h-7 flex items-center px-2 text-[11px] font-mono rounded-md border ${
+                  <span className={`w-52 shrink-0 h-8 flex items-center px-2.5 text-[11px] font-mono rounded-lg border ${
                     editable ? "border-border text-foreground" : "border-transparent text-muted-foreground/40"
                   }`}>
                     {entry.key}
                   </span>
 
-                  {/* Value */}
                   {isTheme ? (
                     <select
                       value={entry.value}
                       onChange={(e) => updateValue(entry.key, e.target.value)}
-                      className="flex-1 h-7 rounded-md border border-border bg-muted px-2 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                      className="flex-1 h-8 rounded-lg border border-border bg-muted px-2.5 text-[11px] font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-ring/50"
                     >
                       {THEME_OPTIONS.map((t) => <option key={t} value={t}>{t}</option>)}
                     </select>
                   ) : (
-                    <input
+                    <Input
                       type={secret ? "password" : "text"}
                       value={entry.value}
                       onChange={(e) => editable ? updateValue(entry.key, e.target.value) : undefined}
                       readOnly={!editable}
-                      className={`flex-1 h-7 rounded-md border px-2 text-[11px] font-mono focus:outline-none ${
+                      className={`flex-1 text-[11px] font-mono ${
                         !editable
-                          ? "border-transparent bg-transparent text-muted-foreground/30 cursor-default select-none"
+                          ? "border-transparent bg-transparent text-muted-foreground/30 cursor-default select-none focus-visible:ring-0 focus-visible:border-transparent"
                           : weak
-                          ? "border-destructive/50 bg-destructive/5 text-destructive focus:ring-1 focus:ring-destructive"
-                          : "border-border bg-muted text-foreground focus:ring-1 focus:ring-primary"
+                          ? "border-destructive/50 bg-destructive/5 text-destructive focus-visible:border-destructive focus-visible:ring-destructive/20"
+                          : ""
                       }`}
                     />
                   )}
 
-                  {/* No delete for existing */}
                   <span className="w-4 shrink-0" />
                 </div>
               );
             })}
 
-            {/* Divider before new entries */}
             {newEntries.length > 0 && (
               <div className="h-px bg-border my-2" />
             )}
 
-            {/* New entries — fully editable + deletable */}
             {newEntries.map((entry, relIdx) => {
               const absIdx = entries.indexOf(entry);
               return (
                 <div key={absIdx} className="flex items-center gap-2">
-                  <input
+                  <Input
                     type="text"
                     value={entry.key}
                     onChange={(e) => updateNewEntry(absIdx, "key", e.target.value)}
                     placeholder="NEW_KEY"
-                    className="w-52 shrink-0 h-7 rounded-md border border-border bg-muted px-2 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="w-52 shrink-0 text-[11px] font-mono"
                   />
-                  <input
+                  <Input
                     type={isSecret(entry.key) ? "password" : "text"}
                     value={entry.value}
                     onChange={(e) => updateNewEntry(absIdx, "value", e.target.value)}
                     placeholder="value"
-                    className="flex-1 h-7 rounded-md border border-border bg-muted px-2 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="flex-1 text-[11px] font-mono"
                   />
-                  <button type="button" onClick={() => removeNewEntry(absIdx)}
-                    className="shrink-0 text-muted-foreground hover:text-destructive transition-colors">
+                  <Button
+                    variant="ghost"
+                    size="icon-xs"
+                    onClick={() => removeNewEntry(absIdx)}
+                    className="shrink-0 text-muted-foreground hover:text-destructive"
+                  >
                     <Trash2 size={12} />
-                  </button>
+                  </Button>
                 </div>
               );
             })}
 
-            <button type="button" onClick={addEntry}
-              className="mt-2 flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors">
+            <Button
+              variant="ghost"
+              size="xs"
+              onClick={addEntry}
+              className="mt-2 justify-start text-muted-foreground"
+            >
               <Plus size={12} />Add variable
-            </button>
+            </Button>
           </div>
 
-          {/* Footer */}
           <div className="px-4 py-2.5 border-t border-border flex items-center justify-between shrink-0">
             {error && <span className="text-[11px] text-destructive">{error}</span>}
             {saved && !error && <span className="text-[11px] text-green-500">Saved. Restart server to apply.</span>}
             {!error && !saved && <span />}
             <div className="flex items-center gap-2">
-              <button type="button" onClick={handleSave} disabled={saving}
-                className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-primary text-primary-foreground text-[11px] font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+              <Button size="sm" onClick={handleSave} disabled={saving}>
                 {saving ? <><Loader2 size={11} className="animate-spin" />Saving…</> : "Save & apply"}
-              </button>
-              <button type="button" onClick={onClose}
-                className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md border border-border text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+              </Button>
+              <Button variant="outline" size="sm" onClick={onClose}>
                 Close settings
-              </button>
+              </Button>
             </div>
           </div>
         </>

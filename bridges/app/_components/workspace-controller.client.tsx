@@ -82,13 +82,14 @@ export function WorkspaceController() {
         {session ? (
           <Popover>
             <PopoverTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-border bg-background text-foreground hover:bg-muted font-medium transition-colors shadow-md dark:border-white/20 dark:shadow-none"
+              <Button
+                variant="outline"
+                size="default"
+                className="text-xs shadow-md dark:border-white/20 dark:shadow-none"
               >
                 <CircleUserRound className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Account</span>
-              </button>
+              </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-56 p-3 flex flex-col gap-2" style={{ zIndex: 100000 }}>
               <p className="text-xs font-medium text-foreground truncate">{session.email}</p>
@@ -112,25 +113,26 @@ export function WorkspaceController() {
             </PopoverContent>
           </Popover>
         ) : (
-          <button
-            type="button"
+          <Button
+            variant="outline"
+            size="default"
+            className="text-xs shadow-md dark:border-white/20 dark:shadow-none"
             onClick={() => { window.location.href = `${AUTH_URL}/login`; }}
-            className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-border bg-background text-foreground hover:bg-muted font-medium transition-colors shadow-md dark:border-white/20 dark:shadow-none"
           >
             <CircleUserRound className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Sign in</span>
-          </button>
+          </Button>
         )}
 
         {isArchitect && (
-          <button
-            type="button"
+          <Button
+            size="default"
+            className="text-xs shadow-md"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex items-center gap-1.5 h-8 text-xs px-3 rounded-md border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-colors shadow-md"
           >
             <Code2 className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Start Coding</span>
-          </button>
+          </Button>
         )}
       </div>
 

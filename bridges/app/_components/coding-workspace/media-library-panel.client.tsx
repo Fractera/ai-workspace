@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Loader2, Trash2, Copy, ImagePlus, X, Check, Search, Pencil, MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL ?? "http://localhost:3300";
 
@@ -33,7 +35,7 @@ const CROP_RATIOS: Record<CropMode, { w: number; h: number }> = {
 
 type Props = { onClose: () => void };
 
-// ── ImageCropper (ported from Fractera Pro, no deps) ──────────────────────────
+// ── ImageCropper ──────────────────────────────────────────────────────────────
 
 function ImageCropper({ src, onDone, onCancel }: {
   src: string;
@@ -55,7 +57,6 @@ function ImageCropper({ src, onDone, onCancel }: {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef    = useRef<HTMLImageElement | null>(null);
 
-  // Reload image and reset view whenever src or crop dimensions change
   useEffect(() => {
     const img = new globalThis.Image();
     img.onload = () => {
@@ -65,7 +66,7 @@ function ImageCropper({ src, onDone, onCancel }: {
       setOffset({ x: 0, y: 0 });
     };
     img.src = src;
-  }, [src, cropMode]); // cropMode triggers full reset — no stale canvas
+  }, [src, cropMode]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -109,10 +110,14 @@ function ImageCropper({ src, onDone, onCancel }: {
           <span className="text-xs font-semibold text-foreground">Crop image</span>
           <div className="flex gap-1">
             {(["horizontal", "square", "vertical"] as CropMode[]).map((m) => (
-              <button key={m} type="button" onClick={() => setCropMode(m)}
-                className={`text-[10px] px-2 py-1 rounded border transition-colors ${cropMode === m ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover:bg-muted"}`}>
+              <Button
+                key={m}
+                variant={cropMode === m ? "default" : "outline"}
+                size="xs"
+                onClick={() => setCropMode(m)}
+              >
                 {m === "horizontal" ? "16:9" : m === "square" ? "1:1" : "9:16"}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -129,14 +134,8 @@ function ImageCropper({ src, onDone, onCancel }: {
             className="w-full accent-primary" />
         </div>
         <div className="flex gap-2 justify-end">
-          <button type="button" onClick={onCancel}
-            className="text-[11px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors">
-            Cancel
-          </button>
-          <button type="button" onClick={handleDone}
-            className="text-[11px] px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-            Apply
-          </button>
+          <Button variant="outline" size="sm" onClick={onCancel}>Cancel</Button>
+          <Button size="sm" onClick={handleDone}>Apply</Button>
         </div>
       </div>
     </div>
@@ -153,7 +152,9 @@ function PreviewPopup({ item, onClose }: { item: MediaItem; onClose: () => void 
       <div className="bg-background rounded-xl p-4 flex flex-col gap-3 shadow-xl max-w-xs w-full mx-4" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold truncate text-foreground">{item.name}</span>
-          <button type="button" onClick={onClose} className="text-muted-foreground hover:text-foreground"><X size={13} /></button>
+          <Button variant="ghost" size="icon-xs" onClick={onClose}>
+            <X size={13} />
+          </Button>
         </div>
         {isImage && (
           <img src={`${MEDIA_URL}/media/${item.id}/file`} alt={item.name}
@@ -315,7 +316,6 @@ export function MediaLibraryPanel({ onClose }: Props) {
     <div style={{ position: "absolute", top: 52, left: 0, right: 0, bottom: 36, zIndex: 20 }}
       className="bg-background flex flex-col">
 
-      {/* Cropper overlay */}
       {cropSrc && pendingFile && (
         <ImageCropper
           src={cropSrc}
@@ -324,7 +324,6 @@ export function MediaLibraryPanel({ onClose }: Props) {
         />
       )}
 
-      {/* Preview overlay */}
       {previewItem && <PreviewPopup item={previewItem} onClose={() => setPreviewItem(null)} />}
 
       {/* Edit overlay */}
@@ -334,26 +333,30 @@ export function MediaLibraryPanel({ onClose }: Props) {
             <span className="text-xs font-semibold text-foreground">Edit file info</span>
             <div className="flex flex-col gap-1">
               <span className="text-[10px] text-muted-foreground">Title</span>
-              <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)}
+              <Input
+                type="text"
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
                 placeholder={editItem?.name ?? ""}
-                className="h-7 rounded-md border border-border bg-muted px-2 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                className="text-[11px] font-mono"
+              />
               <span className="text-[10px] text-muted-foreground/50 font-mono truncate">{editItem?.name}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-[10px] text-muted-foreground">Description</span>
-              <input type="text" value={editDesc} onChange={(e) => setEditDesc(e.target.value)}
+              <Input
+                type="text"
+                value={editDesc}
+                onChange={(e) => setEditDesc(e.target.value)}
                 placeholder="Optional"
-                className="h-7 rounded-md border border-border bg-muted px-2 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                className="text-[11px] font-mono"
+              />
             </div>
             <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setEditItem(null)}
-                className="text-[11px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors">
-                Cancel
-              </button>
-              <button type="button" onClick={saveEdit} disabled={editSaving}
-                className="text-[11px] px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50">
+              <Button variant="outline" size="sm" onClick={() => setEditItem(null)}>Cancel</Button>
+              <Button size="sm" onClick={saveEdit} disabled={editSaving}>
                 {editSaving ? "Saving…" : "Save"}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -366,14 +369,8 @@ export function MediaLibraryPanel({ onClose }: Props) {
             <span className="text-xs font-semibold text-foreground">Delete this file?</span>
             <span className="text-[11px] text-muted-foreground">This action cannot be undone.</span>
             <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setDeleteId(null)}
-                className="text-[11px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors">
-                Cancel
-              </button>
-              <button type="button" onClick={() => handleDelete(deleteId)}
-                className="text-[11px] px-3 py-1.5 rounded-md bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors">
-                Delete
-              </button>
+              <Button variant="outline" size="sm" onClick={() => setDeleteId(null)}>Cancel</Button>
+              <Button variant="destructive" size="sm" onClick={() => handleDelete(deleteId)}>Delete</Button>
             </div>
           </div>
         </div>
@@ -393,7 +390,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
       {/* Search */}
       {!loading && !error && (
         <div className="px-4 py-2 border-b border-border shrink-0">
-          <div className="flex items-center gap-2 h-7 rounded-md border border-border bg-muted px-2">
+          <div className="flex items-center gap-2 h-8 rounded-lg border border-border bg-muted px-2.5">
             <Search size={11} className="text-muted-foreground shrink-0" />
             <input
               type="text"
@@ -403,9 +400,9 @@ export function MediaLibraryPanel({ onClose }: Props) {
               className="flex-1 bg-transparent text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none font-mono"
             />
             {query && (
-              <button type="button" onClick={() => setQuery("")} className="text-muted-foreground hover:text-foreground transition-colors">
+              <Button variant="ghost" size="icon-xs" onClick={() => setQuery("")}>
                 <X size={10} />
-              </button>
+              </Button>
             )}
           </div>
         </div>
@@ -450,7 +447,6 @@ export function MediaLibraryPanel({ onClose }: Props) {
               </thead>
               <tbody>
                 {filteredItems.map((item) => {
-                  const isImage = item.mime_type.startsWith("image/");
                   const sizeKb  = (item.size / 1024).toFixed(1);
                   const dims    = item.width && item.height ? `${item.width}×${item.height}` : item.duration ? `${item.duration.toFixed(1)}s` : "—";
                   const created = item.created_at.replace("T", " ").slice(0, 16);
@@ -458,12 +454,16 @@ export function MediaLibraryPanel({ onClose }: Props) {
                     <tr key={item.id} className="border-b border-border hover:bg-muted/30 transition-colors group">
                       {/* Actions menu */}
                       <td className="px-2 py-1.5 border-r border-border text-center relative">
-                        <button type="button" onClick={() => setOpenMenuId(openMenuId === item.id ? null : item.id)}
-                          className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors mx-auto">
+                        <Button
+                          variant="ghost"
+                          size="icon-xs"
+                          onClick={() => setOpenMenuId(openMenuId === item.id ? null : item.id)}
+                          className="mx-auto"
+                        >
                           <MoreHorizontal size={11} />
-                        </button>
+                        </Button>
                         {openMenuId === item.id && (
-                          <div className="absolute left-0 top-full mt-0.5 z-50 bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[120px]"
+                          <div className="absolute left-0 top-full mt-0.5 z-50 bg-background border border-border rounded-lg shadow-lg overflow-hidden min-w-[120px]"
                             onMouseLeave={() => setOpenMenuId(null)}>
                             <button type="button" onClick={() => { setPreviewItem(item); setOpenMenuId(null); }}
                               className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-foreground hover:bg-muted transition-colors">
@@ -485,33 +485,23 @@ export function MediaLibraryPanel({ onClose }: Props) {
                           </div>
                         )}
                       </td>
-                      {/* title */}
                       <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
                         <span className="truncate font-mono block text-foreground" title={item.title}>{item.title || <span className="text-muted-foreground/40">—</span>}</span>
                       </td>
-                      {/* name */}
                       <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
                         <span className="truncate font-mono block text-muted-foreground" title={item.name}>{item.name}</span>
                       </td>
-                      {/* description */}
                       <td className="px-3 py-1.5 border-r border-border max-w-[140px]">
                         <span className="truncate font-mono block text-muted-foreground" title={item.description}>{item.description || <span className="text-muted-foreground/40">—</span>}</span>
                       </td>
-                      {/* url */}
                       <td className="px-3 py-1.5 border-r border-border max-w-[220px]">
                         <span className="truncate font-mono block text-muted-foreground text-[10px]" title={item.url}>{item.url}</span>
                       </td>
-                      {/* extension */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground">.{item.extension}</td>
-                      {/* mime type */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{item.mime_type}</td>
-                      {/* crop mode */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{item.crop_mode || "—"}</td>
-                      {/* size */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{sizeKb} KB</td>
-                      {/* dimensions */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{dims}</td>
-                      {/* created */}
                       <td className="px-3 py-1.5 border-r border-border font-mono text-muted-foreground whitespace-nowrap">{created}</td>
                     </tr>
                   );
@@ -525,14 +515,12 @@ export function MediaLibraryPanel({ onClose }: Props) {
       {/* Footer */}
       <div className="px-4 py-2.5 border-t border-border flex items-center justify-between shrink-0">
         <input ref={fileInputRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleFileSelect} />
-        <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading}
-          className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md bg-primary text-primary-foreground text-[11px] font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+        <Button onClick={() => fileInputRef.current?.click()} disabled={uploading}>
           {uploading ? <><Loader2 size={11} className="animate-spin" />Uploading…</> : <><ImagePlus size={11} />Upload media</>}
-        </button>
-        <button type="button" onClick={onClose}
-          className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md border border-border text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+        </Button>
+        <Button variant="outline" onClick={onClose}>
           Close media
-        </button>
+        </Button>
       </div>
     </div>
   );

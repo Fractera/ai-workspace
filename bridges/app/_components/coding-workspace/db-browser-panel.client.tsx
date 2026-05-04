@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Loader2, Pencil, Trash2, X, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 type Row = Record<string, unknown>;
 type Props = { onClose: () => void };
@@ -11,7 +12,6 @@ const SIDEBAR_W = 250;
 
 const ALL_ROLES = ["architect", "user", "guest"];
 
-// Columns rendered as <select> (single value)
 const SELECT_COLUMNS: Record<string, Record<string, string[]>> = {
   users: {
     is_active: ["1", "0"],
@@ -20,7 +20,6 @@ const SELECT_COLUMNS: Record<string, Record<string, string[]>> = {
   },
 };
 
-// Columns rendered as multi-checkbox (JSON array stored as string)
 const MULTI_COLUMNS: Record<string, Record<string, string[]>> = {
   users: {
     roles: ALL_ROLES,
@@ -117,7 +116,6 @@ export function DbBrowserPanel({ onClose }: Props) {
     }
   }
 
-  // Multi-select helpers for roles-like columns (JSON array)
   function getCheckedRoles(): string[] {
     try { return JSON.parse(editValue) as string[]; } catch { return []; }
   }
@@ -142,15 +140,14 @@ export function DbBrowserPanel({ onClose }: Props) {
               <span className="text-xs font-semibold text-foreground">
                 Edit <span className="font-mono text-primary">{editCell.column}</span>
               </span>
-              <button type="button" onClick={() => setEditCell(null)} className="text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" size="icon-xs" onClick={() => setEditCell(null)}>
                 <X size={13} />
-              </button>
+              </Button>
             </div>
             <span className="text-[10px] text-muted-foreground font-mono">
               {selectedTable} · id: {editCell.rowId}
             </span>
 
-            {/* Multi-checkbox for JSON array columns (e.g. roles) */}
             {getMultiOptions(selectedTable, editCell.column) ? (
               <div className="flex flex-col gap-1.5">
                 {getMultiOptions(selectedTable, editCell.column)!.map((opt) => (
@@ -167,35 +164,31 @@ export function DbBrowserPanel({ onClose }: Props) {
                 <span className="text-[10px] text-muted-foreground font-mono mt-1">{editValue}</span>
               </div>
             ) : getSelectOptions(selectedTable, editCell.column) ? (
-              /* Single select for enum columns */
               <select
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
-                className="h-8 rounded-md border border-border bg-muted px-2 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                className="h-8 rounded-lg border border-border bg-muted px-2.5 text-[11px] font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-ring/50"
               >
                 {getSelectOptions(selectedTable, editCell.column)!.map((opt) => (
                   <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>
             ) : (
-              /* Free text for everything else */
               <textarea
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
                 rows={4}
-                className="rounded-md border border-border bg-muted px-2 py-1.5 text-[11px] font-mono text-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                className="rounded-lg border border-border bg-muted px-2.5 py-1.5 text-[11px] font-mono text-foreground focus:outline-none focus:ring-2 focus:ring-ring/50 resize-none"
               />
             )}
 
             <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setEditCell(null)}
-                className="text-[11px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors">
+              <Button variant="outline" size="sm" onClick={() => setEditCell(null)}>
                 Cancel
-              </button>
-              <button type="button" onClick={saveEdit} disabled={editSaving}
-                className="text-[11px] px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50">
+              </Button>
+              <Button size="sm" onClick={saveEdit} disabled={editSaving}>
                 {editSaving ? "Saving…" : "Save"}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -209,14 +202,12 @@ export function DbBrowserPanel({ onClose }: Props) {
             <span className="text-[10px] text-muted-foreground font-mono">id: {deleteRowId}</span>
             <span className="text-[11px] text-muted-foreground">This action cannot be undone.</span>
             <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setDeleteRowId(null)}
-                className="text-[11px] px-3 py-1.5 rounded-md border border-border hover:bg-muted transition-colors">
+              <Button variant="outline" size="sm" onClick={() => setDeleteRowId(null)}>
                 Cancel
-              </button>
-              <button type="button" onClick={() => confirmDelete(deleteRowId)}
-                className="text-[11px] px-3 py-1.5 rounded-md bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors">
+              </Button>
+              <Button variant="destructive" size="sm" onClick={() => confirmDelete(deleteRowId)}>
                 Delete
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -242,20 +233,18 @@ export function DbBrowserPanel({ onClose }: Props) {
       ) : (
         <div className="flex-1 flex min-h-0 overflow-x-auto">
 
-          {/* Left sidebar — collapsible table list */}
           <div
             style={{ width: sidebarCollapsed ? 40 : SIDEBAR_W, minWidth: sidebarCollapsed ? 40 : SIDEBAR_W, transition: "width 0.2s ease, min-width 0.2s ease" }}
             className="border-r border-border flex flex-col overflow-y-auto shrink-0 sticky left-0 bg-background z-10 relative">
-            {/* Toggle button */}
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="icon-xs"
               onClick={() => setSidebarCollapsed((v) => !v)}
-              className="absolute top-1.5 right-1.5 z-10 h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className="absolute top-1.5 right-1.5 z-10"
               title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               {sidebarCollapsed ? <PanelLeftOpen size={12} /> : <PanelLeftClose size={12} />}
-            </button>
-            {/* Table list — hidden when collapsed */}
+            </Button>
             {!sidebarCollapsed && (
               <div className="flex flex-col pt-2 overflow-hidden">
                 {tables.map((t) => (
@@ -272,7 +261,6 @@ export function DbBrowserPanel({ onClose }: Props) {
             )}
           </div>
 
-          {/* Right — data table */}
           <div className="flex-1 min-w-0 overflow-x-auto">
             {loadingRows ? (
               <div className="flex items-center justify-center h-full gap-2 text-muted-foreground text-xs">
@@ -309,20 +297,26 @@ export function DbBrowserPanel({ onClose }: Props) {
                                 ? <span className="text-muted-foreground/40">null</span>
                                 : String(row[col])}
                             </span>
-                            <button type="button"
+                            <Button
+                              variant="ghost"
+                              size="icon-xs"
                               onClick={() => openEdit(String(row.id), col, row[col])}
-                              className="shrink-0 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-foreground transition-all">
+                              className="shrink-0 opacity-0 group-hover:opacity-100"
+                            >
                               <Pencil size={10} />
-                            </button>
+                            </Button>
                           </div>
                         </td>
                       ))}
                       <td className="px-2 sticky right-0 bg-background group-hover:bg-muted/30 border-l border-border transition-colors">
-                        <button type="button"
+                        <Button
+                          variant="ghost"
+                          size="icon-xs"
                           onClick={() => setDeleteRowId(String(row.id))}
-                          className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-all">
+                          className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
+                        >
                           <Trash2 size={11} />
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -335,10 +329,9 @@ export function DbBrowserPanel({ onClose }: Props) {
 
       {/* ── Footer ── */}
       <div className="px-4 py-2.5 border-t border-border flex items-center justify-end shrink-0">
-        <button type="button" onClick={onClose}
-          className="inline-flex items-center gap-1.5 h-7 px-3 rounded-md border border-border text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+        <Button variant="outline" size="sm" onClick={onClose}>
           Close database
-        </button>
+        </Button>
       </div>
     </div>
   );

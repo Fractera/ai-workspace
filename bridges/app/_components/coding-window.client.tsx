@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { Rnd } from "react-rnd";
 import { X, GripHorizontal, Code2 } from "lucide-react";
 import { CodingWindowShell } from "./coding-workspace/coding-window-shell.client";
+import { Button } from "@/components/ui/button";
 import type { Platform } from "./coding-workspace/platforms";
 
 type Props = {
@@ -139,14 +140,9 @@ export function CodingWindow({ onClose, onTerminalClose, terminalPlatform, termi
           <Code2 size={14} className="text-muted-foreground" />
           <span className="text-xs font-medium text-foreground">Code Workspace</span>
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="p-1 rounded hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-          title="Close"
-        >
+        <Button variant="ghost" size="icon-xs" onClick={onClose} title="Close">
           <X size={14} />
-        </button>
+        </Button>
       </div>
       <CodingWindowShell
         height={H - TITLE_H}
