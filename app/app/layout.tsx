@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { AuthSessionProvider } from "@/providers/session-provider.client";
 import { ThemeProvider } from "@/providers/theme-provider.client";
 import { Toaster } from "sonner";
 import "../styles/index.css";
@@ -33,13 +32,7 @@ const themeScript = `
 })();
 `;
 
-type Props = {
-  children: React.ReactNode;
-  appSlot: React.ReactNode;
-  codeWorkspaceSlot: React.ReactNode;
-};
-
-export default function RootLayout({ children, appSlot, codeWorkspaceSlot }: Props) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={defaultLang} suppressHydrationWarning>
       <head>
@@ -47,12 +40,8 @@ export default function RootLayout({ children, appSlot, codeWorkspaceSlot }: Pro
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
         <ThemeProvider>
-          <AuthSessionProvider>
-            {appSlot}
-            {codeWorkspaceSlot}
-            {children}
-            <Toaster position="bottom-right" richColors closeButton />
-          </AuthSessionProvider>
+          {children}
+          <Toaster position="bottom-right" richColors closeButton />
         </ThemeProvider>
       </body>
     </html>
