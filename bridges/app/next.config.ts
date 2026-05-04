@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   reactStrictMode: true,
   output: "standalone",
+  turbopack: {
+    root: __dirname,
+  },
   env: {
     NEXT_PUBLIC_BRIDGE_URL: process.env.NEXT_PUBLIC_BRIDGE_URL ?? "",
     NEXT_PUBLIC_PTY_URL:    process.env.NEXT_PUBLIC_PTY_URL    ?? "",
