@@ -1,7 +1,6 @@
 "use server";
 
 import { hash } from "bcrypt-ts";
-import { signIn } from "@/lib/auth/auth";
 import { getDb } from "@/lib/db";
 import { nanoid } from "nanoid";
 
@@ -30,8 +29,6 @@ export async function register(email: string, password: string): Promise<Registe
   db.prepare(
     "INSERT INTO users (id, email, nickname, password, roles, provider) VALUES (?, ?, ?, ?, ?, ?)"
   ).run(nanoid(), normalizedEmail, nickname, hashedPassword, JSON.stringify(roles), "credentials");
-
-  await signIn("credentials", { email: normalizedEmail, password, redirect: false });
 
   return { success: true };
 }

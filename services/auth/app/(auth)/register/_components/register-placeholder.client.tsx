@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,18 +24,23 @@ function RegisterForm() {
     setError(null);
     if (password !== confirm) { setError("Passwords do not match"); return; }
     setLoading(true);
-    const result = await register(email, password);
-    setLoading(false);
-    if (!result.success) { setError(result.error); return; }
-    const res = await signIn("credentials", { email, password, redirect: false });
-    if (res?.error) { setError("Sign in failed after registration"); return; }
+    try {
+      const result = await register(email, password);
+      if (!result.success) { setError(result.error); return; }
+      const res = await signIn("credentials", { email, password, redirect: false });
+      if (res?.error) { setError("Sign in failed after registration"); return; }
 
-    if (typeof window !== "undefined" && window.parent !== window) {
-      window.parent.postMessage({ type: "AUTH_SUCCESS" }, "*");
+      if (typeof window !== "undefined" && window.parent !== window) {
+        window.parent.postMessage({ type: "AUTH_SUCCESS" }, "*");
+      }
+
+      router.refresh();
+      router.push("/");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Unexpected error during registration");
+    } finally {
+      setLoading(false);
     }
-
-    router.refresh();
-    router.push("/");
   };
 
   return (

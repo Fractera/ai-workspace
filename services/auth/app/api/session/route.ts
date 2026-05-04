@@ -27,9 +27,11 @@ export async function OPTIONS(req: NextRequest) {
   });
 }
 
-export async function GET(req: NextRequest) {
+// auth() wrapper reads cookie directly from the HTTP request,
+// avoiding the React-context dependency of the standalone auth() call.
+export const GET = auth(function GET(req) {
   const origin = req.headers.get("origin");
-  const session = await auth();
+  const session = req.auth;
 
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, {
@@ -46,4 +48,4 @@ export async function GET(req: NextRequest) {
     },
     { headers: corsHeaders(origin) }
   );
-}
+});

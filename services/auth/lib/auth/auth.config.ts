@@ -34,7 +34,8 @@ function buildProviders(): NextAuthConfig["providers"] {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const email = credentials?.email as string | undefined;
+        const rawEmail = credentials?.email as string | undefined;
+        const email = rawEmail?.trim().toLowerCase();
         const password = credentials?.password as string | undefined;
 
         if (!email) return null;
