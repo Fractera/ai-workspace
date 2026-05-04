@@ -2,7 +2,6 @@ export type Platform =
   | 'claude-code'
   | 'codex'
   | 'gemini-cli'
-  | 'open-code'
   | 'qwen-code'
   | 'kimi-code';
 
@@ -14,7 +13,6 @@ export const PLATFORMS: { id: Platform; label: string; active: boolean; docsUrl:
   { id: 'gemini-cli',  label: 'Gemini CLI',  active: false, docsUrl: 'https://geminicli.com/docs/get-started/installation/', agentPrompt: 'Install Gemini CLI: read the documentation in ../docs/platforms/gemini-cli/ (start with AGENTS.md), then follow the install instructions exactly as written there. After successful install, verify with `gemini --version` and set active: true for gemini-cli in app/bridges-ui/platforms.ts' },
   { id: 'qwen-code',   label: 'Qwen Code',   active: false, docsUrl: 'https://qwen.ai/qwencode', agentPrompt: 'Install Qwen Code: read the documentation in ../docs/platforms/qwen-code/ (start with AGENTS.md), then follow the install instructions exactly as written there. After successful install, verify with `qwen --version` and set active: true for qwen-code in app/bridges-ui/platforms.ts' },
   { id: 'kimi-code',   label: 'Kimi Code',   active: false, docsUrl: 'https://moonshotai.github.io/kimi-cli/en/guides/getting-started.html', agentPrompt: 'Install Kimi Code: read the documentation in ../docs/platforms/kimi-code/ (start with AGENTS.md), then follow the install instructions exactly as written there. After successful install, verify with `kimi --version` and set active: true for kimi-code in app/bridges-ui/platforms.ts' },
-  { id: 'open-code',   label: 'Open Code',   active: false, docsUrl: 'https://opencode.ai/docs/en', agentPrompt: 'Install OpenCode: read the documentation in ../docs/platforms/open-code/ (start with AGENTS.md), then follow the install instructions exactly as written there. After successful install, verify with `opencode --version` and set active: true for open-code in app/bridges-ui/platforms.ts' },
 ];
 
 export const COMING_SOON: { id: string; label: string; version: string; tooltip: string }[] = [

@@ -1,5 +1,5 @@
 export type AuthFlowDescriptor = {
-  platformId: 'claude-code' | 'codex' | 'codex-device' | 'gemini-cli' | 'qwen-code' | 'kimi-code' | 'open-code'
+  platformId: 'claude-code' | 'codex' | 'codex-device' | 'gemini-cli' | 'qwen-code' | 'kimi-code'
   platformLabel: string
   // terminal-paste: user pastes code from browser → sent to PTY stdin
   // url-relay:      user pastes localhost callback URL → server relays to localhost:1455
@@ -62,13 +62,5 @@ export const AUTH_FLOW_DESCRIPTORS: AuthFlowDescriptor[] = [
     detectCode: /[A-Z0-9]{4}-[A-Z0-9]{4}/,
     modalTitle: 'Kimi Code — Device Authorization',
     modalDescription: 'Open the link in your browser and authorize Kimi Code. The verification code is already included in the URL — Kimi will detect your approval automatically.',
-  },
-  {
-    platformId: 'open-code',
-    platformLabel: 'Open Code',
-    flow: 'terminal-paste',
-    detectUrl: /https:\/\/opencode\.ai\/auth\S*/,
-    modalTitle: 'Open Code — API Key',
-    modalDescription: 'Open the link, sign in at opencode.ai, copy your API key, and paste it in the field below.',
   },
 ]

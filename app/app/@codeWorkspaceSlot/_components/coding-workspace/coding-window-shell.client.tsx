@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, KeyRound, CornerDownLeft } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, CornerDownLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal, type XtermTerminalHandle } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -26,7 +26,7 @@ function stripAnsi(s: string): string {
   return s.replace(ANSI_OSC_RE, "").replace(ANSI_CSI_RE, "").replace(ANSI_OTHER_RE, "");
 }
 
-const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process runs all platforms:\nClaude Code :3200 · PTY :3201\nCodex :3202 · Gemini :3203\nQwen :3204 · Kimi :3205 · OpenCode :3206\n\n🟢 Online — all platforms available\n🔴 Offline — bridge server not running\n\nTo start: cd bridges/platforms && node server.js";
+const BRIDGE_TOOLTIP = "Bridge — all platform servers status\n\nOne process runs all platforms:\nClaude Code :3200 · PTY :3201\nCodex :3202 · Gemini :3203\nQwen :3204 · Kimi :3205\n\n🟢 Online — all platforms available\n🔴 Offline — bridge server not running\n\nTo start: cd bridges/platforms && node server.js";
 
 
 const PTY_URL      = process.env.NEXT_PUBLIC_PTY_URL      ?? "ws://localhost:3201";
@@ -86,7 +86,7 @@ type Props = {
 export function CodingWindowShell({ height, terminalPlatform, terminalSessions, onPlatformClick, onTerminalClose, windowWidth, isMobile = false }: Props) {
   const [terminalStatuses] = useState<Record<Platform, TerminalStatus>>({
     "claude-code": "unavailable", "codex": "unavailable", "gemini-cli": "unavailable",
-    "open-code": "unavailable", "qwen-code": "unavailable", "kimi-code": "unavailable",
+    "qwen-code": "unavailable", "kimi-code": "unavailable",
   });
   const [bridgeStatus, setBridgeStatus]     = useState<"unknown" | "online" | "offline">("unknown");
   const [carouselIdx, setCarouselIdx]       = useState(0);
@@ -512,7 +512,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         </span>
         <div className="flex flex-col items-center gap-2" style={{ paddingLeft: 64, paddingRight: 64 }}>
           <Shimmer className="text-sm font-mono text-center" duration={3} spread={3}>Select a terminal platform to begin</Shimmer>
-          <Shimmer className="text-xs font-mono opacity-40 text-center" duration={4} spread={2}>Claude Code · Codex · Gemini CLI · Open Code · Qwen Code · Kimi Code</Shimmer>
+          <Shimmer className="text-xs font-mono opacity-40 text-center" duration={4} spread={2}>Claude Code · Codex · Gemini CLI · Qwen Code · Kimi Code</Shimmer>
         </div>
       </div>
 
@@ -532,15 +532,6 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
             }}
             className="bg-zinc-950"
           >
-            {platform === "open-code" && (
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-950/90 border-b border-amber-700/30 text-[10px] text-amber-400/90">
-                <KeyRound size={9} className="shrink-0" />
-                <span>
-                  Requires <strong>OPENROUTER_API_KEY</strong> — open the <strong>Data</strong> button, go to the Configuration tab, add the key, then click <strong>Save &amp; Apply</strong>.
-                </span>
-              </div>
-            )}
             <XtermTerminal
               ref={(h) => { xtermRefs.current[platform] = h; }}
               wsUrl={PTY_URL}

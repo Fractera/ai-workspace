@@ -13,7 +13,6 @@ const PLATFORM_LABELS: Record<string, string> = {
   'gemini-cli':  'Gemini CLI',
   'qwen-code':   'Qwen Code',
   'kimi-code':   'Kimi Code',
-  'open-code':   'Open Code',
 };
 
 type Props = {

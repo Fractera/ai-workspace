@@ -2,7 +2,6 @@ export type Platform =
   | 'claude-code'
   | 'codex'
   | 'gemini-cli'
-  | 'open-code'
   | 'qwen-code'
   | 'kimi-code';
 
@@ -14,7 +13,6 @@ export const PLATFORMS: { id: Platform; label: string; active: boolean; docsUrl:
   { id: 'gemini-cli',  label: 'Gemini CLI',  active: true,  docsUrl: 'https://geminicli.com/docs/get-started/installation/', agentPrompt: '' },
   { id: 'qwen-code',   label: 'Qwen Code',   active: true,  docsUrl: 'https://qwen.ai/qwencode', agentPrompt: '' },
   { id: 'kimi-code',   label: 'Kimi Code',   active: true,  docsUrl: 'https://moonshotai.github.io/kimi-cli/en/guides/getting-started.html', agentPrompt: '' },
-  { id: 'open-code',   label: 'Open Code',   active: true,  docsUrl: 'https://opencode.ai/docs/en', agentPrompt: '' },
 ];
 
 export const COMING_SOON: { id: string; label: string; version: string; tooltip: string }[] = [
