@@ -252,6 +252,9 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
   function handleSendAuthCode(code: string) {
     xtermRefs.current[terminalPlatform]?.sendStdin(code + "\n");
+    // xterm canvas freezes until it receives a DOM event — focus it so the
+    // PTY response renders immediately without requiring a mouse move.
+    setTimeout(() => { xtermRefs.current[terminalPlatform]?.focus(); }, 80);
   }
 
   function handleCloseAuthModal() {

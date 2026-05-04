@@ -25,6 +25,7 @@ type Props = {
 
 export type XtermTerminalHandle = {
   sendStdin: (data: string) => void;
+  focus: () => void;
 };
 
 export const XtermTerminal = forwardRef<XtermTerminalHandle, Props>(
@@ -32,6 +33,7 @@ export const XtermTerminal = forwardRef<XtermTerminalHandle, Props>(
     const containerRef = useRef<HTMLDivElement>(null);
     const onDataRef    = useRef<typeof onData>(onData);
     const wsRef        = useRef<WebSocket | null>(null);
+    const termRef      = useRef<import('@xterm/xterm').Terminal | null>(null);
     onDataRef.current  = onData;
 
     useImperativeHandle(ref, () => ({
@@ -41,6 +43,7 @@ export const XtermTerminal = forwardRef<XtermTerminalHandle, Props>(
           ws.send(JSON.stringify({ type: 'stdin', data }));
         }
       },
+      focus: () => { termRef.current?.focus(); },
     }), []);
 
     useEffect(() => {
@@ -71,6 +74,7 @@ export const XtermTerminal = forwardRef<XtermTerminalHandle, Props>(
         scheduleIdleToast();
       }
 
+      termRef.current = null;
       const term = new Terminal({
         theme: {
           background: '#09090b',
@@ -88,6 +92,7 @@ export const XtermTerminal = forwardRef<XtermTerminalHandle, Props>(
       const fitAddon = new FitAddon();
       term.loadAddon(fitAddon);
       term.open(containerRef.current);
+      termRef.current = term;
 
       requestAnimationFrame(() => { fitAddon.fit(); });
 
