@@ -54,4 +54,13 @@ export const AUTH_FLOW_DESCRIPTORS: AuthFlowDescriptor[] = [
     modalTitle: 'Qwen Code — API Key',
     modalDescription: 'Visit the site, register, and click the API Key button to generate your key (format: sk-...). Paste it in the field below and press Send.',
   },
+  {
+    platformId: 'kimi-code',
+    platformLabel: 'Kimi Code',
+    flow: 'device-code',
+    detectUrl: /https:\/\/www\.kimi\.com\/code\/authorize_device\S+/,
+    detectCode: /[A-Z0-9]{4}-[A-Z0-9]{4}/,
+    modalTitle: 'Kimi Code — Device Authorization',
+    modalDescription: 'Open the link in your browser and authorize Kimi Code. The verification code is already included in the URL — Kimi will detect your approval automatically.',
+  },
 ]
