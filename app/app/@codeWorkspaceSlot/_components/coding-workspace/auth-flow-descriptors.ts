@@ -46,4 +46,12 @@ export const AUTH_FLOW_DESCRIPTORS: AuthFlowDescriptor[] = [
     modalTitle: 'Gemini CLI — Authorization',
     modalDescription: 'Open the link in your browser and sign in to your Google account',
   },
+  {
+    platformId: 'qwen-code',
+    platformLabel: 'Qwen Code',
+    flow: 'terminal-paste',
+    detectUrl: /https:\/\/modelstudio\.console\.alibabacloud\.com\S*/,
+    modalTitle: 'Qwen Code — API Key',
+    modalDescription: 'Visit the site, register, and click the API Key button to generate your key (format: sk-...). Paste it in the field below and press Send.',
+  },
 ]
