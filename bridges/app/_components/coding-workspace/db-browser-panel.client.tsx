@@ -223,6 +223,11 @@ export function DbBrowserPanel({ onClose }: Props) {
             <span className="ml-2 text-[10px] text-muted-foreground font-mono">{rows.length} rows</span>
           </>
         )}
+        <span className="flex-1" />
+        <button type="button" onClick={onClose}
+          className="flex items-center justify-center size-6 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+          <X size={13} />
+        </button>
       </div>
 
       {/* ── Body ── */}
@@ -327,12 +332,6 @@ export function DbBrowserPanel({ onClose }: Props) {
         </div>
       )}
 
-      {/* ── Footer ── */}
-      <div className="px-4 py-2.5 border-t border-border flex items-center justify-end shrink-0">
-        <Button variant="outline" size="sm" onClick={onClose}>
-          Close database
-        </Button>
-      </div>
     </div>
   );
 }

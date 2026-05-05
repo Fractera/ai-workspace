@@ -191,6 +191,11 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   }, []);
 
   function handleCardClick(platformId: Platform) {
+    setShowEnvEditor(false);
+    setShowMediaLibrary(false);
+    setShowDbBrowser(false);
+    setShowUsers(false);
+    setShowInfo(false);
     const isRunning = terminalSessions.has(platformId);
     if (isRunning && terminalPlatform === platformId) {
       if (confirmingPlatform === platformId) {
@@ -346,7 +351,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
                 <Database size={11} />Database
               </button>
               <div className="h-px bg-border mx-2" />
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); setShowDbBrowser(false); setShowUsers(false); }}
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); setShowDbBrowser(false); setShowUsers(false); setShowMediaLibrary(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <Settings size={11} />Configure
               </button>
@@ -494,32 +499,41 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
       {/* ── Info panel (README) ── */}
       {showInfo && (
         <div style={{ position: "absolute", top: CAROUSEL_H, left: 0, right: 0, bottom: FOOTER_H, zIndex: 10 }}
-          className="bg-background overflow-y-auto p-5">
+          className="bg-background flex flex-col">
+          <div className="flex items-center px-4 py-2.5 border-b border-border shrink-0">
+            <span className="text-xs font-semibold text-foreground flex-1">README</span>
+            <button type="button" onClick={() => setShowInfo(false)}
+              className="flex items-center justify-center size-6 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
           {readmeContent === null ? (
-            <div className="flex items-center justify-center h-full text-muted-foreground text-xs gap-2">
+            <div className="flex-1 flex items-center justify-center text-muted-foreground text-xs gap-2">
               <Loader2 size={14} className="animate-spin" />Loading README…
             </div>
           ) : (
-            <div className="prose prose-sm prose-invert max-w-none text-[12px] leading-relaxed
-              [&_h1]:text-base [&_h1]:font-bold [&_h1]:mb-3 [&_h1]:border-b [&_h1]:border-border [&_h1]:pb-1
-              [&_h2]:text-sm [&_h2]:font-semibold [&_h2]:mt-4 [&_h2]:mb-2
-              [&_h3]:text-xs [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1
-              [&_p]:mb-2 [&_p]:text-muted-foreground
+          <div className="flex-1 overflow-y-auto p-5">
+            <div className="prose prose-sm prose-invert max-w-none text-[13px] leading-relaxed
+              [&_h1]:text-lg [&_h1]:font-bold [&_h1]:mb-3 [&_h1]:border-b [&_h1]:border-border [&_h1]:pb-2 [&_h1]:text-foreground
+              [&_h2]:text-base [&_h2]:font-semibold [&_h2]:mt-5 [&_h2]:mb-2 [&_h2]:text-foreground
+              [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_h3]:text-foreground
+              [&_p]:mb-3 [&_p]:text-foreground
               [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2
-              [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-[11px] [&_code]:font-mono
-              [&_pre]:bg-muted [&_pre]:p-3 [&_pre]:rounded-md [&_pre]:overflow-x-auto [&_pre]:text-[11px] [&_pre]:font-mono [&_pre]:mb-3
-              [&_pre_code]:bg-transparent [&_pre_code]:p-0
-              [&_ul]:list-disc [&_ul]:pl-4 [&_ul]:mb-2 [&_ul]:space-y-0.5
-              [&_ol]:list-decimal [&_ol]:pl-4 [&_ol]:mb-2 [&_ol]:space-y-0.5
-              [&_li]:text-muted-foreground
-              [&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_blockquote]:italic
-              [&_table]:w-full [&_table]:text-[11px] [&_table]:border-collapse
-              [&_th]:border [&_th]:border-border [&_th]:px-2 [&_th]:py-1 [&_th]:bg-muted [&_th]:font-medium [&_th]:text-left
-              [&_td]:border [&_td]:border-border [&_td]:px-2 [&_td]:py-1 [&_td]:text-muted-foreground
-              [&_hr]:border-border [&_hr]:my-3
-              [&_img]:max-w-full [&_img]:rounded">
+              [&_code]:bg-zinc-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-[12px] [&_code]:font-mono [&_code]:text-zinc-100
+              [&_pre]:bg-zinc-900 [&_pre]:border [&_pre]:border-zinc-700 [&_pre]:p-3 [&_pre]:rounded-md [&_pre]:overflow-x-auto [&_pre]:text-[12px] [&_pre]:font-mono [&_pre]:mb-4 [&_pre]:text-zinc-100
+              [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-zinc-100
+              [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ul]:space-y-1
+              [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_ol]:space-y-1
+              [&_li]:text-foreground
+              [&_blockquote]:border-l-2 [&_blockquote]:border-primary/50 [&_blockquote]:pl-4 [&_blockquote]:text-foreground/80 [&_blockquote]:italic [&_blockquote]:my-3
+              [&_table]:w-full [&_table]:text-[12px] [&_table]:border-collapse [&_table]:mb-4
+              [&_th]:border [&_th]:border-border [&_th]:px-3 [&_th]:py-1.5 [&_th]:bg-muted [&_th]:font-semibold [&_th]:text-left [&_th]:text-foreground
+              [&_td]:border [&_td]:border-border [&_td]:px-3 [&_td]:py-1.5 [&_td]:text-foreground/90
+              [&_hr]:border-border [&_hr]:my-4
+              [&_img]:max-w-full [&_img]:rounded [&_strong]:text-foreground [&_strong]:font-semibold">
               <ReactMarkdown>{readmeContent}</ReactMarkdown>
             </div>
+          </div>
           )}
         </div>
       )}

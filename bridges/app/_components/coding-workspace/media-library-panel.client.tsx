@@ -209,6 +209,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: editName, description: editDesc }),
+        credentials: "include",
       });
       const data = await res.json();
       if (data.ok) {
@@ -249,7 +250,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
 
   async function loadItems() {
     try {
-      const res  = await fetch(`${MEDIA_URL}/media`);
+      const res  = await fetch(`${MEDIA_URL}/media`, { credentials: "include" });
       const data = await res.json();
       setItems(data.items ?? []);
     } catch {
@@ -279,7 +280,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
       fd.append("file", croppedBlob ? new File([croppedBlob], file.name, { type: "image/jpeg" }) : file);
       fd.append("name", file.name);
       if (cropMode) fd.append("crop_mode", cropMode);
-      const res  = await fetch(`${MEDIA_URL}/media/upload`, { method: "POST", body: fd });
+      const res  = await fetch(`${MEDIA_URL}/media/upload`, { method: "POST", body: fd, credentials: "include" });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error);
       setItems((prev) => [data.item, ...prev]);
@@ -295,7 +296,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
   async function handleDelete(id: string) {
     const item = items.find((i) => i.id === id);
     try {
-      await fetch(`${MEDIA_URL}/media/${id}`, { method: "DELETE" });
+      await fetch(`${MEDIA_URL}/media/${id}`, { method: "DELETE", credentials: "include" });
       setItems((prev) => prev.filter((i) => i.id !== id));
       toast.success(`"${item?.name ?? "File"}" deleted`);
     } catch {
@@ -382,9 +383,13 @@ export function MediaLibraryPanel({ onClose }: Props) {
           Media Library
           <span className="ml-2 text-[10px] font-normal text-muted-foreground font-mono">local S3 storage</span>
         </span>
-        <span className="text-[10px] text-muted-foreground">
+        <span className="text-[10px] text-muted-foreground mr-3">
           {query ? `${filteredItems.length} of ${items.length}` : `${items.length} file${items.length !== 1 ? "s" : ""}`}
         </span>
+        <button type="button" onClick={onClose}
+          className="flex items-center justify-center size-6 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+          <X size={13} />
+        </button>
       </div>
 
       {/* Search */}
@@ -513,13 +518,10 @@ export function MediaLibraryPanel({ onClose }: Props) {
       )}
 
       {/* Footer */}
-      <div className="px-4 py-2.5 border-t border-border flex items-center justify-between shrink-0">
+      <div className="px-4 py-2.5 border-t border-border flex items-center shrink-0">
         <input ref={fileInputRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleFileSelect} />
         <Button onClick={() => fileInputRef.current?.click()} disabled={uploading}>
           {uploading ? <><Loader2 size={11} className="animate-spin" />Uploading…</> : <><ImagePlus size={11} />Upload media</>}
-        </Button>
-        <Button variant="outline" onClick={onClose}>
-          Close media
         </Button>
       </div>
     </div>
