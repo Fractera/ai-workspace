@@ -1,4 +1,4 @@
-const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL ?? "http://localhost:3300"
+const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL || "http://localhost:3300"
 
 export type UploadedFile = {
   id: string
