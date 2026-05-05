@@ -209,7 +209,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: editName, description: editDesc }),
-        credentials: "include",
+        credentials: "omit",
       });
       const data = await res.json();
       if (data.ok) {
