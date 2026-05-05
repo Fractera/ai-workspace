@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Loader2, Trash2, Copy, ImagePlus, X, Check, Search, Pencil, MoreHorizontal } from "lucide-react";
+import { Loader2, Trash2, Copy, ImagePlus, X, Check, Search, Pencil, MoreHorizontal, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -254,7 +254,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
       const data = await res.json();
       setItems(data.items ?? []);
     } catch {
-      setError("Media service unavailable. Start: node services/media/server.js");
+      setError("Media service unavailable. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -472,7 +472,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
                             onMouseLeave={() => setOpenMenuId(null)}>
                             <button type="button" onClick={() => { setPreviewItem(item); setOpenMenuId(null); }}
                               className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-foreground hover:bg-muted transition-colors">
-                              Preview
+                              <Eye size={10} />Preview
                             </button>
                             <button type="button" onClick={() => { openEdit(item); setOpenMenuId(null); }}
                               className="w-full flex items-center gap-2 px-3 py-1.5 text-[11px] text-foreground hover:bg-muted transition-colors">

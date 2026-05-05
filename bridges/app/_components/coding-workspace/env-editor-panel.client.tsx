@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Loader2, Plus, Trash2, AlertTriangle, X, Lock } from "lucide-react";
+import { Loader2, Plus, Trash2, AlertTriangle, X, Lock, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -13,20 +13,33 @@ const THEME_OPTIONS = ["light", "dark", "system"];
 
 // Переменные, изменение которых сломает проект безвозвратно
 const LOCKED_KEYS = new Set([
-  "DATABASE_URL",       // путь к БД авторизации — изменение делает данные недоступными
-  "COOKIE_DOMAIN",      // домен cookie — неверное значение блокирует весь вход
-  "AUTH_TRUST_HOST",    // обязателен для nginx-прокси — отключение ломает авторизацию
-  "NEXTAUTH_URL",       // должен совпадать с реальным URL деплоя
+  "DATABASE_URL",
+  "COOKIE_DOMAIN",
+  "AUTH_TRUST_HOST",
+  "NEXTAUTH_URL",
+  "NEXT_PUBLIC_ADMIN_URL",
+  "NEXT_PUBLIC_AUTH_URL",
+  "ALLOWED_ORIGINS",
 ]);
 
 const LOCK_REASONS: Record<string, string> = {
-  DATABASE_URL:    "Путь к базе данных. Изменение сделает все данные недоступными.",
-  COOKIE_DOMAIN:   "Домен cookie авторизации. Неверное значение заблокирует вход для всех пользователей.",
-  AUTH_TRUST_HOST: "Обязателен для работы за nginx-прокси. Отключение ломает авторизацию.",
-  NEXTAUTH_URL:    "Должен точно совпадать с URL деплоя. Изменение ломает OAuth-редиректы.",
+  DATABASE_URL:         "Путь к базе данных. Изменение сделает все данные недоступными.",
+  COOKIE_DOMAIN:        "Домен cookie авторизации. Неверное значение заблокирует вход для всех пользователей.",
+  AUTH_TRUST_HOST:      "Обязателен для работы за nginx-прокси. Отключение ломает авторизацию.",
+  NEXTAUTH_URL:         "Должен точно совпадать с URL деплоя. Изменение ломает OAuth-редиректы.",
+  NEXT_PUBLIC_ADMIN_URL:"URL admin-панели (bridges). Браузер использует этот адрес для редиректов. Изменение ломает навигацию.",
+  NEXT_PUBLIC_AUTH_URL: "URL сервиса авторизации. Все запросы логина/логаута идут на этот адрес. Изменение ломает авторизацию.",
+  ALLOWED_ORIGINS:      "Список доменов, которым разрешён CORS-доступ к auth-сервису. Изменение может заблокировать кросс-доменные запросы.",
+};
+
+// Переменные с пояснительным tooltip (но редактируемые)
+const INFO_TIPS: Record<string, string> = {
+  AUTH_SECRET:   "Секретный ключ для подписи JWT-токенов и сессий. Должен быть случайной строкой ≥32 символов. Изменение инвалидирует все активные сессии — все пользователи будут разлогинены.",
+  COOKIE_SECURE: "true = cookie передаётся только по HTTPS (обязательно на production). false = также по HTTP (только для локальной разработки). Значение true обязательно при работе за nginx с SSL.",
 };
 
 function isLocked(key: string) { return LOCKED_KEYS.has(key); }
+function infoTip(key: string): string | null { return INFO_TIPS[key] ?? null; }
 
 function isSecret(key: string) {
   return key.includes("TOKEN") || key.includes("KEY") || key.includes("SECRET");
@@ -141,6 +154,8 @@ export function EnvEditorPanel({ onClose }: Props) {
               const theme  = isThemeKey(entry.key);
               const weak   = entry.key === "AUTH_SECRET" && weakSecret;
 
+              const tip = infoTip(entry.key);
+
               return (
                 <div key={idx} className={`flex items-center gap-2 ${locked ? "opacity-60" : ""}`}>
                   {entry.isNew ? (
@@ -152,8 +167,13 @@ export function EnvEditorPanel({ onClose }: Props) {
                       className="w-52 shrink-0 text-[11px] font-mono"
                     />
                   ) : (
-                    <span className={`w-52 shrink-0 h-8 flex items-center px-2.5 text-[11px] font-mono rounded-lg border text-foreground ${locked ? "border-amber-500/40 bg-amber-500/5" : "border-border"}`}>
-                      {entry.key}
+                    <span className={`w-52 shrink-0 h-8 flex items-center gap-1.5 px-2.5 text-[11px] font-mono rounded-lg border text-foreground ${locked ? "border-amber-500/40 bg-amber-500/5" : "border-border"}`}>
+                      <span className="flex-1 truncate">{entry.key}</span>
+                      {tip && (
+                        <span title={tip} className="shrink-0 text-blue-400/70 cursor-help">
+                          <Info size={10} />
+                        </span>
+                      )}
                     </span>
                   )}
 
