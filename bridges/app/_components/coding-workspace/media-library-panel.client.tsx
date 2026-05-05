@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL ?? "http://localhost:3300";
+const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL || "http://localhost:3300";
 
 type MediaItem = {
   id: string;

@@ -16,7 +16,7 @@ type SessionData = {
 };
 
 const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL ?? "http://auth.partner.fractera.local:3001";
-const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  ?? "http://localhost:3000";
+const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  || "http://localhost:3000";
 const HEADER_H = 48;
 
 export function WorkspaceController() {
