@@ -250,7 +250,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
 
   async function loadItems() {
     try {
-      const res  = await fetch(`${MEDIA_URL}/media/`, { credentials: "include" });
+      const res  = await fetch(`${MEDIA_URL}/media/`, { credentials: "omit" });
       if (!res.ok) { const e = await res.text(); throw new Error(`${res.status}: ${e.substring(0, 80)}`); }
       const data = await res.json();
       setItems(data.items ?? []);
@@ -281,7 +281,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
       fd.append("file", croppedBlob ? new File([croppedBlob], file.name, { type: "image/jpeg" }) : file);
       fd.append("name", file.name);
       if (cropMode) fd.append("crop_mode", cropMode);
-      const res  = await fetch(`${MEDIA_URL}/media/upload`, { method: "POST", body: fd, credentials: "include" });
+      const res  = await fetch(`${MEDIA_URL}/media/upload`, { method: "POST", body: fd, credentials: "omit" });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error);
       setItems((prev) => [data.item, ...prev]);
@@ -297,7 +297,7 @@ export function MediaLibraryPanel({ onClose }: Props) {
   async function handleDelete(id: string) {
     const item = items.find((i) => i.id === id);
     try {
-      await fetch(`${MEDIA_URL}/media/${id}`, { method: "DELETE", credentials: "include" });
+      await fetch(`${MEDIA_URL}/media/${id}`, { method: "DELETE", credentials: "omit" });
       setItems((prev) => prev.filter((i) => i.id !== id));
       toast.success(`"${item?.name ?? "File"}" deleted`);
     } catch {
