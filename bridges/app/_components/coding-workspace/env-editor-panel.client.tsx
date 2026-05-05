@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Loader2, Plus, Trash2, AlertTriangle, X } from "lucide-react";
+import { Loader2, Plus, Trash2, AlertTriangle, X, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -10,6 +10,23 @@ type Props = { onClose: () => void };
 
 const WEAK_SECRET_MAX_LEN = 10;
 const THEME_OPTIONS = ["light", "dark", "system"];
+
+// Переменные, изменение которых сломает проект безвозвратно
+const LOCKED_KEYS = new Set([
+  "DATABASE_URL",       // путь к БД авторизации — изменение делает данные недоступными
+  "COOKIE_DOMAIN",      // домен cookie — неверное значение блокирует весь вход
+  "AUTH_TRUST_HOST",    // обязателен для nginx-прокси — отключение ломает авторизацию
+  "NEXTAUTH_URL",       // должен совпадать с реальным URL деплоя
+]);
+
+const LOCK_REASONS: Record<string, string> = {
+  DATABASE_URL:    "Путь к базе данных. Изменение сделает все данные недоступными.",
+  COOKIE_DOMAIN:   "Домен cookie авторизации. Неверное значение заблокирует вход для всех пользователей.",
+  AUTH_TRUST_HOST: "Обязателен для работы за nginx-прокси. Отключение ломает авторизацию.",
+  NEXTAUTH_URL:    "Должен точно совпадать с URL деплоя. Изменение ломает OAuth-редиректы.",
+};
+
+function isLocked(key: string) { return LOCKED_KEYS.has(key); }
 
 function isSecret(key: string) {
   return key.includes("TOKEN") || key.includes("KEY") || key.includes("SECRET");
@@ -119,12 +136,13 @@ export function EnvEditorPanel({ onClose }: Props) {
 
           <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-1">
             {entries.map((entry, idx) => {
+              const locked = isLocked(entry.key);
               const secret = isSecret(entry.key);
               const theme  = isThemeKey(entry.key);
               const weak   = entry.key === "AUTH_SECRET" && weakSecret;
 
               return (
-                <div key={idx} className="flex items-center gap-2">
+                <div key={idx} className={`flex items-center gap-2 ${locked ? "opacity-60" : ""}`}>
                   {entry.isNew ? (
                     <Input
                       type="text"
@@ -134,12 +152,19 @@ export function EnvEditorPanel({ onClose }: Props) {
                       className="w-52 shrink-0 text-[11px] font-mono"
                     />
                   ) : (
-                    <span className="w-52 shrink-0 h-8 flex items-center px-2.5 text-[11px] font-mono rounded-lg border border-border text-foreground">
+                    <span className={`w-52 shrink-0 h-8 flex items-center px-2.5 text-[11px] font-mono rounded-lg border text-foreground ${locked ? "border-amber-500/40 bg-amber-500/5" : "border-border"}`}>
                       {entry.key}
                     </span>
                   )}
 
-                  {theme ? (
+                  {locked ? (
+                    <Input
+                      type={secret ? "password" : "text"}
+                      value={entry.value}
+                      readOnly
+                      className="flex-1 text-[11px] font-mono cursor-not-allowed bg-muted/30 text-muted-foreground"
+                    />
+                  ) : theme ? (
                     <select
                       value={entry.value}
                       onChange={(e) => updateValue(idx, e.target.value)}
@@ -160,13 +185,22 @@ export function EnvEditorPanel({ onClose }: Props) {
                     />
                   )}
 
-                  <button
-                    type="button"
-                    onClick={() => removeEntry(idx)}
-                    className="shrink-0 flex items-center justify-center size-7 rounded hover:bg-muted text-muted-foreground hover:text-destructive transition-colors"
-                  >
-                    <Trash2 size={12} />
-                  </button>
+                  {locked ? (
+                    <div
+                      title={LOCK_REASONS[entry.key] ?? "Эта переменная защищена от изменений"}
+                      className="shrink-0 flex items-center justify-center size-7 rounded text-amber-500/70 cursor-help"
+                    >
+                      <Lock size={11} />
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => removeEntry(idx)}
+                      className="shrink-0 flex items-center justify-center size-7 rounded hover:bg-muted text-muted-foreground hover:text-destructive transition-colors"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  )}
                 </div>
               );
             })}

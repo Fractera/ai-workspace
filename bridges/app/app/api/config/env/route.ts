@@ -8,6 +8,9 @@ const AUTH_ENV = process.env.AUTH_ENV_PATH ?? "/opt/fractera/services/auth/.env.
 
 const AUTH_KEYS = new Set(["AUTH_SECRET", "NEXTAUTH_URL", "COOKIE_DOMAIN", "COOKIE_SECURE", "DATABASE_URL", "ALLOWED_ORIGINS", "AUTH_TRUST_HOST"]);
 
+// Ключи, значения которых нельзя менять через UI (только чтение)
+const LOCKED_KEYS = new Set(["DATABASE_URL", "COOKIE_DOMAIN", "AUTH_TRUST_HOST", "NEXTAUTH_URL"]);
+
 function parseEnv(content: string): Record<string, string> {
   const result: Record<string, string> = {};
   for (const line of content.split("\n")) {
@@ -59,8 +62,21 @@ export async function POST(req: NextRequest) {
     const appVars:  Record<string, string> = {};
     const authVars: Record<string, string> = {};
 
+    // Читаем существующие значения locked-ключей, чтобы не перезаписывать
+    const existingApp  = readFile(APP_ENV);
+    const existingAuth = readFile(AUTH_ENV);
+
     for (const [k, v] of Object.entries(vars)) {
       if (k.trim() === "") continue;
+      // Заблокированные ключи — берём существующее значение, игнорируем переданное
+      if (LOCKED_KEYS.has(k)) {
+        const existing = existingAuth[k] ?? existingApp[k];
+        if (existing !== undefined) {
+          if (AUTH_KEYS.has(k)) authVars[k] = existing;
+          else appVars[k] = existing;
+        }
+        continue;
+      }
       if (AUTH_KEYS.has(k)) authVars[k] = v;
       else appVars[k] = v;
     }
@@ -68,8 +84,7 @@ export async function POST(req: NextRequest) {
     fs.mkdirSync(path.dirname(APP_ENV),  { recursive: true });
     fs.mkdirSync(path.dirname(AUTH_ENV), { recursive: true });
 
-    const existingAuth = readFile(AUTH_ENV);
-    const mergedAuth   = { ...existingAuth, ...authVars };
+    const mergedAuth = { ...existingAuth, ...authVars };
     fs.writeFileSync(APP_ENV,  serializeEnv(appVars),   "utf-8");
     fs.writeFileSync(AUTH_ENV, serializeEnv(mergedAuth), "utf-8");
 
