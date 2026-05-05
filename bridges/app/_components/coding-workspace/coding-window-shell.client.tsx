@@ -82,10 +82,10 @@ type Props = {
   onTerminalClose: (p: Platform) => void;
   windowWidth: number;
   isMobile?: boolean;
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
 };
 
-export function CodingWindowShell({ height, terminalPlatform, terminalSessions, onPlatformClick, onTerminalClose, windowWidth, isMobile = false, isAuthenticated }: Props) {
+export function CodingWindowShell({ height, terminalPlatform, terminalSessions, onPlatformClick, onTerminalClose, windowWidth, isMobile = false, isAuthenticated = true }: Props) {
   const [terminalStatuses] = useState<Record<Platform, TerminalStatus>>({
     "claude-code": "unavailable", "codex": "unavailable", "gemini-cli": "unavailable",
     "qwen-code": "unavailable", "kimi-code": "unavailable",
