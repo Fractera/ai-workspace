@@ -23,19 +23,19 @@ const LOCKED_KEYS = new Set([
 ]);
 
 const LOCK_REASONS: Record<string, string> = {
-  DATABASE_URL:         "Путь к базе данных. Изменение сделает все данные недоступными.",
-  COOKIE_DOMAIN:        "Домен cookie авторизации. Неверное значение заблокирует вход для всех пользователей.",
-  AUTH_TRUST_HOST:      "Обязателен для работы за nginx-прокси. Отключение ломает авторизацию.",
-  NEXTAUTH_URL:         "Должен точно совпадать с URL деплоя. Изменение ломает OAuth-редиректы.",
-  NEXT_PUBLIC_ADMIN_URL:"URL admin-панели (bridges). Браузер использует этот адрес для редиректов. Изменение ломает навигацию.",
-  NEXT_PUBLIC_AUTH_URL: "URL сервиса авторизации. Все запросы логина/логаута идут на этот адрес. Изменение ломает авторизацию.",
-  ALLOWED_ORIGINS:      "Список доменов, которым разрешён CORS-доступ к auth-сервису. Изменение может заблокировать кросс-доменные запросы.",
+  DATABASE_URL:         "Path to the auth database. Changing it makes all existing data inaccessible.",
+  COOKIE_DOMAIN:        "Session cookie domain. Wrong value will lock out all users immediately.",
+  AUTH_TRUST_HOST:      "Required when running behind an nginx reverse proxy. Disabling it breaks all auth flows.",
+  NEXTAUTH_URL:         "Must exactly match the deployment URL. Changing it breaks OAuth callbacks and redirects.",
+  NEXT_PUBLIC_ADMIN_URL:"URL of the admin panel (bridges). Used by the browser for redirects — changing it breaks navigation.",
+  NEXT_PUBLIC_AUTH_URL: "URL of the auth service. All login/logout requests go here — changing it breaks authentication.",
+  ALLOWED_ORIGINS:      "Comma-separated list of domains allowed CORS access to the auth service. Wrong value may block cross-domain requests.",
 };
 
-// Переменные с пояснительным tooltip (но редактируемые)
+// Editable keys with informational tooltip
 const INFO_TIPS: Record<string, string> = {
-  AUTH_SECRET:   "Секретный ключ для подписи JWT-токенов и сессий. Должен быть случайной строкой ≥32 символов. Изменение инвалидирует все активные сессии — все пользователи будут разлогинены.",
-  COOKIE_SECURE: "true = cookie передаётся только по HTTPS (обязательно на production). false = также по HTTP (только для локальной разработки). Значение true обязательно при работе за nginx с SSL.",
+  AUTH_SECRET:   "Secret key used to sign JWT tokens and sessions. Must be a random string of at least 32 characters. Changing it invalidates all active sessions — all users will be logged out.",
+  COOKIE_SECURE: "true = cookie is sent over HTTPS only (required on production). false = also sent over HTTP (for local dev only). Must be true when running behind nginx with SSL.",
 };
 
 function isLocked(key: string) { return LOCKED_KEYS.has(key); }

@@ -250,11 +250,12 @@ export function MediaLibraryPanel({ onClose }: Props) {
 
   async function loadItems() {
     try {
-      const res  = await fetch(`${MEDIA_URL}/media`, { credentials: "include" });
+      const res  = await fetch(`${MEDIA_URL}/media/`, { credentials: "include" });
+      if (!res.ok) { const e = await res.text(); throw new Error(`${res.status}: ${e.substring(0, 80)}`); }
       const data = await res.json();
       setItems(data.items ?? []);
-    } catch {
-      setError("Media service unavailable. Please try again later.");
+    } catch (e) {
+      setError(`Could not load media: ${String(e)}`);
     } finally {
       setLoading(false);
     }
