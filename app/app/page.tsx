@@ -48,10 +48,16 @@ export default function ShellPage() {
   }
 
   return (
-    <iframe
-      src={ADMIN_URL}
-      className="w-full h-screen border-none"
-      allow="same-origin"
-    />
+    <div className="flex min-h-screen items-center justify-center flex-col gap-4">
+      <span className="text-sm text-muted-foreground">Welcome to Fractera</span>
+      <a
+        href={ADMIN_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 h-9 px-4 rounded-md border border-border text-sm text-foreground hover:bg-muted transition-colors"
+      >
+        Open Admin ↗
+      </a>
+    </div>
   );
 }
