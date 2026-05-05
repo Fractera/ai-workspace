@@ -5,7 +5,7 @@ export function proxy(req: NextRequest) {
   const res = NextResponse.next();
   res.headers.set(
     "Content-Security-Policy",
-    "frame-ancestors 'self' https://*.fractera.ai http://partner.fractera.local:3000"
+    "frame-ancestors 'self' https://*.fractera.ai http://*.fractera.local:3000 http://*.fractera.local:3002"
   );
   return res;
 }

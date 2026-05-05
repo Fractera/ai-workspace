@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, CornerDownLeft } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, CornerDownLeft, Users } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal, type XtermTerminalHandle } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -12,6 +12,7 @@ import { MediaLibraryPanel } from "./media-library-panel.client";
 import { DbBrowserPanel } from "./db-browser-panel.client";
 import { AUTH_FLOW_DESCRIPTORS, type AuthFlowDescriptor } from "./auth-flow-descriptors";
 import { AuthFlowModal } from "./auth-flow-modal.client";
+import { UsersPanel } from "./users-panel.client";
 
 const CAROUSEL_H = 52;
 const FOOTER_H   = 36;
@@ -81,9 +82,10 @@ type Props = {
   onTerminalClose: (p: Platform) => void;
   windowWidth: number;
   isMobile?: boolean;
+  isAuthenticated: boolean;
 };
 
-export function CodingWindowShell({ height, terminalPlatform, terminalSessions, onPlatformClick, onTerminalClose, windowWidth, isMobile = false }: Props) {
+export function CodingWindowShell({ height, terminalPlatform, terminalSessions, onPlatformClick, onTerminalClose, windowWidth, isMobile = false, isAuthenticated }: Props) {
   const [terminalStatuses] = useState<Record<Platform, TerminalStatus>>({
     "claude-code": "unavailable", "codex": "unavailable", "gemini-cli": "unavailable",
     "qwen-code": "unavailable", "kimi-code": "unavailable",
@@ -103,6 +105,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
   const [showMediaLibrary, setShowMediaLibrary]     = useState(false);
   const [showDbBrowser, setShowDbBrowser]           = useState(false);
+  const [showUsers, setShowUsers]                   = useState(false);
   const [activeAuth, setActiveAuth]                 = useState<{ descriptor: AuthFlowDescriptor; url: string; code?: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const rawBufRef    = useRef<string>("");
@@ -242,6 +245,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     setShowEnvEditor(false);
     setShowDbBrowser(false);
     setShowMediaLibrary(false);
+    setShowUsers(false);
     setShowInfo((v) => !v);
     if (!readmeContent) {
       const res = await fetch("/api/bridges/readme");
@@ -275,7 +279,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     return () => document.removeEventListener("mousedown", close);
   }, [dataMenuOpen]);
 
-  const termH   = height - CAROUSEL_H - FOOTER_H - (isMobile ? 25 : 50);
+  const termH   = height - CAROUSEL_H - FOOTER_H;
   const total   = PLATFORMS.length + COMING_SOON.length;
   const safeIdx = Math.min(carouselIdx, Math.max(total - 1, 0));
   const canPrev = safeIdx > 0;
@@ -304,7 +308,7 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="shrink-0 flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground select-none px-2 cursor-help">
+              <div className={`shrink-0 flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground select-none px-2 cursor-help${!isAuthenticated ? " opacity-40 pointer-events-none" : ""}`}>
                 {bridgeStatus === "online"  && <><Wifi size={12} className="text-green-500" />{!isMobile && <span className="text-green-500 font-medium">Bridge</span>}</>}
                 {bridgeStatus === "offline" && <><WifiOff size={12} className="text-destructive" />{!isMobile && <span className="text-destructive">Offline</span>}</>}
                 {bridgeStatus === "unknown" && <><Loader2 size={12} className="animate-spin" />{!isMobile && <span>Bridge…</span>}</>}
@@ -320,8 +324,8 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
         <div className="relative shrink-0">
           <button
             type="button"
-            onClick={() => setDataMenuOpen((v) => !v)}
-            className="flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground hover:text-foreground hover:bg-muted select-none px-2 transition-colors"
+            onClick={() => isAuthenticated && setDataMenuOpen((v) => !v)}
+            className={`flex items-center justify-center gap-1.5 rounded-md border border-border h-9 text-[11px] text-muted-foreground select-none px-2 transition-colors${isAuthenticated ? " hover:text-foreground hover:bg-muted" : " opacity-40 cursor-not-allowed"}`}
           >
             {importing ? <Loader2 size={12} className="animate-spin" /> : <Settings size={12} />}
             {!isMobile && <span className="font-medium">Settings</span>}
@@ -329,16 +333,20 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           {dataMenuOpen && (
             <div id="data-dropdown" style={{ position: "absolute", top: "calc(100% + 4px)", left: 0, zIndex: 99999 }}
               className="bg-background border border-border rounded-md shadow-lg overflow-hidden min-w-[208px]">
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowMediaLibrary((v) => !v); setShowEnvEditor(false); setShowDbBrowser(false); setShowInfo(false); }}
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowUsers((v) => !v); setShowMediaLibrary(false); setShowEnvEditor(false); setShowDbBrowser(false); setShowInfo(false); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                <Users size={11} />Users
+              </button>
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowMediaLibrary((v) => !v); setShowEnvEditor(false); setShowDbBrowser(false); setShowInfo(false); setShowUsers(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <ImagePlus size={11} />Upload media
               </button>
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowDbBrowser((v) => !v); setShowEnvEditor(false); setShowMediaLibrary(false); setShowInfo(false); }}
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowDbBrowser((v) => !v); setShowEnvEditor(false); setShowMediaLibrary(false); setShowInfo(false); setShowUsers(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <Database size={11} />Database
               </button>
               <div className="h-px bg-border mx-2" />
-              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); setShowDbBrowser(false); }}
+              <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); setShowDbBrowser(false); setShowUsers(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <Settings size={11} />Configure
               </button>
@@ -378,18 +386,20 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
               const isConfirming   = confirmingPlatform === p.id;
               const notInstalled   = !p.active && p.agentPrompt !== '';
               const bridgeOffline  = bridgeStatus === "offline" && !isRunning;
+              const notAuthed      = !isAuthenticated;
 
               const btn = (
                 <button
                   type="button"
                   style={{ width: CARD_W, flexShrink: 0, position: "relative" }}
                   onClick={() => {
-                    if (bridgeOffline || notInstalled) return;
+                    if (bridgeOffline || notInstalled || notAuthed) return;
                     handleCardClick(p.id);
                   }}
-                  disabled={notInstalled}
+                  disabled={notInstalled || notAuthed}
                   className={`flex items-center justify-center gap-1.5 rounded-md border h-9 text-[11px] transition-all px-2 ${
-                    bridgeOffline   ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
+                    notAuthed       ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
+                    : bridgeOffline ? "border-border text-muted-foreground/30 cursor-not-allowed opacity-40"
                     : notInstalled  ? "border-dashed border-border text-muted-foreground/40 cursor-not-allowed opacity-60"
                     : isConfirming  ? "border-orange-400 bg-orange-400/10 text-orange-400 font-medium"
                     : isCurrent     ? "border-primary bg-primary/10 text-primary font-medium"
@@ -413,12 +423,14 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
               return (
                 <React.Fragment key={p.id}>
-                  {(bridgeOffline || notInstalled) ? (
+                  {(bridgeOffline || notInstalled || notAuthed) ? (
                     <TooltipProvider delayDuration={0}>
                       <Tooltip>
                         <TooltipTrigger asChild>{btn}</TooltipTrigger>
                         <TooltipContent side="bottom" className="bg-zinc-800 text-white text-[11px] leading-relaxed p-0 [&>svg]:fill-zinc-800 [&>svg]:bg-zinc-800" style={{ zIndex: 99999, maxWidth: 260 }}>
-                          {bridgeOffline ? (
+                          {notAuthed ? (
+                            <div className="px-3 py-2.5">Sign in to access platforms</div>
+                          ) : bridgeOffline ? (
                             <div className="px-3 py-2.5">
                               Bridge is offline. Start the bridge server:<br />
                               <span className="font-mono text-white/80">node bridges/platforms/server.js</span>
@@ -462,6 +474,13 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           <ChevronRight className="h-3 w-3" />
         </button>
       </div>
+
+      {/* ── Users panel ── */}
+      {showUsers && (
+        <div style={{ position: "absolute", top: CAROUSEL_H, right: 0, bottom: FOOTER_H, width: 480, zIndex: 10 }}>
+          <UsersPanel onClose={() => setShowUsers(false)} />
+        </div>
+      )}
 
       {/* ── Env editor panel ── */}
       {showEnvEditor && <EnvEditorPanel onClose={() => setShowEnvEditor(false)} />}
@@ -507,13 +526,19 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
 
       {/* ── Placeholder ── */}
       <div style={{ position: "absolute", top: CAROUSEL_H, left: 0, right: 0, bottom: FOOTER_H }} className="bg-zinc-950 flex flex-col items-center justify-center gap-4 select-none">
-        <span style={{ fontSize: windowWidth < 600 ? "3rem" : "4.5rem", fontFamily: "'Geist', 'Inter', system-ui, sans-serif", lineHeight: 1, letterSpacing: "0.25em" }}>
-          <Shimmer className="uppercase font-light" duration={5} spread={4}>Fractera</Shimmer>
-        </span>
-        <div className="flex flex-col items-center gap-2" style={{ paddingLeft: 64, paddingRight: 64 }}>
-          <Shimmer className="text-sm font-mono text-center" duration={3} spread={3}>Select a terminal platform to begin</Shimmer>
-          <Shimmer className="text-xs font-mono opacity-40 text-center" duration={4} spread={2}>Claude Code · Codex · Gemini CLI · Qwen Code · Kimi Code</Shimmer>
-        </div>
+        {!isAuthenticated ? (
+          <span className="text-muted-foreground text-sm font-mono">Fractera welcome.</span>
+        ) : (
+          <>
+            <span style={{ fontSize: windowWidth < 600 ? "3rem" : "4.5rem", fontFamily: "'Geist', 'Inter', system-ui, sans-serif", lineHeight: 1, letterSpacing: "0.25em" }}>
+              <Shimmer className="uppercase font-light" duration={5} spread={4}>Fractera</Shimmer>
+            </span>
+            <div className="flex flex-col items-center gap-2" style={{ paddingLeft: 64, paddingRight: 64 }}>
+              <Shimmer className="text-sm font-mono text-center" duration={3} spread={3}>Select a terminal platform to begin</Shimmer>
+              <Shimmer className="text-xs font-mono opacity-40 text-center" duration={4} spread={2}>Claude Code · Codex · Gemini CLI · Qwen Code · Kimi Code</Shimmer>
+            </div>
+          </>
+        )}
       </div>
 
       {/* ── Terminal panels (xterm) ── */}
