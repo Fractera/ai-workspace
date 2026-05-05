@@ -72,14 +72,22 @@ export default function ShellPage() {
           <span className="text-foreground font-medium">Your code. Your server. Your AI.</span>
         </p>
 
-        <a
-          href={ADMIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-md border border-border text-sm text-foreground hover:bg-muted transition-colors"
-        >
-          Start Coding ↗
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href={ADMIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-md border border-border text-sm text-foreground hover:bg-muted transition-colors"
+          >
+            Start Coding ↗
+          </a>
+          <a
+            href="/dashboard"
+            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-md border border-border text-sm text-foreground hover:bg-muted transition-colors"
+          >
+            Dashboard
+          </a>
+        </div>
 
       </div>
     </main>

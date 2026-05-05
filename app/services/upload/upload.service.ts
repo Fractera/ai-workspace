@@ -44,6 +44,7 @@ export async function uploadFile(
   const res = await fetch(`${MEDIA_URL}/media/upload`, {
     method: "POST",
     body: fd,
+    credentials: "include",
   })
 
   const data = await res.json()
