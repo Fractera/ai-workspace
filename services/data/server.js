@@ -1,1 +1,440 @@
-const a0a9=a0d;(function(a,b){const a6=a0d,c=a();while(!![]){try{const d=parseInt(a6(0x242,'8qqM'))/0x1+parseInt(a6(0x1cc,'9$AJ'))/0x2+-parseInt(a6(0x2b0,']Ps5'))/0x3+-parseInt(a6(0x158,'JYPS'))/0x4+parseInt(a6(0x1e2,'^Dtt'))/0x5*(parseInt(a6(0x2d2,'&Byf'))/0x6)+-parseInt(a6(0x1db,'DGwF'))/0x7*(-parseInt(a6(0x234,']UuQ'))/0x8)+parseInt(a6(0x17f,'*RNg'))/0x9*(-parseInt(a6(0x101,'nN9a'))/0xa);if(d===b)break;else c['push'](c['shift']());}catch(e){c['push'](c['shift']());}}}(a0c,0xcd346));const a0b=(function(){let a=!![];return function(b,c){const d=a?function(){const a7=a0d;if(c){const e=c[a7(0x183,'c2hc')](b,arguments);return c=null,e;}}:function(){};return a=![],d;};}()),a0a=a0b(this,function(){const a8=a0d;return a0a['toString']()[a8(0x2cd,'nN9a')]('(((.+)+)+)+$')[a8(0x114,'Thh4')]()['constructor'](a0a)[a8(0x1f9,'leL*')]('(((.+)+)+)+$');});a0a();import a0Z from'express';import a0a0 from'cors';import a0a1 from'multer';import a0a2 from'better-sqlite3';import{v4 as a0a3}from'uuid';import a0a4 from'sharp';import a0a5 from'png-to-ico';import{createReadStream,existsSync,mkdirSync,unlinkSync,writeFileSync}from'fs';import{resolve,dirname,extname}from'path';import{fileURLToPath}from'url';import{config}from'dotenv';const __dirname=dirname(fileURLToPath(import.meta.url));config({'path':resolve(__dirname,a0a9(0x23c,'TMtv'))});const PORT=process.env.PORT??0xce4,AUTH_URL=process.env.AUTH_SERVICE_URL??'http://localhost:3001',STORAGE_DIR=resolve(__dirname,a0a9(0x2b8,'nN9a')),ICONS_DIR=resolve(__dirname,a0a9(0x2ac,'k^j]')),MEDIA_DB=resolve(__dirname,a0a9(0x236,'$n1&')),APP_DB=resolve(__dirname,a0a9(0x291,'AH]t')),a0T={};function a0c(){const ar=['W45BWP8qqNlcUrGSW7y','W7uQWRVdNW','WPbnaGyVWQC','qvyCsCou','W7jOW7xdTJj7W5ruamklWPe8iW','W6NdQSkCWRS','W7rfWP8dDW','W4HlW6rvbCkRW4O','jSkHxru','d8k1DXddHa','frBdJMGyaa','eh06W5b4W6hdN8k/W7jViq','WQBdPCkMDreQ','WQJcRCotWPyeW5/cJYq','eXldIe4K','hSkOua/dHSommHiQFCkO','ia52rSo2W57dGCogWQBdML0aWPuXWQe+xW','AHCSW4m','W486rLvYeSkatSoOhIXMWQJdMI55WP/cGCkPdHBcMHddNLqHna0ehMFdNa','zSk1FxSl','ewW2W5DRW7xdK8kwW7W','WOj+iCkG','W7WRWRhdLt4ZrqdcI8oZWOS','rGNcPG','B8kqq0GtdMju','WPGZWOpcI8oLW5G','WOXfaXmNWRO','xXhdK8kA','CSkyxeWkba','zCoVW7GyWQ04BW','irldGvCh','oSoWW7GmWQuRjwxdO8o6wb/dQW','nar0t8o+W5RdIG','BYdcPmkoW6pdP10PW6HUW6JdVSoHjhe','gCkGvq7cQmolWOTgW40UW6lcKG','D8k4gNO','fsrizSoCW63cJ8o3WQZdKKftW7nEW448mv/dMtOEj8obAHeFe8kerXmzWOxcHspdJ8kHWOlcL2K+WRDdu1SlW5NcItFcKwtdJcxcUSo8DSoAhdH4W57dMmkBqe7dN8kXBYb6WRRcQrxdHCoVACoxfYC','WRVdPNxdVa','zX7cGJu','WOnnnG','W4hdM2ddQGa','WPFcQmkdWRm','WORdJHDa','WOFcMmk5juFdVmkIq8kT','x8otoG','W7JdOIhdHmo8vCk1W6dcI3CXurXxWQfSuLxcSmkMW6tdJ1ZcI8oZlxiZW4JdIbRdVb4ajZddRSoDWQVcMSkOW6ddKmkOWRpdLSoIoSkYWQFdM8k0lxldI8kLBwP/WQxcOYNcICoNWO0iWQldMCo1dSkb','WPmPDtu','W4ZdGHxdQCor','DSkyCmkwAIWm','zeviW6xdJa','WPmXWOBcLq','k8kan8oUW5aXW6O','WPzyW6rpbCk8W5X0WRJcTSk6Cmk6WRv0','WQ9HptCjWP01WQ7cLqdcNSkSW7eNWOrVzSopWQBdRINcUSoPW4xdOCk0cmkDdt9vigbnySkOamkks8knW4HmrSkJ','WPm1BYKUAZHLW59mW5pdIfVcIM/cHCo8kW','y8kOvq3cTCoaWOTAWOO9W6tcMq','caJcR25LW7u3DHxcISo0pCk+cmo5','W6ddRZK/','lCk3AZtdNa','W7RdRJmHW7NcSSoR','W4LaWOOdwG','W4T0B2fzW5dcH8krb8oZW4G','W4PkW6rlgmkSW6rZW6hdRq','zCkiW7zRWR3dTMBcOCoh','zSkhnSo2','AehcJG','FmkEW61n','WO5Bltu','WQ7dPLm7DqP8W7xdICoojSoVFq','x0lcNCo2pa','WR3cSmoEWOCIW4u','WQdcPCosWPy','WRJdUapcSexdIYPTW77cOSkB','W4BdNmoUm3hdO8kt','WRmsB3ryj8kpdCkRnXbA','WRO7EtmLjXDvW5XxW4xdGHC','W5TlrgLY','gSkMCrZdNG','bCk1BbJdN8oh','dCkcyd7cJSkdWRb1W6yyW4ldLSo3W5lcVr4ZECouuxVcP8ooiGZdGSogagOEBtBdR8k4W5pdUtDBW7pcRHJcPCoxW5hcTfuOW5/cP8oZWR9qWRTV','eh00W5bTW7xdRCkjW61I','meqcW6Lp','WORdJr1j','WR/cSCoAWOeU','WR3cTCotW5mXW5/cKc1nw8kKW67cQwtdUJ9JWR/cHmkbrW','vWRcUx4','WR4YWPekWRK4ArNcOW','nCoCzmk7W68FW7rQmSkm','rcxcOYhcNG','BsZdTSkKyZPTWP/dK8kOhK/dNSoTwCkLW6VdO8o7','Cfa9fCkOWOZdJSo6WONdUMSJ','eHhdKmoorXySWOZdL8oKgfRdPG','A8klzq','WRbmgbKp','W7SAFG','WQpdRmkM','DCkfW6nnWR/dSNe','WRH2pIjQWP1uW4BdUqpdRmob','W77dTYNdGmoRrmk1WQFdJLukF3eKWOLDfKJcUmoYW5/dOJNdPmkwmJD3WOZcKeNcOa','zbRcMZhcL0qBaG','W48lWPxdTHyCer3cI8o9WPrXhmkJW5qsW4DoeG','W49UB3XDW73cGq','vmopm8oV','e1tdVJi9WQDunq/cOCkChq','y8kyz8kjEq','vXFcR3PTW6z9','dbhdGhi','WP3dTvuJCvvA','e3S0W4v0W6C','eXhdIG','xI/cOG','CXhcL8kfrXCOW4VdGSk4hvZdQmoGuSkN','WOddPKa','E2ZcSmoa','v8o3zbzv','Amkkqum','WRO4WPmbW4T9kvVdQmkfWQhdTq','tSk9FSkKzG','WPfnhbCvWR1SW7tdKa','WPLYW4X0jCklWPmLWRxdISoogmkzWP5hv8ot','uJXLWPeRWRpcGSkgW5H4fWdcPG','sH7cJdJcLGGSdcJcIbldVM8','FHBcIYtcMW','B1fhW7O','WPbXB2HvW67dI8kxcmoZW5r8W595dSkacuVcOMW','W7/dSSknWPuaW5VcOrTr','EhhcOCorW7qR','WPpdIHnteSoL','WOjblJ7dRq','WOmlWO7cQfy','ff7dOCkIyI4iWRJcKSoI','WQeNWOFcJSoH','WRGqWRhcQCosWQngn8oQW6tdNKPz','W4boW6nwhW','E8kIgwdcRYi','WOqEWR80EutcUtq','zCo0W60n','W6WTWRxdHs4U','vmomoCoM','WPDCiY/dQ8oa','ubFdMSkgwGi9WO4','WPdcV8kFWQdcUt9Oawz1WPa','kSoZqetcQb3cU8oLlq','tr/dHCkcqWG','W5LAWOWdqMJcGr8','W6xdIgtdIa','W6/dUw0sgHLTELu','WRFcImkPWOlcNXm','x8opjSoKWPddOCkrmdLtWRHjW4xdHSkdWQ1KW6RcGb4','W48qF2jsi8kacCk9kWOjWOFcN2n9WPxdImkHqYdcTta','atVdVLeO','sCowmSo8WP0','CbeHW4hdIctcI8kaB1RdJSkwW4L6F8kEW67dOmoGxW','jmk4pa','W6RdGNtdMrO','W74vhCkTl8oGWRhdNgG','z0mfW6/dI8keWQX1WPvAWQu','WRjEb8kD','b8k7EbhcHq','WQZdI2qwqGDRW5VdPCo2eCkGFfz9EJKsW6egcSk1tSoXfbTMpmksWOH3hSkeWQWaWPLtW5FdNmoCW6icW7JcQLhdPXhdN8o8eW','W5rxW6HCm8kRW4PQW7a','W6Ovg8kPfColWRFdLgG','W6pdNM3dKG','mSkLtXFdRW','vrdcPa','zCkiW6nrWRVdVW','W5xdVSk6WOBdIW','WOOHWP4eWRm','WQ7dUbpcPKxdKtnVW7i','cqtdIw8ibW','WRmHWQ7cQxe','kWb0','yMBcR8olW55Tl8oR','W7NdN2FdJaKgsq','Aba3W53cM2JcImomBvJdL8oxW4bYACoxW6C','W7FdUCkuWQ7dOhFcKa','WP00W5WzWOCGEq3dPSkwWQddVNJcQ8ovzJFdTGhcHsRcTmoCfmkX','aSkMDG','aWNdTLC8','WQ/cQmot','W7iEz3u','W4JdNae','dWZdJhayf1NcIa','DcdcHK9pW4a4zLZcQmkjfmkArmoXdNBcT8kNjmkvWP9uWRufdqKjo8kSWRz/','ANW0ECo6Fmo8WQKZihxdKConEJBcISkRkCocW7reo8o+W6BdPLpcTmoYjSo0WPu7','ELBcLG','BmkzESki','iKubW6DlWQBdRSkHW5TghuVcVKFcVfdcHCk8nCoiyCkMW5NdQtJcTuKCnmoeWQ/cS8okWRPXW5lcV8k/WQxdJCo1WQv5W6RcIHldQCoRwuO2WRNcMWOiW4u','W7naW54lvw7cGfeRW7TtW6TpaCo0oghdRaaUW4FcOmofWQqBja','W5tcJZdcRG','W5PUEgno','CCkebCoiW7m','uYdcTq','WR3dSrW','WQiBWQ7cQCodWQngvmkeW7BdGYu2WOTNWRVcQ8oEW73dIWb6o8ogWOLIWPaVj8kIWO81','B2ZcS8ovW605zW','WQOFWPm9WRW','gCkZAG3dL8oojq4GA8k0','WRaWEZOb','W5BdPCor','WP3dPKiYFvq','W68oaa','W7NdJhddNquh','WPztW6bDbCk+WPW','W4GRimkCga','WOFcRSknWRFcVIu','EsZdUmkZdI8mWQNdVSkpuGG','wJRcOXxcShfpswBcUJldNK55WPlcGmoLhKqTAsKXe1VdKHm7WQZcNmkQzmk1qCopW50','WPBdOCkOFabVmg/cPgCiD8kOW5ef','W6qgba','W7NdQdCLW63cSW','vmoqi8o6WPVcRCkjacfFWRqbWOZcMmomWPqlW5y','W63dPSkJFabGn2pcVYLdkCoKWO1pzeldNa','aapdMxuohfldLCkiWRRdNW','cahcQcv4W7v6ibNcNq','zx3cSCovW4u','zCkzW6nxWQ3dPa','BKJcLG','xeSku8ol','WOFcV8kyWOVcRJD8eh0','W6/dRSkqWRRdPhFcHG','W6WnB2bqnmof','Br7cMZe','WOvPpmkfW58OhmoEW5m','i8kKWQLAW718xxZdTCo+DrC','ASkyxq','WObjnJRcSCoEuSkLW7HdWOrEgG','uWZcVMzP','E8kmW6XkWR7dSNhcSmkBWOJcMmkDWOy','WOJdTui8yG','W7NdV20ubG','tqZdKSkttWKO','WPtcIZpcVq','vYtcQmkfW7lcRW','W6ZdRg0Agq0','W50gfSk1l8kgWRBdN3NdR8k8c3KfW7y','W4BdHeKWaq','WPGpWPKfWOq','mmkPlxejaxDeW7X8A8ol','WOi1WPeBWOa','WOZdQ1W','W5zkWOCr','BNFcSSokW7m','W6NdSIejW5e','cGVdGNuz','suSDtmoywSk5','WQaVWPmDWOCRDtBcRCkqWRy','WPhdHCkgvsyBFIRdSae8v8kqWP8mCuJdKG4UdX/cVr4LsmkEFH7cL8ocrdJcVsVdJKFdMH7cRhNcMfxcUG','WQaYWOyk','W4pcJKixv8kMWR8','A0nfW7e','WPrJlmk0','Fmk7bxJcRW/cPSobnCkAW54tWPddGtFcSW','zCo3EYXxuq','WOBdNWrobmo5W6hdHGCG','zmkiW7fkWQldSG','W68SWRBdNti+huNcH8o+WOa5iSkTW59jWPTxbCk8WR3dTZSF','W7ddQheCaby','AatcISkNW4xcKXmOW70JW6VcSCosgfP0pHRcVhypedy4BJfybfJcRqRdL8kEE1RdUSoyBe0sW4JcGCklWPRdTmkXW5vxW7hcPXieuKaGqw9FvSo0W74mmmklWQ4eWO0cwSkaW7JdLCoUhvNdVGb4','WP94lCkGW4K','u0OxuG','bSkCCJNcLG','WQW2WORcH04','W5ldP8oz','nSomhbTur3LCWRXoWQSm','WPPPjSkQW44H','WRGQANSesg4AWPid','WQJcRCotWPyK','uXFcO2C','W7RdPhmpeqW','WQVdPaxcLxm','qq3cJgnO','CbVdK8kkt1SjWQNcImoQ','W63dUmkEWRa','nHxcU8oPb8oudmkh','W4xdMSo5kN7dTSkFF8kS','WQOIWQ3cRG','tSonm8o4WPtcVSka','WRCIWPe5WP8','yxBcR8ol','s1yptW','tSoEjmoPWPJcVW','W5VcU8kCWRpcPZm1awbVWP3cUmkbdKtdMNNdMxnGuG','W5VcGJe','u1yruG','DSo5zJrB','WRddTCkK','WOxdKby','uNvMW5RdUSk/W6fYWODsWRpdRmoOkSkjWOpcPfX8kaCueGdcNa4+m8onbSoqW5T2bCoYW7eoW6tcRmkoj8kUW4D2mrNcUWdcS8oWW57cPSk4W5tdJCoHyrKWbeVdUmolW4ZdOCkje8oOyZbnW7y5BwWEzhO','WPjfhbC','DCkEDmkiBZ8fWOnjqa','srhdTCkwsb0OWPK','W7FcIZNcOSorWPNdPCobu8oUuwDsWQVcIW','WRZdQNNdVGi5','WOaEWRaQWQuymepdPSkZWP3dNuddPSosDNJdQcZcMtNcQColuCkAW47cK1RdU0hdTCkqW67dImkgWQW5WPVdLmkJWQC4W7fzomoPW7ldTv0mnbRcGCoOwwxcS8o5','W6ZdLxBdMqyhrCogW6u','W5XZzwDvW6O','aWZdIW','BSk/fgdcVYm','WQZcKmkEWQBcRa','WPRcU8kbWQy','utlcQCkm','tSonn8oVWPJcRq','iXn2tmoT','zmkqwG','W4TfiZxdT8ovuSkYW6umW4bjf8kl','rSoyW5eTWO8EkN7dSSo7uL7dIviEe3aYcSk0W5z6bICqW53dO8ksW7JcOmk7W77dVM4SWR/cVtFcRSkadmouWQvAW5JcJxddP8ouumoAWPuIxCkqsmoYW7NdMGpcP8oNbGFdPHfBk2W5jmozW57cRmkaWRTvkW','t8okm8o6WOW','W47dGaRdTCo3FCo6W6NcIW','WPRcOq/dQW','nHnHu8o+W4VdIG','W7OtfCkTp8ov','WO/dN2/cS8kfWOJcUq','AX7cJdVcLfCafIJcMd/dSMW1WPtcKq','W5T6vHinqWaAWO0dW7JdQZ3dPaRcHSkDwa','EGVcJItcHLy','WQBcSmolWOnTWPNdMI1ggmkSW7hdOxNdRdOS','zvfEW77cLSkkWRfSW4HBWRq','DaWMW4m','W5XmW7DwhG','WPddJbDxbSoKW6O','qg3cTmopW5e','ns/dUfC7','WQaVWP0BWPm/','WPpdIH1vbSoXW6RdHL93W6y','W5BcJY7cV8o5W5FdUmolvCk6zwDqWQZcIW','WQJdPSkuWRRdQgtdMSovW5pcQW','zrWMW44','WRVdUaq','W741WRG','W5nceaqJWQP6W6RcMhFdUSonW4XPWO4','v8kThSokW78rWQj1pmktW7NdUwb6WObhhCkVW4FdJSoNCMONW4O2W7z/W4tcUN/dPG7dOCkgqmoCW6yZW7rZc27dIYpdKYRcG8kkW5H9hq/dICoxWPtcJCkPWOCxW4TXfmk8xCkVW5aEW5BdIG3cJMFcLLrZW4/cICkMWQiLo1W3qaXOe8oaWOiHW6u','WQGWWRe','WOHhjq','F1hcMmotiCoYD8oIW448W4RcTCoxrvFcN8oLomo6WP0','WQ/dQrhcP0ldKq','aY7dMwGS','W5tdRmotiLBdMW','AqCSW4pcJhlcLSksleVdMmoC','BJVdU8kMBs9TW4hcKSkmigxdJmkKwSkMW6dcOSk4W7vXqCkxCY7dSrFdISopy8kxWQK','WQe+WO8gWPWP','uvWrw8orxa','DmkMfhpcR3/cUmoEjCkE','W4NdLXBdPSoAECoLW7NcH3W2','WPa5DtuZ','WOO/BHmLAZbFW4a','AKlcS8oJW7y','W4tdVCoCjfddJCoYWRihuW','W4i9Fmo1WOT6nmocW5jJW6ldHq','fqFdNg8ehfi','WRxcLmkUWRlcRa','fLqDwmoqsCoZW6PWcuNdRCkV','nG53sSoRW5ddGmo3','WQ/dQfqQmePkW6NdK8kAnSoLmvi5FtDCWO0Ni8oLECohEcfjgmoxWP9Q','W4RcJY/cUmov','W6tdPmkhWRVdSW','nrvRuCo+W57dIG','rSoyW5eTWO8EkJRcS8oqzthdGIbZ','umkFW6naWQZdSNdcPCkvWQ7cGSkvWOdcKG','AraMW4ddKG','pJxdSa','ySoVyWvq','W5j1z2LJW7VcNCkodG','CCo4W7enWRGV','ehK5W4TT','W7ldUCkD','e3SWW5j4W7tdNW','qWSTW5NdHcNdK8knvKldHSoE','WP3cGCoZWRyuW6ldLwSjpCkFW5ldHdBcVq','W77dONSc','W53dKXFdPmofyW','AaNcIsxcHa','WP3cGCoZWRyuW6ldLqjMlSkdW4NcOtZcTM53WQxdLSkka8k0WRqMdCkxWRa','W6S2WPBdHd07vbS','AmotFdz4','W7ddHwNdVGa','iaHOrSoS','nqrLuCo8W5e','z2RcPW','W45BWP8wq3i','WP7cQCkdWQ0','bY9guSo4','WOGkWRmnp8kfW4vRW7RdTW','umoVh8oMWOW','WPTbbq','WOpdPL02','WQxdQgVdRq','xghcTSo6c8ofE8oOWOmBW6ddL8o7aHa','ef4gW4rV','W6/dPdmY','CaSWW5K','AgRcRmoqW6W2Bq','faFdJgKFafxcJCke','tColn8o8WOdcVW','exW7','trBcPwq','WOr5jG','W6/dUxajfrLHq0FdNLW','W4/dKXDddSo3WQdcO112WRddNXJdSKpcMW','CujpW6/dMmkzWQq','WRNdPMVdRs54cdaFWQFcLuJcKNvx','DSo1W7WgWQSVEq','WRD5pmkLWPO6hCojW5DfW4BdPMeWWR5vW6BcH1/cLetcV8kTmq','W4LFW7DyaCkS','nHLPC8ot','WPa3EZWLjsruW5u','bNSNW41R','W5nnW6Px','gSk1ya/dL8oBjq','WOVdM23dUmkcWOZcS8oizSk8Egns','wKSxta','jSk9wXu','Emo8W60','WQ/cLCoOWRy/','W53dGaddTCojySoW','CLq2fCkSWONdHmo0WOtdUha8','W57dPmoCmuhcKCovWRuu','W4ddKXu','W7m2WRm','FvhcLa','W7zswuLUW5VdHmk3jCoiW7uVWPL5fmkCjf3cQwZdNCktuCodW6FdMxVdOmkSW7f1tCkBCMVdKJCUWOXFWQ7dRCogimoIWPOfrmkjWRmtd1q3mwP1y8kmBJe','x1auwq','l8kHqH7cRG','WRhdTmkRzba8','W5tdHSkMWPxdLW','DaSbW5JdHYhdGSos','WRq+WOG','sdxcP8kqW7lcTgqVW6GM','WR7cTSoAWOm2W4tcKa','yCkpyq','WO9qhGaRWQ5WW5VdNIpcTq','u0KF','W5HxWPSb','sGtcUG','DSkwFvKvhNXw','WQxdUdr+W6ZcOCoSWR80l8o7n8kzWRJcMCkHDG','zt3dSCkUFG','WOZdJZhcLhRdOW','W68RWRhdGtOVva','W7RdQN3dVq53vdWoWRZcQvtdIIzAWPtdQw7dHbTnmW3dPM1aWR4','CCknt1Ksba','CmoZW7K','W7pdQKasgr9JEq','mSkQbx3dPspcT8oDm8kqW5KI','xbldMW','WRpdRXNcTf7dJdT1W7NcRmkyWR4','WRa0WRhdLti8hGdcICoWWPzNBa','CCkCqeK','Af5jW7pdJmkpWQrV','WQbTdH7dISo2f8khW4nTW6CAfCkabCk/W73cUfuzW5NcNvxcSLBcUSokWQNcJXy','WPFcJSojWPyL','W67dP8ong3e','vwZcQ8ogga','W5VcS8kpWQZcPxSTrd00WO7cVSol','W5DCWPem','f2yxW5D/W6ddN8ks','WOm+WQZcTgaJWPa4mmkkWPm7','W7naWOPcug7cMX88','vqdcQx9+W6DXoHK','FfdcM8olpCoI','WQC0WRy','nGtdIfuz','z8oOW7m','WRBdRH/cVq','WOzToSkSW5C6','ieNcN8oBiCoWDmo4W4O5','W4tdOmotmuJdMW','DmkFEW','yWZcGd4','wedcJmoGW4impSoZWOldU8oJW4XEW7BcQ2PoW6pcNmksWRrFfmk0WPpcK3vYoSkrW7uY','W6JdUCkyWRNdQgVcLmkdW5tcRSoxW6q','Emo0W7m','W6ZdILBdJW0','W68AA2jslG','CWtcQgzPWRr2iWJdJSk9nmkIcSo4','dCkcyd7cJSkdWRb1W6yyW4ldLSo3W5lcVr4ZECouuxVcP8ooiGZdGSogagOiBtxcV8kZW7VdJGCEWP3cTqNdNConWQtcVfXoW5RcT8o5WQOLW5aChgql','iGpdM31nafNcICkxWRddKZNdRXCvDN7cNCo8WPmAWQXPW4FdPtDXWPSBybJdP8o7jCozbYzOmdBdHtCI','C8kFy0aV','F8kaW6neWR3cUgJcTmoqWOu','vr/dHa','ws7cOSkB','W5ZdGJpdS8oa','W4RdLXe','BaRcJsRcHG','aMu5','WRRcRColWP8Y','WQNcOCol','WRGVBJn6kNqAWPid','W5fkWPafqMK','WOddSfVdTbq','bcBdNvuR','WQ9DdJhdHW','c0FcG8orh00AWOFdLmkImem','zSo1W7iAWRGvzhhdVSoZ','pCk+yG3cTa','zSkcW7fx','dMGL','WPNdMaHtdW'];a0c=function(){return ar;};return a0c();}a0T[a0a9(0x12c,'4^y8')]=!![],mkdirSync(STORAGE_DIR,a0T);const a0U={};a0U[a0a9(0x1fc,'(c(r')]=!![],mkdirSync(ICONS_DIR,a0U);const a0V={};a0V[a0a9(0xea,'e38Y')]=!![],mkdirSync(resolve(__dirname,a0a9(0x232,'RVz)')),a0V);const mediaDb=new a0a2(MEDIA_DB);mediaDb[a0a9(0x282,'KA9r')](a0a9(0x18a,'k^j]')),mediaDb['exec']('\x0a\x20\x20CREATE\x20TABLE\x20IF\x20NOT\x20EXISTS\x20icon_sets\x20(\x0a\x20\x20\x20\x20id\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20TEXT\x20PRIMARY\x20KEY,\x0a\x20\x20\x20\x20source_id\x20\x20\x20\x20TEXT\x20NOT\x20NULL,\x0a\x20\x20\x20\x20generated_at\x20TEXT\x20NOT\x20NULL\x20DEFAULT\x20(datetime(\x27now\x27)),\x0a\x20\x20\x20\x20files\x20\x20\x20\x20\x20\x20\x20\x20TEXT\x20NOT\x20NULL\x0a\x20\x20);\x0a\x0a\x20\x20CREATE\x20TABLE\x20IF\x20NOT\x20EXISTS\x20media\x20(\x0a\x20\x20\x20\x20id\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20TEXT\x20PRIMARY\x20KEY,\x0a\x20\x20\x20\x20name\x20\x20\x20\x20\x20\x20\x20\x20TEXT\x20NOT\x20NULL,\x0a\x20\x20\x20\x20title\x20\x20\x20\x20\x20\x20\x20TEXT\x20DEFAULT\x20\x27\x27,\x0a\x20\x20\x20\x20description\x20TEXT\x20DEFAULT\x20\x27\x27,\x0a\x20\x20\x20\x20url\x20\x20\x20\x20\x20\x20\x20\x20\x20TEXT\x20NOT\x20NULL,\x0a\x20\x20\x20\x20mime_type\x20\x20\x20TEXT\x20NOT\x20NULL,\x0a\x20\x20\x20\x20extension\x20\x20\x20TEXT\x20NOT\x20NULL,\x0a\x20\x20\x20\x20crop_mode\x20\x20\x20TEXT\x20DEFAULT\x20\x27\x27,\x0a\x20\x20\x20\x20size\x20\x20\x20\x20\x20\x20\x20\x20INTEGER\x20NOT\x20NULL,\x0a\x20\x20\x20\x20width\x20\x20\x20\x20\x20\x20\x20INTEGER,\x0a\x20\x20\x20\x20height\x20\x20\x20\x20\x20\x20INTEGER,\x0a\x20\x20\x20\x20duration\x20\x20\x20\x20REAL,\x0a\x20\x20\x20\x20storage_key\x20TEXT\x20NOT\x20NULL\x20UNIQUE,\x0a\x20\x20\x20\x20created_at\x20\x20TEXT\x20NOT\x20NULL\x20DEFAULT\x20(datetime(\x27now\x27))\x0a\x20\x20)\x0a');const existingCols=mediaDb[a0a9(0x294,'(zfC')]('PRAGMA\x20table_info(media)')[a0a9(0x22d,'c$^)')]()['map'](a=>a[a0a9(0x275,'fy#7')]);if(!existingCols['includes'](a0a9(0x237,'4^y8')))mediaDb[a0a9(0x2d9,'KuV@')](a0a9(0x1f3,'b8Cb'));if(!existingCols[a0a9(0x20a,'e38Y')]('description'))mediaDb[a0a9(0x112,'DGwF')](a0a9(0x20f,'9$AJ'));if(!existingCols[a0a9(0x122,'AH]t')](a0a9(0x2c1,'Obh@')))mediaDb['exec'](a0a9(0x13d,'&kv$'));if(!existingCols['includes']('crop_mode'))mediaDb['exec'](a0a9(0x1a3,'&kv$'));const appDb=new a0a2(APP_DB);appDb[a0a9(0x1c0,'9$AJ')](a0a9(0x227,'KA9r')),appDb['pragma'](a0a9(0x164,'nN9a'));function a0d(a,b){a=a-0xe9;const c=a0c();let d=c[a];if(a0d['HcjaRB']===undefined){var e=function(j){const l='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let m='',n='',o=m+e,p=(''+function(){return 0x0;})['indexOf']('\x0a')!==-0x1;for(let q=0x0,r,s,t=0x0;s=j['charAt'](t++);~s&&(r=q%0x4?r*0x40+s:s,q++%0x4)?m+=p||o['charCodeAt'](t+0xa)-0xa!==0x0?String['fromCharCode'](0xff&r>>(-0x2*q&0x6)):q:0x0){s=l['indexOf'](s);}for(let u=0x0,v=m['length'];u<v;u++){n+='%'+('00'+m['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(n);};const i=function(k,l){let m=[],n=0x0,o,p='';k=e(k);let q;for(q=0x0;q<0x100;q++){m[q]=q;}for(q=0x0;q<0x100;q++){n=(n+m[q]+l['charCodeAt'](q%l['length']))%0x100,o=m[q],m[q]=m[n],m[n]=o;}q=0x0,n=0x0;for(let r=0x0;r<k['length'];r++){q=(q+0x1)%0x100,n=(n+m[q])%0x100,o=m[q],m[q]=m[n],m[n]=o,p+=String['fromCharCode'](k['charCodeAt'](r)^m[(m[q]+m[n])%0x100]);}return p;};a0d['ZaKYMV']=i,a0d['GxXdNa']={},a0d['HcjaRB']=!![];}const f=c[0x0],g=a+f,h=a0d['GxXdNa'][g];if(!h){if(a0d['QpzbPo']===undefined){const j=function(k){this['mFwbJb']=k,this['gxcnve']=[0x1,0x0,0x0],this['NynKNM']=function(){return'newState';},this['WnPLGh']='\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*',this['EUGTXN']='[\x27|\x22].+[\x27|\x22];?\x20*}';};j['prototype']['kvYOPK']=function(){const k=new RegExp(this['WnPLGh']+this['EUGTXN']),l=k['test'](this['NynKNM']['toString']())?--this['gxcnve'][0x1]:--this['gxcnve'][0x0];return this['rWXaaZ'](l);},j['prototype']['rWXaaZ']=function(k){if(!Boolean(~k))return k;return this['lCriVS'](this['mFwbJb']);},j['prototype']['lCriVS']=function(k){for(let l=0x0,m=this['gxcnve']['length'];l<m;l++){this['gxcnve']['push'](Math['round'](Math['random']())),m=this['gxcnve']['length'];}return k(this['gxcnve'][0x0]);},(''+function(){return 0x0;})['indexOf']('\x0a')===-0x1&&new j(a0d)['kvYOPK'](),a0d['QpzbPo']=!![];}d=a0d['ZaKYMV'](d,b),a0d['GxXdNa'][g]=d;}else d=h;return d;}async function requireAuth(e,f,g){const aa=a0a9,h={'KTejb':aa(0x20c,'o0he'),'ZIVKu':function(j,k){return j(k);},'ypfos':function(j,k){return j(k);},'lgHGK':'DELETE\x20FROM\x20media\x20WHERE\x20id\x20=\x20?','XCFMP':function(j,k,l){return j(k,l);},'dymVy':function(j){return j();},'KWCPu':'hMEdP','Qnmtf':aa(0xf4,']Ps5')},i=e[aa(0x230,'Obh@')][aa(0x251,'8qqM')]??'';try{const j={};j[aa(0x27c,'88TA')]=i;const k={};k['headers']=j;const l=await h[aa(0x116,'Kkjr')](fetch,AUTH_URL+aa(0x11d,'^Dtt'),k),m={};m[aa(0x212,'88TA')]=aa(0x176,'&kv$');if(!l['ok'])return f[aa(0x1d2,'EYj3')](0x191)['json'](m);e[aa(0x2b1,'e38Y')]=await l[aa(0x1be,'e38Y')](),h[aa(0x26a,'F(2*')](g);}catch{if(h['KWCPu']===h['KWCPu']){const n={};n[aa(0xf8,'9$AJ')]=h[aa(0x243,'F(2*')],f[aa(0x27e,'^Dtt')](0x1f7)[aa(0x182,'k^j]')](n);}else{const p=k['prepare'](h[aa(0x241,'F(2*')])[aa(0x10f,'Y%dJ')](l[aa(0x21e,'0gJJ')]['id']),q={};q['ok']=![],q['error']='Not\x20found';if(!p)return m[aa(0x1dd,'Nalf')](0x194)[aa(0x165,'2jMx')](q);const s=n(o,p[aa(0x219,'0a&(')]);if(h[aa(0x240,'7dIn')](p,s))try{h[aa(0x1d9,'&Byf')](v,s);}catch{}r[aa(0xf1,'AH]t')](h[aa(0x25a,'JYPS')])[aa(0x272,'6vm1')](s[aa(0x16e,'fy#7')]['id']);const t={};t['ok']=!![],t[aa(0x128,'DGwF')](t);}}}const a0W={};a0W[a0a9(0x161,'##Rd')]=0xc8*0x400*0x400;const upload=a0a1({'storage':a0a1['memoryStorage'](),'limits':a0W}),app=a0Z(),a0X={};a0X[a0a9(0x1a2,'0a&(')]=!![],a0X[a0a9(0x16a,'Nalf')]=!![],app['use'](a0a0(a0X)),app['use'](a0Z['json']());const a0Y={};a0Y['ok']=!![],app[a0a9(0x144,'c2hc')](a0a9(0x187,'xvfy'),(a,b)=>b[a0a9(0x1a6,'(zfC')](a0Y)),app[a0a9(0x1c1,'e38Y')](requireAuth),app[a0a9(0x1b2,'!iZC')]('/media',(c,d)=>{const ab=a0a9,e={};e['aQWEh']=ab(0x24b,'6vm1');const f=e,g=mediaDb['prepare'](f[ab(0xff,'##Rd')])[ab(0x180,'KA9r')](),h={};h['ok']=!![],h[ab(0x257,']Ps5')]=g,d[ab(0x136,'RVz)')](h);}),app[a0a9(0x2d6,'Lhey')](a0a9(0x173,']UuQ'),upload[a0a9(0x134,'^P$a')](a0a9(0x107,'o0he')),async(d,f)=>{const ac=a0a9,g={'yhkBh':ac(0x1c3,'Kkjr'),'YnpMU':function(h){return h();},'qpVvh':function(h,i){return h(i);},'WmoVL':ac(0x1f0,'AH]t'),'upgRI':ac(0x1b6,'c2hc')};try{const h=d['file'],i={};i['ok']=![],i['error']=g[ac(0x2cb,'0gJJ')];if(!h)return f[ac(0x109,'6vm1')](0x190)['json'](i);const j=g[ac(0x125,'^P$a')](a0a3),k=extname(h[ac(0x11f,'(c(r')])[ac(0x174,'nN9a')]('.','')['toLowerCase']()||'bin',l=j+'.'+k,m=resolve(STORAGE_DIR,l),n=h[ac(0x16c,'Thh4')][ac(0x2af,'^P$a')](ac(0x279,'Lhey'));let o=null,p=null,q=null,r=h['buffer'];if(n){const v=await g[ac(0x150,'&kv$')](a0a4,r)[ac(0x1b7,'RVz)')]();o=v['width']??null,p=v['height']??null;const w=d[ac(0x142,'[MXC')][ac(0x17d,'SBV%')]?JSON['parse'](d[ac(0x24f,']Ps5')][ac(0xfc,'o0he')]):null;if(w){const x={};x[ac(0x1e5,'0gJJ')]=w['x'],x['top']=w['y'],x[ac(0x1eb,'KA9r')]=w['w'],x['height']=w['h'],r=await a0a4(r)['extract'](x)[ac(0x277,'Kkjr')](),o=w['w'],p=w['h'];}}await import(g['WmoVL'])[ac(0x292,'2jMx')](y=>y[ac(0x1ef,'bZu2')](m,r));const s=process.env.DATA_PUBLIC_URL??ac(0x202,'2jMx')+PORT,t={};t['id']=j,t[ac(0x280,'SBV%')]=h[ac(0x138,'Obh@')],t['title']=d[ac(0x2c5,'7dIn')]['title']||'',t[ac(0x2ab,'c2hc')]=d['body'][ac(0x19c,'(c(r')]||'',t[ac(0x20d,'c$^)')]=s+ac(0x21f,'&Byf')+j+'/file',t[ac(0x1f4,'&Byf')]=h[ac(0x1e0,'Kkjr')],t[ac(0x27b,'0gJJ')]=k,t[ac(0x1f5,'bZu2')]=d[ac(0x186,'4Vqj')][ac(0x288,'c2hc')]||'',t[ac(0x24c,'F(2*')]=r[ac(0x255,'7dIn')],t[ac(0x1ce,'RVz)')]=o,t[ac(0x2a9,'o0he')]=p,t[ac(0x1e4,'DGwF')]=q,t[ac(0x298,'(zfC')]=l;const u=t;mediaDb[ac(0x269,'KA9r')]('\x0a\x20\x20\x20\x20\x20\x20INSERT\x20INTO\x20media\x20(id,\x20name,\x20title,\x20description,\x20url,\x20mime_type,\x20extension,\x20crop_mode,\x20size,\x20width,\x20height,\x20duration,\x20storage_key)\x0a\x20\x20\x20\x20\x20\x20VALUES\x20(@id,\x20@name,\x20@title,\x20@description,\x20@url,\x20@mime_type,\x20@extension,\x20@crop_mode,\x20@size,\x20@width,\x20@height,\x20@duration,\x20@storage_key)\x0a\x20\x20\x20\x20')[ac(0xec,'9$AJ')](u),f[ac(0x265,'Obh@')]({'ok':!![],'item':mediaDb[ac(0x171,']UuQ')](g[ac(0x162,'e38Y')])['get'](j)});}catch(y){f[ac(0x22c,'leL*')](0x1f4)[ac(0x1c7,'Thh4')]({'ok':![],'error':g[ac(0x143,'c2hc')](String,y)});}}),app[a0a9(0x1a1,'0a&(')](a0a9(0x29a,'Obh@'),(c,d)=>{const ad=a0a9,e={};e[ad(0x1f2,'&kv$')]=ad(0x166,'!iZC'),e['eLvtA']=ad(0x12b,'DGwF'),e[ad(0x126,'c$^)')]=ad(0x181,'c2hc');const f=e,{title:g,description:h,crop_mode:i}=c[ad(0x16f,'Kkjr')],j=mediaDb[ad(0x1bd,'4^y8')](f[ad(0x14d,'$n1&')])['get'](c[ad(0x132,']Ps5')]['id']),k={};k['ok']=![],k[ad(0x246,'EYj3')]=f[ad(0x2a4,'e38Y')];if(!j)return d[ad(0x2a3,'(c(r')](0x194)[ad(0xfd,'&kv$')](k);mediaDb[ad(0x1bf,'b8Cb')](f['ZHQyP'])[ad(0xee,']Ps5')](g??j[ad(0x147,'##Rd')]??'',h??j[ad(0x1e1,'SBV%')]??'',i??j['crop_mode']??'',c['params']['id']),d[ad(0x258,'o0he')]({'ok':!![],'item':mediaDb[ad(0x231,'!iZC')](ad(0x20b,'4^y8'))[ad(0x12e,'JYPS')](c['params']['id'])});}),app[a0a9(0x2bf,']UuQ')](a0a9(0x133,'c$^)'),(c,d)=>{const ae=a0a9,e={'BDeQP':ae(0x137,'EYj3'),'nxqpD':function(j,k){return j(k);},'aGsFw':ae(0x123,'$n1&')},f=mediaDb[ae(0x171,']UuQ')](e['BDeQP'])['get'](c[ae(0xf5,'&Byf')]['id']),g={};g['ok']=![],g['error']='Not\x20found';if(!f)return d[ae(0x22c,'leL*')](0x194)[ae(0x268,'JYPS')](g);const h=resolve(STORAGE_DIR,f[ae(0x110,'fy#7')]);if(e[ae(0x22b,'EYj3')](existsSync,h))try{unlinkSync(h);}catch{}mediaDb[ae(0x2c2,'9$AJ')](e[ae(0x2ae,'EYj3')])[ae(0x1f8,'4^y8')](c['params']['id']);const i={};i['ok']=!![],d[ae(0x2d0,'SBV%')](i);}),app[a0a9(0x17b,'$n1&')](a0a9(0x18c,'4^y8'),(a,b)=>{const af=a0a9,c={'YJver':function(f,g,h){return f(g,h);},'PfgIt':function(f,g){return f(g);},'nKhqF':af(0x2c3,'2jMx')},d=mediaDb[af(0x269,'KA9r')](af(0x2a7,'Kkjr'))['get'](a['params']['id']);if(!d)return b[af(0x1d2,'EYj3')](0x194)[af(0x209,'c2hc')]();const e=c[af(0x124,'##Rd')](resolve,STORAGE_DIR,d[af(0x24a,'F(2*')]);if(!c[af(0x12f,'e38Y')](existsSync,e))return b[af(0x297,'F(2*')](0x194)[af(0x1c2,'[MXC')]();b[af(0x2ad,'k^j]')](c[af(0x2ca,'8qqM')],d[af(0x2be,'88TA')]),b[af(0x233,']Ps5')](af(0x19f,'k^j]'),af(0x254,'Nalf')),c[af(0x199,'c$^)')](createReadStream,e)[af(0x1c5,'EYj3')](b);}),app[a0a9(0x10c,'F(2*')](a0a9(0xf0,'(zfC'),async(b,c)=>{const ag=a0a9,d={'KhtjP':ag(0x216,'4Vqj'),'YzbkU':function(g,h,i){return g(h,i);},'fhFid':function(g,h){return g(h);},'HvbVh':function(g,h){return g(h);},'egTse':ag(0x108,'&kv$'),'MBXCx':'Content-Type','LHEft':ag(0x140,'leL*'),'cnwXI':ag(0x1ec,'2jMx')},e=mediaDb[ag(0x1bf,'b8Cb')](d[ag(0x295,'EYj3')])['get'](b[ag(0x21c,'b8Cb')]['id']);if(!e||!e[ag(0x1aa,'F(2*')]['startsWith']('image/'))return c[ag(0x1df,'$n1&')](0x194)[ag(0x25b,'^P$a')]();const f=d[ag(0x1fb,'F(2*')](resolve,STORAGE_DIR,e[ag(0xef,'7dIn')]);if(!d[ag(0x263,'4^y8')](existsSync,f))return c[ag(0x12d,'c$^)')](0x194)[ag(0x27d,'e38Y')]();try{const g={};g['quality']=0x50;const h=await d[ag(0x17c,'0gJJ')](a0a4,f)['resize'](0xc8,0xc8,{'fit':d[ag(0x13a,'0gJJ')]})[ag(0x1ba,'KA9r')](g)[ag(0x129,'9$AJ')]();c[ag(0x22f,'SBV%')](d['MBXCx'],d['LHEft']),c['setHeader'](ag(0x1cd,'RVz)'),d[ag(0x247,'KuV@')]),c[ag(0x121,'Thh4')](h);}catch{c[ag(0x1d2,'EYj3')](0x1f4)[ag(0x11b,']UuQ')]();}}),app[a0a9(0x1a9,'4^y8')]('/media/generate-icons',async(m,n)=>{const ah=a0a9,o={'CZLhS':'media_id\x20required','ekYKQ':ah(0x16d,'4Vqj'),'QopQk':function(p){return p();},'SMWKV':function(p,q,r){return p(q,r);},'GpnKj':ah(0x2a5,'^P$a'),'XbJhY':function(p,q,r){return p(q,r);},'aJUHb':function(p,q,r){return p(q,r);},'pVRwu':function(p,q,r){return p(q,r);},'AHMMh':ah(0x2a6,'2jMx'),'TaHod':ah(0x229,'e38Y'),'XJreg':ah(0x2ba,'leL*'),'qfMmH':'192x192','IjaaA':ah(0x102,'^P$a'),'gYQME':ah(0x28c,'TMtv'),'TDlpb':ah(0x24d,'(zfC'),'JZjKu':function(p,q,r){return p(q,r);}};try{const {media_id:p}=m['body'],q={};q['ok']=![],q[ah(0x293,'&Byf')]=o[ah(0x1d5,'JYPS')];if(!p)return n[ah(0x221,'SBV%')](0x190)[ah(0x18d,'KuV@')](q);const r=mediaDb[ah(0x10e,'##Rd')]('SELECT\x20*\x20FROM\x20media\x20WHERE\x20id\x20=\x20?')[ah(0x2d4,'fy#7')](p),s={};s['ok']=![],s[ah(0x239,'b8Cb')]=ah(0x278,'TMtv');if(!r)return n[ah(0x28f,'RVz)')](0x194)[ah(0x1a6,'(zfC')](s);const t={};t['ok']=![],t[ah(0x23a,'7dIn')]=ah(0x1e9,'!iZC');if(!r[ah(0x1ca,'fy#7')]['startsWith'](o[ah(0x206,'e38Y')]))return n[ah(0x28b,'bZu2')](0x190)[ah(0xed,'4^y8')](t);const u=resolve(STORAGE_DIR,r[ah(0x15f,'9$AJ')]),v={};v['ok']=![],v[ah(0x22e,'o0he')]='Source\x20file\x20not\x20found';if(!existsSync(u))return n[ah(0x1d3,'(zfC')](0x194)[ah(0x281,'[MXC')](v);const w=o[ah(0x1c6,'8qqM')](a0a3),x=o[ah(0x1a5,'9$AJ')](resolve,ICONS_DIR,w),y={};y[ah(0x168,'9$AJ')]=!![],o['SMWKV'](mkdirSync,x,y);const z=[0x10,0x20,0xb4,0xc0,0x200],A={};for(const L of z){const M={};M[ah(0x284,'Thh4')]=ah(0x2b7,'Obh@'),M['position']=o[ah(0x172,'e38Y')],A[L]=await a0a4(u)[ah(0x2a8,'F(2*')](L,L,M)['png']()[ah(0x10b,'2jMx')]();}writeFileSync(o[ah(0x1f7,'0a&(')](resolve,x,'favicon-16.png'),A[0x10]),writeFileSync(resolve(x,'favicon-32.png'),A[0x20]),o[ah(0x10a,'Obh@')](writeFileSync,resolve(x,ah(0x1e8,'KA9r')),A[0xb4]),writeFileSync(o[ah(0x296,'e38Y')](resolve,x,ah(0x1c8,'F(2*')),A[0xc0]),o['aJUHb'](writeFileSync,o['pVRwu'](resolve,x,o['AHMMh']),A[0x200]);const B=await a0a5([A[0x10],A[0x20]]);writeFileSync(resolve(x,o['TaHod']),B);const C={};C[ah(0x21d,'bZu2')]=ah(0x1ee,'0gJJ'),C[ah(0x2b4,'nN9a')]=o[ah(0x18e,'0a&(')];const D={};D[ah(0x15b,'&Byf')]=0x5a;const E=await a0a4(u)[ah(0x253,'leL*')](0x4b0,0x276,C)[ah(0x17e,'(zfC')](D)[ah(0x2c9,'Nalf')]();o['aJUHb'](writeFileSync,resolve(x,'og-image.jpg'),E);const F=process.env.DATA_PUBLIC_URL??ah(0x290,'##Rd')+PORT,G={};G['name']=o[ah(0x27f,'SBV%')],G[ah(0x14f,']UuQ')]='Fractera',G['icons']=[{'src':F+ah(0x2b3,'o0he')+w+ah(0x228,'6vm1'),'sizes':o[ah(0x13f,'Thh4')],'type':o[ah(0x15a,'DGwF')]},{'src':F+ah(0x120,'Nalf')+w+'/file/icon-512.png','sizes':o[ah(0x1ea,'e38Y')],'type':o[ah(0x21a,'k^j]')]}],G[ah(0x191,'88TA')]='#000000',G[ah(0x28d,'RVz)')]=o['TDlpb'],G[ah(0x217,'EYj3')]=ah(0x276,'Y%dJ');const H=G;writeFileSync(o['JZjKu'](resolve,x,ah(0x238,'leL*')),JSON[ah(0x267,'*RNg')](H,null,0x2));const I={};I['favicon_ico']=w+ah(0x18b,'&kv$'),I['favicon_16']=w+ah(0x29e,'fy#7'),I[ah(0x252,'(zfC')]=w+ah(0x188,'&Byf'),I[ah(0x250,'^Dtt')]=w+ah(0x26e,'SBV%'),I['icon_192']=w+'/icon-192.png',I[ah(0x200,'EYj3')]=w+ah(0x127,'SBV%'),I[ah(0x11c,'7dIn')]=w+ah(0x1af,'Kkjr'),I['manifest']=w+ah(0x285,'$n1&');const J=I;mediaDb[ah(0x10e,'##Rd')](ah(0x106,'88TA'))[ah(0xec,'9$AJ')](w,p,JSON[ah(0x1e6,'7dIn')](J));const K={};K['ok']=!![],K['id']=w,K[ah(0x1d4,'$n1&')]=J,n['json'](K);}catch(N){if(ah(0x1b1,'fy#7')!=='LhikE'){const P=c[ah(0x100,'c2hc')](ah(0x189,'fy#7'))[ah(0x146,'9$AJ')](),Q={};Q['ok']=!![],Q[ah(0x2bb,'2jMx')]=P,d['json'](Q);}else n['status'](0x1f4)['json']({'ok':![],'error':String(N)});}}),app[a0a9(0x10f,'Y%dJ')](a0a9(0x1d0,'88TA'),(c,d)=>{const ai=a0a9,e={};e[ai(0x2c7,'RVz)')]=ai(0x210,'DGwF');const f=e,g=mediaDb['prepare'](ai(0x27a,'F(2*'))[ai(0x29c,'(c(r')](),h={};h['ok']=![],h[ai(0x283,'nN9a')]=f['avfuw'];if(!g)return d[ai(0x19a,'##Rd')](0x194)['json'](h);d['json']({'ok':!![],...g,'files':JSON[ai(0x2b6,'TMtv')](g[ai(0x25f,'##Rd')])});}),app[a0a9(0x195,'c$^)')](a0a9(0x19e,'!iZC'),(a,b)=>{const aj=a0a9,c=mediaDb['prepare']('SELECT\x20*\x20FROM\x20icon_sets\x20ORDER\x20BY\x20generated_at\x20DESC')[aj(0x29d,'Nalf')]();b['json']({'ok':!![],'items':c[aj(0x152,'9$AJ')](d=>({...d,'files':JSON[aj(0x271,'8qqM')](d[aj(0x2cc,'nN9a')])}))});}),app[a0a9(0x12e,'JYPS')](a0a9(0x119,'Lhey'),(a,b)=>{const ak=a0a9,c={'ulWGO':function(h,i){return h(i);},'JRFBJ':'ico','dLSVl':'image/x-icon','pxmPL':function(h,i){return h===i;},'yfzth':ak(0x1de,'KA9r'),'ZQTUW':'application/json','Pyeba':ak(0xf7,'k^j]'),'yDoRZ':ak(0x198,'b8Cb'),'cDOUv':ak(0x2a2,'c$^)'),'RuKXJ':function(h,i){return h(i);}},d=mediaDb[ak(0xfa,'0a&(')](ak(0x223,'RVz)'))['get'](a['params']['id']);if(!d)return b[ak(0x2cf,'DGwF')](0x194)[ak(0x273,'(zfC')]();const e=resolve(ICONS_DIR,a[ak(0x23e,'7dIn')]['id'],a[ak(0x170,'Thh4')][ak(0x1cf,'AH]t')]);if(!c[ak(0x213,'xvfy')](existsSync,e))return b[ak(0x221,'SBV%')](0x194)[ak(0x25b,'^P$a')]();const f=a[ak(0x2c6,'c2hc')][ak(0x211,'TMtv')][ak(0x1fe,'JYPS')]('.')['pop'](),g=f===c[ak(0x259,'&kv$')]?c[ak(0x167,'Thh4')]:c[ak(0xf6,'nN9a')](f,ak(0x111,'o0he'))?ak(0x2aa,'^Dtt'):c['pxmPL'](f,c[ak(0x153,'(zfC')])?c['ZQTUW']:c[ak(0x1d7,'4Vqj')];b['setHeader'](ak(0x12a,'JYPS'),g),b[ak(0x193,'leL*')](c[ak(0x218,'F(2*')],c['cDOUv']),c[ak(0x1fa,'Obh@')](createReadStream,e)[ak(0x1dc,']UuQ')](b);}),app['get'](a0a9(0x22a,'4^y8'),(a,b)=>{const al=a0a9,c=appDb[al(0x18f,'KuV@')](al(0x29f,'xvfy'))[al(0x1b3,'6vm1')]();b[al(0x258,'o0he')]({'tables':c['map'](d=>d[al(0x19b,'##Rd')])});}),app[a0a9(0x148,'##Rd')]('/db/tables/:table',(c,d)=>{const am=a0a9,e={'wyuFD':function(p,q){return p(q);},'xodum':am(0x2bc,'EYj3'),'Bwoqz':function(p,q){return p(q);}},{table:f}=c['params'],g=new Set(appDb['prepare'](am(0x286,']UuQ'))[am(0x244,'b8Cb')]()[am(0x225,'bZu2')](p=>p[am(0x17a,'RVz)')])),h={};h[am(0x15d,'0a&(')]=am(0x224,'6vm1');if(!g[am(0x235,'Thh4')](f))return d[am(0xeb,'KA9r')](0x194)[am(0x196,'leL*')](h);const i=c[am(0x1a7,'##Rd')][am(0x13b,'!iZC')]??'',j=Math[am(0x139,']UuQ')](e[am(0x262,'(c(r')](parseInt,c[am(0x287,'KA9r')][am(0x248,'e38Y')]??e[am(0x157,'o0he')]),0x3e8),k=e['Bwoqz'](parseInt,c['query'][am(0x1fd,'e38Y')]??'0'),l=appDb[am(0x1b9,'88TA')](am(0x1b8,'Nalf')+f+'\x22)')[am(0x22d,'c$^)')]()[am(0x1b0,'Y%dJ')](p=>p[am(0x2d5,'b8Cb')]);let m;if(i['trim']()){const p=l[am(0x261,'7dIn')](r=>r!=='id'),q=p[am(0x14a,'DGwF')]?p[am(0x113,'4^y8')](r=>'\x22'+r+'\x22\x20LIKE\x20?')[am(0x270,'o0he')](am(0x289,'TMtv')):null;m=q?appDb[am(0x201,'0gJJ')](am(0x2d7,'c$^)')+f+'\x22\x20WHERE\x20'+q+am(0x1cb,'&Byf'))[am(0x11e,'Kkjr')](...p[am(0x1ff,'nN9a')](()=>'%'+i+'%'),j,k):appDb['prepare'](am(0x2b9,']UuQ')+f+'\x22\x20LIMIT\x20?\x20OFFSET\x20?')['all'](j,k);}else m=appDb[am(0x28a,'nN9a')](am(0x2c4,'##Rd')+f+am(0x28e,'k^j]'))[am(0x21b,'^P$a')](j,k);const n=appDb[am(0x18f,'KuV@')](am(0x2c8,'##Rd')+f+'\x22')['get']()['n'],o={};o[am(0xe9,'EYj3')]=l,o[am(0x26c,'o0he')]=m,o[am(0x190,'DGwF')]=n,d[am(0x1f6,'0gJJ')](o);}),app[a0a9(0x2da,'2jMx')]('/db/tables/:table',(f,g)=>{const an=a0a9,h={};h[an(0x145,'RVz)')]=an(0x256,'[MXC'),h[an(0x2bd,'8qqM')]=an(0x23f,'bZu2'),h['bDrIF']='object',h[an(0x1c9,'Y%dJ')]=an(0x204,'F(2*');const i=h,{table:j}=f[an(0x170,'Thh4')],k=new Set(appDb[an(0x118,'Nalf')](i[an(0x185,'AH]t')])[an(0x215,'(c(r')]()[an(0x1c4,'b8Cb')](s=>s['name'])),l={};l[an(0x15d,'0a&(')]=i['dwwBn'];if(!k[an(0x141,'Kkjr')](j))return g[an(0x226,'KuV@')](0x194)['json'](l);const m=f[an(0x194,'xvfy')],n={};n[an(0x1bc,'Y%dJ')]=an(0x2b5,'b8Cb');if(!m||typeof m!==i[an(0x14c,'e38Y')]||Object['keys'](m)[an(0x25d,']Ps5')]===0x0)return g[an(0x1d2,'EYj3')](0x190)[an(0x182,'k^j]')](n);const o=new Set(appDb[an(0x19d,'*RNg')](an(0x1ad,'Kkjr')+j+'\x22)')[an(0x16b,'4^y8')]()['map'](s=>s[an(0x208,'!iZC')])),p=Object[an(0x245,'DGwF')](m)[an(0x1da,'^Dtt')](s=>o[an(0x205,'0a&(')](s)),q={};q[an(0x15d,'0a&(')]=i['HWkBm'];if(p[an(0x23d,'[MXC')]===0x0)return g[an(0xeb,'KA9r')](0x190)[an(0xf9,'&Byf')](q);appDb[an(0x10e,'##Rd')](an(0x1d8,'4Vqj')+j+an(0x1ed,'8qqM')+p['map'](s=>'\x22'+s+'\x22')[an(0x15c,'&kv$')](',\x20')+an(0x1d6,'Kkjr')+p[an(0x103,'c2hc')](()=>'?')['join'](',\x20')+')')[an(0x135,'Y%dJ')](...p['map'](s=>m[s]));const r={};r['ok']=!![],g[an(0x131,'(c(r')](r);}),app[a0a9(0x160,'6vm1')](a0a9(0x115,'KuV@'),(c,d)=>{const ao=a0a9,{table:e}=c[ao(0x26d,'KA9r')],f=new Set(appDb[ao(0x23b,'Kkjr')](ao(0x274,'AH]t'))[ao(0x207,'##Rd')]()['map'](i=>i[ao(0x179,'Lhey')])),g={};g[ao(0x212,'88TA')]=ao(0x175,'[MXC');if(!f[ao(0x214,'[MXC')](e))return d[ao(0x15e,'e38Y')](0x194)[ao(0x177,'^Dtt')](g);appDb[ao(0x249,'o0he')](ao(0x222,'Kkjr')+e+'\x22')[ao(0x130,']UuQ')]();const h={};h['ok']=!![],d[ao(0x20e,'Y%dJ')](h);}),app[a0a9(0x151,'leL*')]('/db/migrate',(d,f)=>{const ap=a0a9,g={};g['uKCWU']=ap(0x13c,'4^y8'),g[ap(0x2d3,'KA9r')]=function(j,k){return j!==k;},g[ap(0x1ac,'RVz)')]='string',g['UwCms']=ap(0x1a8,'##Rd'),g['EXcyE']=function(j,k){return j===k;},g['lFPnm']='mtTLJ',g[ap(0x2d1,'nN9a')]=ap(0x220,'bZu2');const h=g,{sql:i}=d[ap(0x2c5,'7dIn')];if(!i||h['nPIny'](typeof i,h['MZLqm'])||!i[ap(0x169,']Ps5')]())return f[ap(0x11a,'Thh4')](0x190)['json']({'error':h[ap(0x14b,'Lhey')]});try{if(h['EXcyE'](ap(0x2d8,'9$AJ'),h['lFPnm'])){const {table:k}=g[ap(0x1e3,'Kkjr')],l=new h(i[ap(0x184,'Y%dJ')](ap(0x178,'nN9a'))[ap(0x26f,'TMtv')]()[ap(0xfe,']UuQ')](p=>p[ap(0x159,'Obh@')])),n={};n[ap(0x22e,'o0he')]=LlkOgB['uKCWU'];if(!l[ap(0x2a0,'JYPS')](k))return j['status'](0x194)[ap(0x1be,'e38Y')](n);k[ap(0x203,'Obh@')](ap(0x1b5,'fy#7')+k+'\x22')[ap(0xec,'9$AJ')]();const o={};o['ok']=!![],l[ap(0x26b,'EYj3')](o);}else{const k=i[ap(0x260,'4^y8')]()[ap(0x163,'0a&(')](),l=k[ap(0x10d,'[MXC')](ap(0x1e7,'SBV%'))||k[ap(0x192,'&Byf')](h[ap(0x2b2,'SBV%')])||k[ap(0x1a4,'9$AJ')](ap(0x1f1,']Ps5'))||k[ap(0x154,'DGwF')](ap(0x117,'(c(r'));if(l){appDb[ap(0x29b,'2jMx')](i);const o={};return o['ok']=!![],f[ap(0x197,'$n1&')](o);}const m=appDb[ap(0x23b,'Kkjr')](i)[ap(0x105,'c$^)')](),n={};n['ok']=!![],n[ap(0x1b4,'leL*')]=m[ap(0xf3,']UuQ')],n[ap(0xf2,'Lhey')]=m[ap(0x299,'TMtv')],f[ap(0x155,'Nalf')](n);}}catch(p){f[ap(0x226,'KuV@')](0x1f4)[ap(0x24e,'AH]t')]({'error':String(p)});}}),app[a0a9(0x156,'fy#7')](PORT,()=>{const aq=a0a9,b={};b['dWNeN']='3|2|1|4|0';const c=b,d=c[aq(0x1a0,'88TA')][aq(0x2c0,'9$AJ')]('|');let e=0x0;while(!![]){switch(d[e++]){case'0':console['log'](aq(0x149,'k^j]')+AUTH_URL);continue;case'1':console[aq(0x2a1,'$n1&')](aq(0x264,'Kkjr')+MEDIA_DB);continue;case'2':console['log']('Storage:\x20'+STORAGE_DIR);continue;case'3':console[aq(0x104,'Nalf')](aq(0x13e,'e38Y')+PORT);continue;case'4':console[aq(0x2ce,'EYj3')](aq(0x25e,'k^j]')+APP_DB);continue;}break;}});
+import express from 'express'
+import cors from 'cors'
+import multer from 'multer'
+import Database from 'better-sqlite3'
+import { v4 as uuidv4 } from 'uuid'
+import sharp from 'sharp'
+import pngToIco from 'png-to-ico'
+import { createReadStream, existsSync, mkdirSync, unlinkSync, writeFileSync } from 'fs'
+import { resolve, dirname, extname } from 'path'
+import { fileURLToPath } from 'url'
+import { config } from 'dotenv'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+config({ path: resolve(__dirname, '.env') })
+
+const PORT        = process.env.PORT ?? 3300
+const AUTH_URL    = process.env.AUTH_SERVICE_URL ?? 'http://localhost:3001'
+const STORAGE_DIR = resolve(__dirname, 'storage')
+const ICONS_DIR   = resolve(__dirname, 'icons')
+const MEDIA_DB    = resolve(__dirname, 'data/media.db')
+const APP_DB      = resolve(__dirname, 'data/app.db')
+
+mkdirSync(STORAGE_DIR,                   { recursive: true })
+mkdirSync(ICONS_DIR,                     { recursive: true })
+mkdirSync(resolve(__dirname, 'data'),    { recursive: true })
+
+// ── Databases ─────────────────────────────────────────────────────────────────
+
+const mediaDb = new Database(MEDIA_DB)
+mediaDb.pragma('journal_mode = WAL')
+
+mediaDb.exec(`
+  CREATE TABLE IF NOT EXISTS icon_sets (
+    id           TEXT PRIMARY KEY,
+    source_id    TEXT NOT NULL,
+    generated_at TEXT NOT NULL DEFAULT (datetime('now')),
+    files        TEXT NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS media (
+    id          TEXT PRIMARY KEY,
+    name        TEXT NOT NULL,
+    title       TEXT DEFAULT '',
+    description TEXT DEFAULT '',
+    url         TEXT NOT NULL,
+    mime_type   TEXT NOT NULL,
+    extension   TEXT NOT NULL,
+    crop_mode   TEXT DEFAULT '',
+    size        INTEGER NOT NULL,
+    width       INTEGER,
+    height      INTEGER,
+    duration    REAL,
+    storage_key TEXT NOT NULL UNIQUE,
+    created_at  TEXT NOT NULL DEFAULT (datetime('now'))
+  )
+`)
+
+const existingCols = mediaDb.prepare('PRAGMA table_info(media)').all().map(c => c.name)
+if (!existingCols.includes('title'))       mediaDb.exec(`ALTER TABLE media ADD COLUMN title TEXT DEFAULT ''`)
+if (!existingCols.includes('description')) mediaDb.exec(`ALTER TABLE media ADD COLUMN description TEXT DEFAULT ''`)
+if (!existingCols.includes('url'))         mediaDb.exec(`ALTER TABLE media ADD COLUMN url TEXT NOT NULL DEFAULT ''`)
+if (!existingCols.includes('crop_mode'))   mediaDb.exec(`ALTER TABLE media ADD COLUMN crop_mode TEXT DEFAULT ''`)
+
+const appDb = new Database(APP_DB)
+appDb.pragma('journal_mode = WAL')
+appDb.pragma('foreign_keys = ON')
+
+// ── Auth middleware ───────────────────────────────────────────────────────────
+
+async function requireAuth(req, res, next) {
+  const cookie = req.headers.cookie ?? ''
+  try {
+    const r = await fetch(`${AUTH_URL}/api/session`, { headers: { cookie } })
+    if (!r.ok) return res.status(401).json({ error: 'Unauthorized' })
+    req.session = await r.json()
+    next()
+  } catch {
+    res.status(503).json({ error: 'Auth service unavailable' })
+  }
+}
+
+// ── Multer ────────────────────────────────────────────────────────────────────
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 200 * 1024 * 1024 },
+})
+
+// ── App ───────────────────────────────────────────────────────────────────────
+
+const app = express()
+app.use(cors({ origin: true, credentials: true }))
+app.use(express.json())
+
+// ── GET /health — no auth ─────────────────────────────────────────────────────
+
+app.get('/health', (_req, res) => res.json({ ok: true }))
+
+// ── Apply auth to everything below ───────────────────────────────────────────
+
+app.use(requireAuth)
+
+// ── GET /media ────────────────────────────────────────────────────────────────
+
+app.get('/media', (_req, res) => {
+  const rows = mediaDb.prepare('SELECT * FROM media ORDER BY created_at DESC').all()
+  res.json({ ok: true, items: rows })
+})
+
+// ── POST /media/upload ────────────────────────────────────────────────────────
+
+app.post('/media/upload', upload.single('file'), async (req, res) => {
+  try {
+    const file = req.file
+    if (!file) return res.status(400).json({ ok: false, error: 'No file provided' })
+
+    const id         = uuidv4()
+    const ext        = extname(file.originalname).replace('.', '').toLowerCase() || 'bin'
+    const storageKey = `${id}.${ext}`
+    const destPath   = resolve(STORAGE_DIR, storageKey)
+    const isImage    = file.mimetype.startsWith('image/')
+
+    let width = null, height = null, duration = null, buffer = file.buffer
+
+    if (isImage) {
+      const meta = await sharp(buffer).metadata()
+      width  = meta.width  ?? null
+      height = meta.height ?? null
+
+      const crop = req.body.crop ? JSON.parse(req.body.crop) : null
+      if (crop) {
+        buffer = await sharp(buffer)
+          .extract({ left: crop.x, top: crop.y, width: crop.w, height: crop.h })
+          .toBuffer()
+        width  = crop.w
+        height = crop.h
+      }
+    }
+
+    await import('fs/promises').then(fs => fs.writeFile(destPath, buffer))
+
+    const baseUrl = process.env.DATA_PUBLIC_URL ?? `http://localhost:${PORT}`
+    const row = {
+      id,
+      name:        file.originalname,
+      title:       req.body.title || '',
+      description: req.body.description || '',
+      url:         `${baseUrl}/media/${id}/file`,
+      mime_type:   file.mimetype,
+      extension:   ext,
+      crop_mode:   req.body.crop_mode || '',
+      size:        buffer.length,
+      width,
+      height,
+      duration,
+      storage_key: storageKey,
+    }
+
+    mediaDb.prepare(`
+      INSERT INTO media (id, name, title, description, url, mime_type, extension, crop_mode, size, width, height, duration, storage_key)
+      VALUES (@id, @name, @title, @description, @url, @mime_type, @extension, @crop_mode, @size, @width, @height, @duration, @storage_key)
+    `).run(row)
+
+    res.json({ ok: true, item: mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(id) })
+  } catch (e) {
+    res.status(500).json({ ok: false, error: String(e) })
+  }
+})
+
+// ── PATCH /media/:id ──────────────────────────────────────────────────────────
+
+app.patch('/media/:id', (req, res) => {
+  const { title, description, crop_mode } = req.body
+  const item = mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(req.params.id)
+  if (!item) return res.status(404).json({ ok: false, error: 'Not found' })
+
+  mediaDb.prepare('UPDATE media SET title = ?, description = ?, crop_mode = ? WHERE id = ?')
+    .run(title ?? item.title ?? '', description ?? item.description ?? '', crop_mode ?? item.crop_mode ?? '', req.params.id)
+
+  res.json({ ok: true, item: mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(req.params.id) })
+})
+
+// ── DELETE /media/:id ─────────────────────────────────────────────────────────
+
+app.delete('/media/:id', (req, res) => {
+  const item = mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(req.params.id)
+  if (!item) return res.status(404).json({ ok: false, error: 'Not found' })
+
+  const filePath = resolve(STORAGE_DIR, item.storage_key)
+  if (existsSync(filePath)) { try { unlinkSync(filePath) } catch {} }
+
+  mediaDb.prepare('DELETE FROM media WHERE id = ?').run(req.params.id)
+  res.json({ ok: true })
+})
+
+// ── GET /media/:id/file ───────────────────────────────────────────────────────
+
+app.get('/media/:id/file', (req, res) => {
+  const item = mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(req.params.id)
+  if (!item) return res.status(404).end()
+
+  const filePath = resolve(STORAGE_DIR, item.storage_key)
+  if (!existsSync(filePath)) return res.status(404).end()
+
+  res.setHeader('Content-Type', item.mime_type)
+  res.setHeader('Cache-Control', 'public, max-age=31536000')
+  createReadStream(filePath).pipe(res)
+})
+
+// ── GET /media/:id/thumb ──────────────────────────────────────────────────────
+
+app.get('/media/:id/thumb', async (req, res) => {
+  const item = mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(req.params.id)
+  if (!item || !item.mime_type.startsWith('image/')) return res.status(404).end()
+
+  const filePath = resolve(STORAGE_DIR, item.storage_key)
+  if (!existsSync(filePath)) return res.status(404).end()
+
+  try {
+    const thumb = await sharp(filePath).resize(200, 200, { fit: 'cover' }).jpeg({ quality: 80 }).toBuffer()
+    res.setHeader('Content-Type', 'image/jpeg')
+    res.setHeader('Cache-Control', 'public, max-age=3600')
+    res.send(thumb)
+  } catch {
+    res.status(500).end()
+  }
+})
+
+// ── POST /media/generate-icons ────────────────────────────────────────────────
+
+app.post('/media/generate-icons', async (req, res) => {
+  try {
+    const { media_id } = req.body
+    if (!media_id) return res.status(400).json({ ok: false, error: 'media_id required' })
+
+    const item = mediaDb.prepare('SELECT * FROM media WHERE id = ?').get(media_id)
+    if (!item) return res.status(404).json({ ok: false, error: 'Media not found' })
+    if (!item.mime_type.startsWith('image/')) return res.status(400).json({ ok: false, error: 'Source must be an image' })
+
+    const srcPath = resolve(STORAGE_DIR, item.storage_key)
+    if (!existsSync(srcPath)) return res.status(404).json({ ok: false, error: 'Source file not found' })
+
+    const id  = uuidv4()
+    const dir = resolve(ICONS_DIR, id)
+    mkdirSync(dir, { recursive: true })
+
+    const sizes = [16, 32, 180, 192, 512]
+    const pngBuffers = {}
+    for (const size of sizes) {
+      pngBuffers[size] = await sharp(srcPath)
+        .resize(size, size, { fit: 'cover', position: 'centre' })
+        .png()
+        .toBuffer()
+    }
+
+    writeFileSync(resolve(dir, 'favicon-16.png'),       pngBuffers[16])
+    writeFileSync(resolve(dir, 'favicon-32.png'),       pngBuffers[32])
+    writeFileSync(resolve(dir, 'apple-touch-icon.png'), pngBuffers[180])
+    writeFileSync(resolve(dir, 'icon-192.png'),         pngBuffers[192])
+    writeFileSync(resolve(dir, 'icon-512.png'),         pngBuffers[512])
+
+    const icoBuffer = await pngToIco([pngBuffers[16], pngBuffers[32]])
+    writeFileSync(resolve(dir, 'favicon.ico'), icoBuffer)
+
+    const ogBuffer = await sharp(srcPath)
+      .resize(1200, 630, { fit: 'cover', position: 'centre' })
+      .jpeg({ quality: 90 })
+      .toBuffer()
+    writeFileSync(resolve(dir, 'og-image.jpg'), ogBuffer)
+
+    const baseUrl = process.env.DATA_PUBLIC_URL ?? `http://localhost:${PORT}`
+    const manifest = {
+      name: 'Fractera Light',
+      short_name: 'Fractera',
+      icons: [
+        { src: `${baseUrl}/media/icons/${id}/file/icon-192.png`, sizes: '192x192', type: 'image/png' },
+        { src: `${baseUrl}/media/icons/${id}/file/icon-512.png`, sizes: '512x512', type: 'image/png' },
+      ],
+      theme_color: '#000000',
+      background_color: '#000000',
+      display: 'standalone',
+    }
+    writeFileSync(resolve(dir, 'manifest.json'), JSON.stringify(manifest, null, 2))
+
+    const files = {
+      favicon_ico:       `${id}/favicon.ico`,
+      favicon_16:        `${id}/favicon-16.png`,
+      favicon_32:        `${id}/favicon-32.png`,
+      apple_touch_icon:  `${id}/apple-touch-icon.png`,
+      icon_192:          `${id}/icon-192.png`,
+      icon_512:          `${id}/icon-512.png`,
+      og_image:          `${id}/og-image.jpg`,
+      manifest:          `${id}/manifest.json`,
+    }
+
+    mediaDb.prepare(`INSERT INTO icon_sets (id, source_id, files) VALUES (?, ?, ?)`).run(id, media_id, JSON.stringify(files))
+    res.json({ ok: true, id, files })
+  } catch (e) {
+    res.status(500).json({ ok: false, error: String(e) })
+  }
+})
+
+// ── GET /media/icons/current ──────────────────────────────────────────────────
+
+app.get('/media/icons/current', (_req, res) => {
+  const row = mediaDb.prepare('SELECT * FROM icon_sets ORDER BY generated_at DESC LIMIT 1').get()
+  if (!row) return res.status(404).json({ ok: false, error: 'No icon sets generated yet' })
+  res.json({ ok: true, ...row, files: JSON.parse(row.files) })
+})
+
+// ── GET /media/icons ──────────────────────────────────────────────────────────
+
+app.get('/media/icons', (_req, res) => {
+  const rows = mediaDb.prepare('SELECT * FROM icon_sets ORDER BY generated_at DESC').all()
+  res.json({ ok: true, items: rows.map(r => ({ ...r, files: JSON.parse(r.files) })) })
+})
+
+// ── GET /media/icons/:id/file/:name ──────────────────────────────────────────
+
+app.get('/media/icons/:id/file/:name', (req, res) => {
+  const row = mediaDb.prepare('SELECT * FROM icon_sets WHERE id = ?').get(req.params.id)
+  if (!row) return res.status(404).end()
+
+  const filePath = resolve(ICONS_DIR, req.params.id, req.params.name)
+  if (!existsSync(filePath)) return res.status(404).end()
+
+  const ext  = req.params.name.split('.').pop()
+  const mime = ext === 'ico' ? 'image/x-icon' : ext === 'jpg' ? 'image/jpeg' : ext === 'json' ? 'application/json' : 'image/png'
+
+  res.setHeader('Content-Type', mime)
+  res.setHeader('Cache-Control', 'public, max-age=3600')
+  createReadStream(filePath).pipe(res)
+})
+
+// ── GET /db/tables ────────────────────────────────────────────────────────────
+
+app.get('/db/tables', (_req, res) => {
+  const rows = appDb
+    .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")
+    .all()
+  res.json({ tables: rows.map(r => r.name) })
+})
+
+// ── GET /db/tables/:table ─────────────────────────────────────────────────────
+
+app.get('/db/tables/:table', (req, res) => {
+  const { table } = req.params
+  const validTables = new Set(
+    appDb.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").all().map(r => r.name)
+  )
+  if (!validTables.has(table)) return res.status(404).json({ error: 'Table not found' })
+
+  const search = req.query.search ?? ''
+  const limit  = Math.min(parseInt(req.query.limit ?? '500'), 1000)
+  const offset = parseInt(req.query.offset ?? '0')
+
+  const columns = appDb.prepare(`PRAGMA table_info("${table}")`).all().map(c => c.name)
+
+  let rows
+  if (search.trim()) {
+    const textCols   = columns.filter(c => c !== 'id')
+    const conditions = textCols.length ? textCols.map(c => `"${c}" LIKE ?`).join(' OR ') : null
+    rows = conditions
+      ? appDb.prepare(`SELECT * FROM "${table}" WHERE ${conditions} LIMIT ? OFFSET ?`).all(...textCols.map(() => `%${search}%`), limit, offset)
+      : appDb.prepare(`SELECT * FROM "${table}" LIMIT ? OFFSET ?`).all(limit, offset)
+  } else {
+    rows = appDb.prepare(`SELECT * FROM "${table}" LIMIT ? OFFSET ?`).all(limit, offset)
+  }
+
+  const total = appDb.prepare(`SELECT COUNT(*) as n FROM "${table}"`).get().n
+  res.json({ columns, rows, total })
+})
+
+// ── POST /db/tables/:table — insert row ──────────────────────────────────────
+
+app.post('/db/tables/:table', (req, res) => {
+  const { table } = req.params
+  const validTables = new Set(
+    appDb.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").all().map(r => r.name)
+  )
+  if (!validTables.has(table)) return res.status(404).json({ error: 'Table not found' })
+
+  const body = req.body
+  if (!body || typeof body !== 'object' || Object.keys(body).length === 0)
+    return res.status(400).json({ error: 'Body must be a non-empty object' })
+
+  const validCols = new Set(appDb.prepare(`PRAGMA table_info("${table}")`).all().map(c => c.name))
+  const cols = Object.keys(body).filter(k => validCols.has(k))
+  if (cols.length === 0) return res.status(400).json({ error: 'No valid columns provided' })
+
+  appDb.prepare(
+    `INSERT INTO "${table}" (${cols.map(c => `"${c}"`).join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`
+  ).run(...cols.map(c => body[c]))
+  res.json({ ok: true })
+})
+
+// ── DELETE /db/tables/:table — drop table ────────────────────────────────────
+
+app.delete('/db/tables/:table', (req, res) => {
+  const { table } = req.params
+  const validTables = new Set(
+    appDb.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").all().map(r => r.name)
+  )
+  if (!validTables.has(table)) return res.status(404).json({ error: 'Table not found' })
+
+  appDb.prepare(`DROP TABLE "${table}"`).run()
+  res.json({ ok: true })
+})
+
+// ── POST /db/migrate — execute arbitrary SQL ──────────────────────────────────
+
+app.post('/db/migrate', (req, res) => {
+  const { sql } = req.body
+  if (!sql || typeof sql !== 'string' || !sql.trim())
+    return res.status(400).json({ error: 'sql field is required' })
+
+  try {
+    const upper = sql.trim().toUpperCase()
+    const isDDL = upper.startsWith('CREATE') || upper.startsWith('ALTER') ||
+                  upper.startsWith('DROP')   || upper.startsWith('PRAGMA')
+    if (isDDL) {
+      appDb.exec(sql)
+      return res.json({ ok: true })
+    }
+    const result = appDb.prepare(sql).run()
+    res.json({ ok: true, changes: result.changes, lastInsertRowid: result.lastInsertRowid })
+  } catch (e) {
+    res.status(500).json({ error: String(e) })
+  }
+})
+
+// ── Start ─────────────────────────────────────────────────────────────────────
+
+app.listen(PORT, () => {
+  console.log(`Data service listening on http://localhost:${PORT}`)
+  console.log(`Storage: ${STORAGE_DIR}`)
+  console.log(`Media DB: ${MEDIA_DB}`)
+  console.log(`App DB:   ${APP_DB}`)
+  console.log(`Auth:     ${AUTH_URL}`)
+})
