@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export function proxy(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/api/")) {
+  if (pathname.startsWith("/api/") && pathname !== "/api/health") {
     const sessionToken =
       request.cookies.get("authjs.session-token") ??
       request.cookies.get("__Secure-authjs.session-token");
