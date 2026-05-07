@@ -60,7 +60,7 @@ export default function ShellPage() {
             Fractera
           </h1>
           <p className="text-sm font-mono tracking-wider text-muted-foreground uppercase">
-            End-Coding AI Platform
+            Production-Coding AI Platform
           </p>
         </div>
 
