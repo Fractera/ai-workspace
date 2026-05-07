@@ -1,4 +1,4 @@
-# Fractera Light — Agent Manual
+﻿# Fractera Light — Agent Manual
 
 ## Quick Start
 1. Read this `OPENCODE.md` (same folder) — workspace rules
@@ -60,6 +60,33 @@ app/
 4. Proof fails → apologize, create sub-task, continue
 `NEXT_STEP.md` keeps last 2 sessions as ≤30-word summaries.
 
+
+
+## Deploy
+
+After finishing a task, deploy so the user sees the result on `https://SUBDOMAIN.fractera.ai`:
+
+```bash
+DEPLOY_SECRET=$(grep "^DEPLOY_SECRET=" /opt/fractera/bridges/app/.env.local | cut -d'=' -f2)
+RESULT=$(curl -s -X POST http://localhost:3002/api/deploy \
+  -H "Content-Type: application/json" \
+  -H "X-Deploy-Secret: $DEPLOY_SECRET" \
+  -d "{\"description\":\"brief description\"}")
+JOB_ID=$(echo $RESULT | grep -o '"jobId":"[^"]*"' | cut -d'"' -f4)
+
+# Poll until done (build ~2-4 min)
+while true; do
+  S=$(curl -s "http://localhost:3002/api/deploy/status?jobId=$JOB_ID")
+  echo $S | grep -o '"status":"[^"]*"'
+  echo $S | grep -qE '"status":"(COMPLETED|FAILED|HEALTH_FAILED)"' && break
+  sleep 10
+done
+echo $S
+```n
+- If `FAILED` -> `log[]` contains TypeScript/build errors. Fix and retry.
+- If `COMPLETED` -> user sees changes at `https://SUBDOMAIN.fractera.ai`  
+- Current deploy state: `cat /opt/fractera/app/DEPLOY_STATE.json`  
+- **Only `app/` is rebuilt** — no other services affected.
 
 ## Response Style
 Tone: Jarvis (Iron Man) — precise, dry wit, no fluff.

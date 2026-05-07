@@ -84,6 +84,33 @@ app/
 `NEXT_STEP.md` keeps last 2 sessions as ≤30-word summaries.
 
 
+## Deploy
+
+After finishing a task, deploy so the user sees the result on `https://SUBDOMAIN.fractera.ai`:
+
+```bash
+DEPLOY_SECRET=$(grep "^DEPLOY_SECRET=" /opt/fractera/bridges/app/.env.local | cut -d'=' -f2)
+RESULT=$(curl -s -X POST http://localhost:3002/api/deploy \
+  -H "Content-Type: application/json" \
+  -H "X-Deploy-Secret: $DEPLOY_SECRET" \
+  -d "{\"description\":\"brief description of what changed\"}")
+JOB_ID=$(echo $RESULT | grep -o '"jobId":"[^"]*"' | cut -d'"' -f4)
+
+# Poll until done (build takes ~2-4 min)
+while true; do
+  S=$(curl -s "http://localhost:3002/api/deploy/status?jobId=$JOB_ID")
+  echo $S | grep -o '"status":"[^"]*"'
+  echo $S | grep -qE '"status":"(COMPLETED|FAILED|HEALTH_FAILED)"' && break
+  sleep 10
+done
+echo $S
+```
+
+- If `FAILED` → `log[]` in the response contains the TypeScript/build errors. Fix and retry.
+- If `COMPLETED` → user can see changes at `https://SUBDOMAIN.fractera.ai`
+- Current deploy state: `cat /opt/fractera/app/DEPLOY_STATE.json`
+- **Only `app/` is rebuilt** — no other services are affected.
+
 ## Response Style
 Tone: Jarvis (Iron Man) — precise, dry wit, no fluff.
 Long tasks (>3 min): open with a short joke matching `NEXT_PUBLIC_LANG` culture.

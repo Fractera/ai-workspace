@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, CornerDownLeft, Users } from "lucide-react";
+import { Wifi, WifiOff, Loader2, ChevronLeft, ChevronRight, Store, Settings, Download, Upload, RefreshCw, Info, Zap, ImagePlus, Database, Copy, Check, CornerDownLeft, Users, Rocket } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { XtermTerminal, type XtermTerminalHandle } from "@/components/ai-elements/xterm-terminal.client";
 import { Shimmer } from "@/components/ai-elements/shimmer.client";
@@ -100,6 +100,9 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
   const [updating, setUpdating]                     = useState(false);
   const [updateLog, setUpdateLog]                   = useState<string[]>([]);
   const [showUpdateLog, setShowUpdateLog]           = useState(false);
+  const [deploying, setDeploying]                   = useState(false);
+  const [deployLog, setDeployLog]                   = useState<string[]>([]);
+  const [showDeployLog, setShowDeployLog]           = useState(false);
   const [showInfo, setShowInfo]                     = useState(false);
   const [readmeContent, setReadmeContent]           = useState<string | null>(null);
   const [showEnvEditor, setShowEnvEditor]           = useState(false);
@@ -246,6 +249,38 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
     setUpdating(false);
   }
 
+  async function handleDeploy() {
+    setDeploying(true);
+    setShowDeployLog(true);
+    setDeployLog(["Starting deploy…"]);
+    try {
+      const res = await fetch("/api/deploy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description: "manual deploy" }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setDeployLog([`Error: ${data.error}${data.jobId ? ` (job: ${data.jobId})` : ""}`]);
+        setDeploying(false);
+        return;
+      }
+      const jobId = data.jobId;
+      setDeployLog([`Deploy started (job: ${jobId})…`]);
+      const poll = setInterval(async () => {
+        try {
+          const s = await fetch(`/api/deploy/status?jobId=${jobId}`).then((r) => r.json());
+          if (s.log?.length) setDeployLog(s.log);
+          const done = s.status === "COMPLETED" || s.status === "FAILED" || s.status === "HEALTH_FAILED";
+          if (done) { clearInterval(poll); setDeploying(false); }
+        } catch { /* keep polling */ }
+      }, 3000);
+    } catch {
+      setDeployLog(["Deploy failed — check server logs."]);
+      setDeploying(false);
+    }
+  }
+
   async function handleInfo() {
     setShowEnvEditor(false);
     setShowDbBrowser(false);
@@ -349,6 +384,11 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
               <button type="button" onClick={() => { setDataMenuOpen(false); setShowDbBrowser((v) => !v); setShowEnvEditor(false); setShowMediaLibrary(false); setShowInfo(false); setShowUsers(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
                 <Database size={11} />Database
+              </button>
+              <div className="h-px bg-border mx-2" />
+              <button type="button" onClick={() => { setDataMenuOpen(false); handleDeploy(); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-[11px] text-foreground hover:bg-muted transition-colors">
+                {deploying ? <Loader2 size={11} className="animate-spin" /> : <Rocket size={11} />}Deploy app
               </button>
               <div className="h-px bg-border mx-2" />
               <button type="button" onClick={() => { setDataMenuOpen(false); setShowEnvEditor((v) => !v); setShowInfo(false); setShowDbBrowser(false); setShowUsers(false); setShowMediaLibrary(false); }}
@@ -648,6 +688,23 @@ export function CodingWindowShell({ height, terminalPlatform, terminalSessions, 
           </button>
         )}
       </div>
+
+      {/* ── Deploy log panel ── */}
+      {showDeployLog && deployLog.length > 0 && (
+        <div style={{ position: "absolute", bottom: FOOTER_H, left: 0, right: 0, zIndex: 9998 }}
+          className="bg-zinc-950 border-t border-border p-3 flex flex-col gap-1 max-h-48 overflow-y-auto">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+              {deploying && <Loader2 size={10} className="animate-spin" />}Deploy log
+            </span>
+            <button type="button" onClick={() => setShowDeployLog(false)}
+              className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">close</button>
+          </div>
+          {deployLog.map((line, i) => (
+            <span key={i} className="text-[11px] font-mono text-zinc-300 leading-relaxed">{line}</span>
+          ))}
+        </div>
+      )}
 
       {/* ── Update log panel ── */}
       {showUpdateLog && updateLog.length > 0 && (
